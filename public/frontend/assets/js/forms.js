@@ -1,22 +1,17 @@
 /* ==========================================================================
    Forms: multi-step admission application + contact form.
 
-   FRONTEND ONLY — nothing is transmitted anywhere. To go live, connect the
-   endpoints below to a backend that stores applications and uploaded files
-   securely. Never place secret API keys in this file; call your own backend.
+   This file only handles the browser side (step navigation, validation,
+   review table, file list). Once a form passes validation it is submitted
+   natively (method/action on the <form>), so the server receives a normal
+   POST and decides what to do with it.
    ========================================================================== */
 
-/* ---- Backend integration placeholders ---------------------------------- */
-const API_BASE_URL = "YOUR_BACKEND_API_URL";
-const ENDPOINTS = {
-  admissionApplication: `${API_BASE_URL}/admissions/applications`, // POST application data
-  fileUpload: `${API_BASE_URL}/admissions/documents`, // POST multipart uploads
-  contactInquiry: `${API_BASE_URL}/contact/inquiries`, // POST contact messages
-  emailService: "YOUR_EMAIL_SERVICE_ENDPOINT", // transactional email notifications
-};
-const DEMO_MODE = true; // set to false once the endpoints above are live
-
 (function () {
+  const esc = (str) =>
+    String(str).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
+  const flag = (name) => new URLSearchParams(location.search).get(name) === "1";
+
   /* ---------- Validation helpers --------------------------------------- */
   const patterns = {
     email: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
@@ -116,16 +111,16 @@ const DEMO_MODE = true; // set to false once the endpoints above are live
 
     function buildReview() {
       const rows = [];
-      form.querySelectorAll("input:not([type=file]), select, textarea").forEach((field) => {
+      form.querySelectorAll("input:not([type=file]):not([type=checkbox]), select, textarea").forEach((field) => {
         const label = form.querySelector(`label[for="${field.id}"]`);
         if (!label || !field.value) return;
         rows.push(
-          `<tr><th scope="row">${label.textContent.replace("*", "").trim()}</th><td>${window.KTHelpers.esc(field.value)}</td></tr>`
+          `<tr><th scope="row">${label.textContent.replace("*", "").trim()}</th><td>${esc(field.value)}</td></tr>`
         );
       });
       const files = Array.from(document.querySelectorAll("#documentList li")).map((li) => li.dataset.name);
       if (files.length) {
-        rows.push(`<tr><th scope="row">Documents selected</th><td>${files.map((f) => window.KTHelpers.esc(f)).join(", ")}</td></tr>`);
+        rows.push(`<tr><th scope="row">Documents selected</th><td>${files.map((f) => esc(f)).join(", ")}</td></tr>`);
       }
       document.getElementById("reviewBody").innerHTML =
         rows.join("") || `<tr><td colspan="2" class="text-soft">No information entered yet.</td></tr>`;
@@ -141,39 +136,29 @@ const DEMO_MODE = true; // set to false once the endpoints above are live
       paint();
     });
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    form.addEventListener("submit", (e) => {
       let valid = true;
       steps.forEach((s) => { if (!validateScope(s)) valid = false; });
       if (!document.getElementById("agreeTerms").checked) {
         setError(document.getElementById("agreeTerms"), "Please confirm before submitting.");
         valid = false;
       }
-      if (!valid) return;
+      if (!valid) { e.preventDefault(); return; }
 
+      // Valid: let the browser submit the form to its action.
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting…`;
-
-      // ---- Backend integration point --------------------------------
-      // const payload = Object.fromEntries(new FormData(form).entries());
-      // await fetch(ENDPOINTS.admissionApplication, {
-      //   method: "POST", headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(payload)
-      // });
-      // Documents must be uploaded separately to ENDPOINTS.fileUpload.
-      await new Promise((r) => setTimeout(r, 1100)); // simulated request (DEMO_MODE)
-
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = "Submit Application";
-      if (DEMO_MODE) {
-        form.classList.add("d-none");
-        document.getElementById("admissionStepper").classList.add("d-none");
-        successBox.classList.remove("d-none");
-        successBox.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
     });
 
-    /* ---- Document upload UI (client-side listing only) --------------- */
+    // The server redirects back with ?submitted=1 to show the confirmation.
+    if (flag("submitted")) {
+      form.classList.add("d-none");
+      document.getElementById("admissionStepper").classList.add("d-none");
+      successBox.classList.remove("d-none");
+      return;
+    }
+
+    /* ---- Document upload UI ------------------------------------------ */
     const drop = document.getElementById("documentDrop");
     const input = document.getElementById("documentInput");
     const list = document.getElementById("documentList");
@@ -188,17 +173,20 @@ const DEMO_MODE = true; // set to false once the endpoints above are live
       ["dragleave", "drop"].forEach((ev) =>
         drop.addEventListener(ev, () => drop.classList.remove("dragover"))
       );
-      drop.addEventListener("drop", (e) => { e.preventDefault(); addFiles(e.dataTransfer.files); });
-      input.addEventListener("change", () => addFiles(input.files));
+      drop.addEventListener("drop", (e) => {
+        e.preventDefault();
+        input.files = e.dataTransfer.files; // so dropped files are part of the real submission
+        listFiles();
+      });
+      input.addEventListener("change", listFiles);
 
-      function addFiles(files) {
-        Array.from(files).forEach((file) => {
-          const li = document.createElement("li");
-          li.dataset.name = file.name;
-          li.innerHTML = `<span><i class="bi bi-file-earmark-text me-2 text-brand"></i>${window.KTHelpers.esc(file.name)}</span>
-            <span class="text-soft">${(file.size / 1024).toFixed(0)} KB</span>`;
-          list.appendChild(li);
-        });
+      function listFiles() {
+        list.innerHTML = Array.from(input.files)
+          .map(
+            (file) => `<li data-name="${esc(file.name)}"><span><i class="bi bi-file-earmark-text me-2 text-brand"></i>${esc(file.name)}</span>
+            <span class="text-soft">${(file.size / 1024).toFixed(0)} KB</span></li>`
+          )
+          .join("");
       }
     }
 
@@ -213,29 +201,21 @@ const DEMO_MODE = true; // set to false once the endpoints above are live
     const btn = form.querySelector('button[type="submit"]');
     attachLiveValidation(form);
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    // The server redirects back with ?sent=1 to show the confirmation.
+    if (flag("sent")) {
+      status.className = "alert alert-success mt-3";
+      status.textContent = "Thank you. Your inquiry has been received. Our admissions team will contact you.";
+    }
+
+    form.addEventListener("submit", (e) => {
       if (!validateScope(form)) {
+        e.preventDefault();
         status.className = "alert alert-danger mt-3";
         status.textContent = "Please correct the highlighted fields and try again.";
-        status.classList.remove("d-none");
         return;
       }
       btn.disabled = true;
-      const original = btn.innerHTML;
       btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Sending…`;
-
-      // ---- Backend integration point --------------------------------
-      // await fetch(ENDPOINTS.contactInquiry, { method: "POST", body: new FormData(form) });
-      await new Promise((r) => setTimeout(r, 900)); // simulated request (DEMO_MODE)
-
-      btn.disabled = false;
-      btn.innerHTML = original;
-      status.className = "alert alert-success mt-3";
-      status.innerHTML =
-        "Thank you. Your inquiry has been received. Our admissions team will contact you. <br><small>Demo mode: this submission is simulated and not stored.</small>";
-      status.classList.remove("d-none");
-      form.reset();
     });
   }
 

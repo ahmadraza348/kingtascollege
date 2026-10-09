@@ -1,34 +1,12 @@
 /* ==========================================================================
-   Gallery: category filters, masonry grid, lightweight custom lightbox.
+   Gallery lightbox. Images come from the .gallery-item links already in the
+   HTML; the lightbox steps through whichever ones are currently visible.
    ========================================================================== */
 (function () {
   function init() {
     const grid = document.getElementById("galleryGrid");
     if (!grid) return;
-    const KT = window.KT;
-    const H = window.KTHelpers;
-    const chips = Array.from(document.querySelectorAll("#galleryFilters .filter-chip"));
-    const limit = parseInt(grid.dataset.limit || "0", 10);
-    let filter = "all";
-    let visible = [];
 
-    function render() {
-      visible = KT.GALLERY.filter((g) => filter === "all" || g.category === filter);
-      if (limit) visible = visible.slice(0, limit);
-      grid.innerHTML = visible.length
-        ? visible
-            .map(
-              (g, i) => `<a class="gallery-item" href="${g.src}" data-index="${i}"
-                aria-label="Open image: ${H.esc(g.caption)}">
-                <img src="${g.src}" alt="${H.esc(g.caption)}" loading="lazy">
-                <span class="caption">${H.esc(g.caption)} <em class="d-block text-white-50">${H.esc(g.category)}</em></span>
-              </a>`
-            )
-            .join("")
-        : `<div class="empty-state"><i class="bi bi-images d-block mb-2"></i>No images in this category yet.</div>`;
-    }
-
-    /* ---- Lightbox (no third-party dependency, keyboard accessible) ---- */
     const lb = document.createElement("div");
     lb.className = "modal fade";
     lb.tabIndex = -1;
@@ -47,21 +25,26 @@
       </div></div>`;
     document.body.appendChild(lb);
     const modal = new window.bootstrap.Modal(lb);
+
+    let visible = [];
     let current = 0;
 
     function show(i) {
       current = (i + visible.length) % visible.length;
-      const item = visible[current];
-      lb.querySelector("#lbImage").src = item.src;
-      lb.querySelector("#lbImage").alt = item.caption;
-      lb.querySelector("#lbCaption").textContent = `${item.caption} — ${item.category}`;
+      const link = visible[current];
+      const img = link.querySelector("img");
+      const category = link.dataset.category || "";
+      lb.querySelector("#lbImage").src = link.getAttribute("href");
+      lb.querySelector("#lbImage").alt = link.dataset.caption || img.alt;
+      lb.querySelector("#lbCaption").textContent = `${link.dataset.caption || img.alt} — ${category}`;
     }
 
     grid.addEventListener("click", (e) => {
       const link = e.target.closest(".gallery-item");
       if (!link) return;
       e.preventDefault();
-      show(parseInt(link.dataset.index, 10));
+      visible = Array.from(grid.querySelectorAll(".gallery-item:not(.d-none)"));
+      show(visible.indexOf(link));
       modal.show();
     });
 
@@ -72,21 +55,6 @@
       if (e.key === "ArrowLeft") show(current - 1);
       if (e.key === "ArrowRight") show(current + 1);
     });
-
-    chips.forEach((chip) =>
-      chip.addEventListener("click", () => {
-        chips.forEach((c) => c.classList.toggle("active", c === chip));
-        filter = chip.dataset.filter;
-        grid.style.opacity = "0.35";
-        setTimeout(() => {
-          render();
-          grid.style.opacity = "1";
-        }, 150);
-      })
-    );
-
-    grid.style.transition = "opacity .25s ease";
-    render();
   }
 
   document.addEventListener("DOMContentLoaded", init);
