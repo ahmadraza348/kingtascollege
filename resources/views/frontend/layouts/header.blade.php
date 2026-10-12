@@ -20,7 +20,8 @@
 <nav class="navbar navbar-expand-lg site-navbar" id="siteNavbar" aria-label="Main navigation">
   <div class="container">
     <a class="navbar-brand navbar-brand-block" href="{{ route('frontend.home') }}">
- <img src="{{ asset('frontend/assets/images/logo/logo.png') }}" alt="King TAS College logo" width="52" height="52" loading="lazy">      <span>
+      <img src="{{ asset('frontend/assets/images/logo/logo.png') }}" alt="King TAS College logo" width="48" height="48">
+      <span>
         <span class="brand-name d-block">King TAS College</span>
         <span class="brand-sub">Nursing &amp; Allied Health Sciences</span>
       </span>
@@ -34,12 +35,14 @@
         <li class="nav-item"><a class="nav-link" href="{{ route('frontend.home') }}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('frontend.about') }}">About</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="{{ route('frontend.program-details') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">Programs</a>
+          <a class="nav-link dropdown-toggle" href="{{ route('frontend.all_program') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">Programs</a>
           <ul class="dropdown-menu">
             <li><h6 class="dropdown-header">Nursing Programs</h6></li>
-            <li><a class="dropdown-item" href="{{ route('frontend.program-details') }}">BSN Generic</a></li>
-            <!-- <li><hr class="dropdown-divider"></li> -->
-          
+            <li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=bsn-generic">BSN Generic</a></li><li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=post-rn">Post RN</a></li><li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=lhv">LHV</a></li><li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=cmw">CMW</a></li><li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=cna">CNA</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><h6 class="dropdown-header">Allied Health Programs</h6></li>
+            <li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Anesthesia Technician</a></li><li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=radiography-technology">Radiography Technology</a></li><li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Medical Lab Technology</a></li><li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=dental-technician">Dental Technician</a></li><li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=operation-theater-technology">Operation Theater Technology</a></li><li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=dispenser">Dispenser</a></li><li><a class="dropdown-item" href="{{ route('frontend.program-details') }}?program=b-category-pharmacy-technician">B-Category Pharmacy Technician</a></li>
+            <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item fw-600" href="{{ route('frontend.all_program') }}">View all programs</a></li>
           </ul>
         </li>
@@ -48,18 +51,34 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ route('frontend.admission') }}">Admission Process</a></li>
             <li><a class="dropdown-item" href="{{ route('frontend.admission') }}#apply">Online Application</a></li>
-            <!-- <li><a class="dropdown-item" href="">Eligibility</a></li> -->
+            <li><a class="dropdown-item" href="{{ route('frontend.eligibility') }}">Eligibility</a></li>
             <li><a class="dropdown-item" href="{{ route('frontend.admission') }}#scholarships">Financial Support</a></li>
-            <!-- <li><a class="dropdown-item" href="">Admission FAQs</a></li> -->
+            <li><a class="dropdown-item" href="{{ route('frontend.faq') }}">Admission FAQs</a></li>
           </ul>
         </li>
-             
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Academics</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('frontend.clinical-training') }}">Clinical Training</a></li>
+            <li><a class="dropdown-item" href="{{ route('frontend.facilities') }}">Facilities</a></li>
+            <li><a class="dropdown-item" href="{{ route('frontend.faculty') }}">Faculty</a></li>
+            <!-- <li><a class="dropdown-item" href="{{ route('frontend.notices') }}">Notice Board</a></li> -->
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('frontend.campus-life') }}">Campus</a></li>
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="{{ route('frontend.news') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">News &amp; Events</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ route('frontend.news') }}">News</a></li>
+            <li><a class="dropdown-item" href="{{ route('frontend.events') }}">Events</a></li>
+            <li><a class="dropdown-item" href="{{ route('frontend.notices') }}">Notices</a></li>
+          </ul>
+        </li> -->
         <li class="nav-item"><a class="nav-link" href="{{ route('frontend.gallery') }}">Gallery</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('frontend.contact') }}">Contact</a></li>
         <li class="nav-item ms-lg-2 my-2 my-lg-0">
           <a class="btn btn-brand-red btn-sm w-100" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
         </li>
-       
       </ul>
     </div>
   </div>

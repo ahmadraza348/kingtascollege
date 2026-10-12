@@ -1,4 +1,6 @@
 @extends('frontend.layouts.layout')
+@section('title', 'Contact | King TAS College of Nursing & Allied Health Sciences, Gojra')
+@section('description', 'Contact King TAS College of Nursing & Allied Health Sciences: 0302-8098542, 0326-0298542, Main Painsara Road, College Road, Near Model City Phase 3, Gojra.')
 @section('content')
 <main id="main">
 <header class="page-hero">
@@ -6,7 +8,7 @@
     <h1>Contact us</h1>
     <p>Speak with the admissions team about programs, eligibility and applications — by phone, WhatsApp or at the campus.</p>
     <nav aria-label="Breadcrumb">
-      <ol class="breadcrumb breadcrumb-brand"><li class="breadcrumb-item"><a href="index.html">Home</a></li><li class="breadcrumb-item active" aria-current="page">Contact</li></ol>
+      <ol class="breadcrumb breadcrumb-brand"><li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li><li class="breadcrumb-item active" aria-current="page">Contact</li></ol>
     </nav>
   </div>
 </header>
@@ -30,8 +32,14 @@
       <div class="col-lg-7">
         <span class="eyebrow">Send an inquiry</span>
         <h2 class="mt-3 mb-4">We'll get back to you</h2>
-        <!-- Laravel: point action at your route and add @csrf inside the form -->
-        <form id="contactForm" class="card-brand p-4" method="post" action="/contact" novalidate>
+        <form id="contactForm" class="card-brand p-4" method="post" action="{{ route('frontend.contact.store') }}" novalidate>
+@csrf
+          @if ($errors->any())
+          <div class="alert alert-danger" role="alert">
+            <strong>Please fix the following:</strong>
+            <ul class="mb-0">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
+          </div>
+          @endif
           <div class="row g-3">
             <div class="col-md-6"><label class="form-label" for="cName">Name *</label>
               <input class="form-control" id="cName" name="name" required minlength="3"><div class="invalid-feedback"></div></div>
@@ -84,7 +92,7 @@
             <a class="btn btn-brand" href="tel:+923028098542"><i class="bi bi-telephone-fill me-2"></i>Call admissions</a>
             <a class="btn btn-outline-brand" href="https://wa.me/923028098542?text=Hello%2C%20I%20would%20like%20information%20about%20admissions%20at%20King%20TAS%20College." target="_blank" rel="noopener"><i class="bi bi-whatsapp me-2"></i>WhatsApp admissions</a>
             <a class="btn btn-outline-brand" href="https://www.facebook.com/people/King-TAS-college-of-Nursing-and-Allied-Health-Sciences/100063958600873/" target="_blank" rel="noopener"><i class="bi bi-facebook me-2"></i>Follow on Facebook</a>
-            <a class="btn btn-brand-red" href="admissions.html#apply"><i class="bi bi-pencil-square me-2"></i>Apply online</a>
+            <a class="btn btn-brand-red" href="{{ route('frontend.admission') }}#apply"><i class="bi bi-pencil-square me-2"></i>Apply online</a>
           </div>
         </div>
       </div>

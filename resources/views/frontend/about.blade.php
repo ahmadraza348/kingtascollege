@@ -1,4 +1,6 @@
 @extends('frontend.layouts.layout')
+@section('title', 'About Us | King TAS College of Nursing & Allied Health Sciences')
+@section('description', 'Learn about King TAS College of Nursing & Allied Health Sciences in Gojra — our approach to nursing and allied health education, mission, vision and values.')
 @section('content')
 <main id="main">
 <header class="page-hero">
@@ -6,7 +8,7 @@
     <h1>About the college</h1>
     <p>King TAS College of Nursing &amp; Allied Health Sciences focuses on healthcare education and professional student development in Gojra, District Toba Tek Singh.</p>
     <nav aria-label="Breadcrumb">
-      <ol class="breadcrumb breadcrumb-brand"><li class="breadcrumb-item"><a href="index.html">Home</a></li><li class="breadcrumb-item active" aria-current="page">About</li></ol>
+      <ol class="breadcrumb breadcrumb-brand"><li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li><li class="breadcrumb-item active" aria-current="page">About</li></ol>
     </nav>
   </div>
 </header>
@@ -15,7 +17,7 @@
     <div class="row g-5 align-items-center">
       <div class="col-lg-6" data-reveal="left">
         <div class="media-frame rounded-brand shadow-brand ratio-4x3">
-          <img src="assets/images/campus/campus.jpg" alt="College campus exterior" loading="lazy" width="1280" height="900">
+          <img src="{{ asset('frontend/assets/images/campus/campus.jpg') }}" alt="College campus exterior" loading="lazy" width="1280" height="900">
         </div>
       </div>
       <div class="col-lg-6" data-reveal="right">
@@ -95,8 +97,8 @@
       <h2>Begin your healthcare career</h2>
       <p class="mb-4">Choose the right program and take the first step toward your professional healthcare journey.</p>
       <div class="d-flex flex-wrap justify-content-center gap-2">
-        <a class="btn btn-brand-red btn-lg" href="admissions.html#apply">Apply Now</a>
-        <a class="btn btn-outline-light-brand btn-lg" href="contact.html">Talk to Admissions</a>
+        <a class="btn btn-brand-red btn-lg" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+        <a class="btn btn-outline-light-brand btn-lg" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
       </div>
     </div>
   </div>

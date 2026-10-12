@@ -1,4 +1,6 @@
 @extends('frontend.layouts.layout')
+@section('title', 'Program Details | King TAS College of Nursing & Allied Health Sciences')
+@section('description', 'Program overview, eligibility, study structure, clinical exposure and career pathways for nursing and allied health programs at King TAS College, Gojra.')
 @section('content')
 <main id="main">
 <div data-program-page="bsn-generic" data-title="BSN Generic | King TAS College of Nursing &amp; Allied Health Sciences">
@@ -9,8 +11,8 @@
     <p>A professional nursing degree pathway focused on patient care, clinical competence and evidence-based nursing practice.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">BSN Generic</li>
       </ol>
     </nav>
@@ -22,7 +24,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{assets/images/hero/hero-nursing.jpg')}}" alt="BSN Generic training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/hero/hero-nursing.jpg') }}" alt="BSN Generic training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -120,8 +122,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -136,7 +138,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{ asset('frontend/assets/images/programs/clinical.jpg')}}" alt="Post RN program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/clinical.jpg') }}" alt="Post RN program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -151,8 +153,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=post-rn">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=post-rn">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -161,7 +163,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{assets/images/programs/maternal.jpg')}}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -176,8 +178,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=lhv">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=lhv">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -186,7 +188,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{assets/images/programs/maternal.jpg')}}" alt="CMW (Community Midwife) program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="CMW (Community Midwife) program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -201,8 +203,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=cmw">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=cmw">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -219,8 +221,8 @@
     <p>A progression pathway for registered nurses who want to advance academic qualifications and professional responsibility.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">Post RN</li>
       </ol>
     </nav>
@@ -232,7 +234,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{ asset('frontend/assets/images/programs/clinical.jpg')}}') }}" alt="Post RN training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/clinical.jpg') }}" alt="Post RN training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -330,8 +332,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -346,7 +348,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{assets/images/hero/hero-nursing.jpg')}}" alt="BSN Generic program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/hero/hero-nursing.jpg') }}" alt="BSN Generic program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -361,8 +363,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=bsn-generic">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=bsn-generic">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -371,7 +373,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{assets/images/programs/maternal.jpg')}}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -386,8 +388,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=lhv">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=lhv">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -396,7 +398,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{assets/images/programs/maternal.jpg')}}" alt="CMW (Community Midwife) program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="CMW (Community Midwife) program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -411,8 +413,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=cmw">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=cmw">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -429,8 +431,8 @@
     <p>Community and maternal healthcare training focused on family health education, preventive care and primary healthcare support.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">LHV (Lady Health Visitor)</li>
       </ol>
     </nav>
@@ -442,7 +444,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{assets/images/programs/maternal.jpg')}}" alt="LHV (Lady Health Visitor) training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="LHV (Lady Health Visitor) training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -539,8 +541,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -555,7 +557,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{assets/images/hero/hero-nursing.jpg')}}" alt="BSN Generic program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/hero/hero-nursing.jpg') }}" alt="BSN Generic program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -570,8 +572,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=bsn-generic">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=bsn-generic">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -580,7 +582,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{ asset('frontend/assets/images/programs/clinical.jpg')}}') }}" alt="Post RN program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/clinical.jpg') }}" alt="Post RN program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -595,8 +597,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=post-rn">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=post-rn">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -605,7 +607,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{assets/images/programs/maternal.jpg')}}" alt="CMW (Community Midwife) program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="CMW (Community Midwife) program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -620,8 +622,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=cmw">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=cmw">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -638,8 +640,8 @@
     <p>Maternal and newborn care training covering antenatal, delivery and postnatal support within community healthcare settings.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">CMW (Community Midwife)</li>
       </ol>
     </nav>
@@ -651,7 +653,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{assets/images/programs/maternal.jpg')}}" alt="CMW (Community Midwife) training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="CMW (Community Midwife) training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -748,8 +750,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -764,7 +766,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{assets/images/hero/hero-nursing.jpg')}}" alt="BSN Generic program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/hero/hero-nursing.jpg') }}" alt="BSN Generic program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -779,8 +781,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=bsn-generic">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=bsn-generic">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -789,7 +791,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{ asset('frontend/assets/images/programs/clinical.jpg')}}') }}" alt="Post RN program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/clinical.jpg') }}" alt="Post RN program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -804,8 +806,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=post-rn">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=post-rn">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -814,7 +816,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{assets/images/programs/maternal.jpg')}}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -829,8 +831,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=lhv">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=lhv">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -847,8 +849,8 @@
     <p>Entry-level patient-care training covering basic nursing assistance, hygiene care, vitals monitoring and ward support.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">CNA (Certified Nursing Assistant)</li>
       </ol>
     </nav>
@@ -860,7 +862,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{ asset('frontend/assets/images/programs/clinical.jpg')}}') }}" alt="CNA (Certified Nursing Assistant) training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/clinical.jpg') }}" alt="CNA (Certified Nursing Assistant) training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -957,8 +959,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -973,7 +975,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{assets/images/hero/hero-nursing.jpg')}}" alt="BSN Generic program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/hero/hero-nursing.jpg') }}" alt="BSN Generic program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -988,8 +990,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=bsn-generic">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=bsn-generic">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -998,7 +1000,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{ asset('frontend/assets/images/programs/clinical.jpg')}}') }}" alt="Post RN program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/clinical.jpg') }}" alt="Post RN program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1013,8 +1015,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=post-rn">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=post-rn">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1023,7 +1025,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{assets/images/programs/maternal.jpg')}}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1038,8 +1040,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=lhv">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=lhv">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1056,8 +1058,8 @@
     <p>Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">Anesthesia Technician</li>
       </ol>
     </nav>
@@ -1069,7 +1071,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{assets/images/programs/ot.jpg')}}" alt="Anesthesia Technician training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -1166,8 +1168,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -1182,7 +1184,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/radiology.jpg')}}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1197,8 +1199,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=radiography-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1207,7 +1209,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/lab.jpg')}}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1222,8 +1224,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=medical-lab-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1232,7 +1234,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/lab.jpg')}}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1247,8 +1249,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=dental-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=dental-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1265,8 +1267,8 @@
     <p>Diagnostic imaging training combined with an F.Sc pathway, covering radiographic techniques, positioning and radiation safety.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">Radiography Technology + F.Sc</li>
       </ol>
     </nav>
@@ -1278,7 +1280,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{assets/images/programs/radiology.jpg')}}" alt="Radiography Technology + F.Sc training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -1375,8 +1377,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -1391,7 +1393,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/ot.jpg')}}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1406,8 +1408,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1416,7 +1418,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/lab.jpg')}}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1431,8 +1433,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=medical-lab-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1441,7 +1443,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/lab.jpg')}}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1456,8 +1458,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=dental-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=dental-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1474,8 +1476,8 @@
     <p>Laboratory science training with an F.Sc pathway, covering sample handling, clinical testing and laboratory quality practices.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">Medical Lab Technology + F.Sc</li>
       </ol>
     </nav>
@@ -1487,7 +1489,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{assets/images/programs/lab.jpg')}}" alt="Medical Lab Technology + F.Sc training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Medical Lab Technology + F.Sc training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -1584,8 +1586,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -1600,7 +1602,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/ot.jpg')}}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1615,8 +1617,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1625,7 +1627,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/radiology.jpg')}}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1640,8 +1642,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=radiography-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1650,7 +1652,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/lab.jpg')}}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1665,8 +1667,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=dental-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=dental-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1683,8 +1685,8 @@
     <p>Dental laboratory and chair-side assistance training covering dental materials, appliance work and clinic support skills.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">Dental Technician</li>
       </ol>
     </nav>
@@ -1696,7 +1698,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{assets/images/programs/lab.jpg')}}" alt="Dental Technician training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Dental Technician training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -1793,8 +1795,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -1809,7 +1811,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/ot.jpg')}}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1824,8 +1826,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1834,7 +1836,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/radiology.jpg')}}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1849,8 +1851,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=radiography-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1859,7 +1861,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/lab.jpg')}}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1874,8 +1876,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=medical-lab-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -1892,8 +1894,8 @@
     <p>Surgical theatre technology training covering sterilisation, instrument handling, theatre discipline and surgical assistance.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">Operation Theater Technology + F.Sc</li>
       </ol>
     </nav>
@@ -1905,7 +1907,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{assets/images/programs/ot.jpg')}}" alt="Operation Theater Technology + F.Sc training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Operation Theater Technology + F.Sc training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -2002,8 +2004,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -2018,7 +2020,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/ot.jpg')}}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2033,8 +2035,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -2043,7 +2045,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/radiology.jpg')}}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2058,8 +2060,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=radiography-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -2068,7 +2070,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/lab.jpg')}}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2083,8 +2085,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=medical-lab-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -2101,8 +2103,8 @@
     <p>Medicine dispensing training covering prescription handling, dosage awareness, storage practices and patient counselling basics.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">Dispenser + F.Sc</li>
       </ol>
     </nav>
@@ -2114,7 +2116,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{assets/images/programs/pharmacy.jpg')}}" alt="Dispenser + F.Sc training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/pharmacy.jpg') }}" alt="Dispenser + F.Sc training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -2211,8 +2213,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -2227,7 +2229,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/ot.jpg')}}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2242,8 +2244,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -2252,7 +2254,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/radiology.jpg')}}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2267,8 +2269,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=radiography-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -2277,7 +2279,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/lab.jpg')}}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2292,8 +2294,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=medical-lab-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -2310,8 +2312,8 @@
     <p>Pharmacy technician training focused on medicine handling, inventory practices, dispensing support and pharmacy operations.</p>
     <nav aria-label="Breadcrumb">
       <ol class="breadcrumb breadcrumb-brand">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="programs.html">Programs</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('frontend.all_program') }}">Programs</a></li>
         <li class="breadcrumb-item active" aria-current="page">B-Category Pharmacy Technician</li>
       </ol>
     </nav>
@@ -2323,7 +2325,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{assets/images/programs/pharmacy.jpg')}}" alt="B-Category Pharmacy Technician training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/pharmacy.jpg') }}" alt="B-Category Pharmacy Technician training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -2420,8 +2422,8 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
-<a class="btn btn-brand-red w-100 mb-2" href="admissions.html#apply">Apply Now</a>
-<a class="btn btn-outline-brand w-100" href="contact.html">Talk to Admissions</a>
+<a class="btn btn-brand-red w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+<a class="btn btn-outline-brand w-100" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
 </div>
       </aside>
     </div>
@@ -2436,7 +2438,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/ot.jpg')}}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2451,8 +2453,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -2461,7 +2463,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/radiology.jpg')}}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2476,8 +2478,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=radiography-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>
@@ -2486,7 +2488,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{assets/images/programs/lab.jpg')}}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2501,8 +2503,8 @@
         <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="program-details.html?program=medical-lab-technology">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="admissions.html#apply">Apply Now</a>
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
   </article>

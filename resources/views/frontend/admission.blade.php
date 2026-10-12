@@ -1,4 +1,6 @@
 @extends('frontend.layouts.layout')
+@section('title', 'Admissions 2026–27 | Apply to King TAS College, Gojra')
+@section('description', 'Apply to King TAS College of Nursing & Allied Health Sciences. Admission process, required documents, financial support guidance and the online application form.')
 @section('content')
 <main id="main">
 <header class="page-hero">
@@ -6,7 +8,7 @@
     <h1>Start your healthcare career with us</h1>
     <p>Admissions are open for session 2026–27 in selected nursing and allied health programs. Follow the steps below to apply.</p>
     <nav aria-label="Breadcrumb">
-      <ol class="breadcrumb breadcrumb-brand"><li class="breadcrumb-item"><a href="index.html">Home</a></li><li class="breadcrumb-item active" aria-current="page">Admissions</li></ol>
+      <ol class="breadcrumb breadcrumb-brand"><li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li><li class="breadcrumb-item active" aria-current="page">Admissions</li></ol>
     </nav>
   </div>
 </header>
@@ -38,7 +40,7 @@
           </ul>
           <div class="demo-note mt-3"><i class="bi bi-info-circle me-1"></i>Please confirm final requirements with the Admissions Office.</div>
           <a class="btn btn-brand w-100 mt-3" href="#apply">Apply online</a>
-          <a class="btn btn-outline-brand w-100 mt-2" href="eligibility.html">Check eligibility</a>
+          <a class="btn btn-outline-brand w-100 mt-2" href="{{ route('frontend.eligibility') }}">Check eligibility</a>
         </div>
       </div>
     </div>
@@ -97,8 +99,14 @@
           <div class="progress-bar bg-primary" id="admissionProgress" style="width:16.6%"></div>
         </div>
 
-        <!-- Laravel: point action at your route and add @csrf inside the form -->
-        <form id="admissionForm" class="card-brand p-4" method="post" action="/admissions" enctype="multipart/form-data" novalidate>
+        <form id="admissionForm" class="card-brand p-4" method="post" action="{{ route('frontend.admission.store') }}" enctype="multipart/form-data" novalidate>
+@csrf
+          @if ($errors->any())
+          <div class="alert alert-danger" role="alert">
+            <strong>Please fix the following:</strong>
+            <ul class="mb-0">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
+          </div>
+          @endif
           <fieldset class="form-step active">
             <legend class="h6 mb-3">Step 1 — Personal information</legend>
             <div class="row g-3">
@@ -209,7 +217,7 @@
             <div class="form-check mt-3">
               <input class="form-check-input" type="checkbox" id="agreeTerms" name="agreeTerms" value="1" required>
               <label class="form-check-label small" for="agreeTerms">
-                I confirm the information provided is accurate and I accept the <a href="terms.html">terms &amp; conditions</a>.
+                I confirm the information provided is accurate and I accept the <a href="{{ route('frontend.terms') }}">terms &amp; conditions</a>.
               </label>
               <div class="invalid-feedback"></div>
             </div>

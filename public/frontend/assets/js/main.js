@@ -38,15 +38,20 @@
 
   /* ---------- Active navigation state ----------------------------------- */
   function initActiveNav() {
-    const page = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+    // Works with clean Laravel URLs (e.g. /about) as well as static .html files.
+    const norm = (p) => (p.replace(/\/+$/, "") || "/").toLowerCase();
+    const here = norm(location.pathname);
     $$(".site-navbar .nav-link, .site-navbar .dropdown-item").forEach((link) => {
-      const href = (link.getAttribute("href") || "").toLowerCase();
-      if (!href || href.startsWith("#") || href.startsWith("http")) return;
-      if (href === page) {
-        link.classList.add("active");
-        const parent = link.closest(".dropdown");
-        if (parent) parent.querySelector(".nav-link")?.classList.add("active");
-      }
+      const raw = link.getAttribute("href") || "";
+      if (!raw || raw.startsWith("#") || /^(https?:|mailto:|tel:)/i.test(raw)) return;
+      let url;
+      try { url = new URL(link.href, location.href); } catch (e) { return; }
+      if (url.origin !== location.origin || url.hash) return;
+      if (norm(url.pathname) !== here) return;
+      if (url.search && url.search !== location.search) return;
+      link.classList.add("active");
+      const parent = link.closest(".dropdown");
+      if (parent) parent.querySelector(".nav-link")?.classList.add("active");
     });
   }
 
@@ -71,7 +76,13 @@
   /* ---------- Language scaffolding (English / Urdu ready) ---------------- */
   function initLanguage() {
     const buttons = $$("[data-lang]");
-    if (!buttons.length) return;
+    if (!buttons.length) {
+      // No language switch on the page: always English / LTR and drop any stale "ur" setting.
+      try { localStorage.removeItem("kt-lang"); } catch (e) {}
+      document.documentElement.setAttribute("lang", "en");
+      document.documentElement.setAttribute("dir", "ltr");
+      return;
+    }
     const stored = localStorage.getItem("kt-lang") || "en";
     apply(stored);
 

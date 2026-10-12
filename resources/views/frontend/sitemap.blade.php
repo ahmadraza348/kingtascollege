@@ -1,0 +1,19 @@
+@extends('frontend.layouts.layout')
+@section('title', 'Site Map | King TAS College of Nursing & Allied Health Sciences')
+@section('description', 'All pages of the King TAS College of Nursing & Allied Health Sciences website, Gojra.')
+@section('content')
+<main id="main">
+<header class="page-hero">
+  <div class="container">
+    <h1>Site map</h1>
+    <p>Every page on the King TAS College website in one place.</p>
+    <nav aria-label="Breadcrumb">
+      <ol class="breadcrumb breadcrumb-brand"><li class="breadcrumb-item"><a href="{{ route('frontend.home') }}">Home</a></li><li class="breadcrumb-item active" aria-current="page">Site Map</li></ol>
+    </nav>
+  </div>
+</header>
+<section class="section"><div class="container"><div class="row g-3">
+  <div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.home') }}"><i class="bi bi-arrow-right-short text-brand"></i>Home</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.about') }}"><i class="bi bi-arrow-right-short text-brand"></i>About</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.all_program') }}"><i class="bi bi-arrow-right-short text-brand"></i>Programs</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.program-details') }}"><i class="bi bi-arrow-right-short text-brand"></i>Program details</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.admission') }}"><i class="bi bi-arrow-right-short text-brand"></i>Admissions</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.eligibility') }}"><i class="bi bi-arrow-right-short text-brand"></i>Eligibility</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.faculty') }}"><i class="bi bi-arrow-right-short text-brand"></i>Faculty</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.facilities') }}"><i class="bi bi-arrow-right-short text-brand"></i>Facilities</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.clinical-training') }}"><i class="bi bi-arrow-right-short text-brand"></i>Clinical training</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.campus-life') }}"><i class="bi bi-arrow-right-short text-brand"></i>Campus life</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.gallery') }}"><i class="bi bi-arrow-right-short text-brand"></i>Gallery</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.news') }}"><i class="bi bi-arrow-right-short text-brand"></i>News</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.events') }}"><i class="bi bi-arrow-right-short text-brand"></i>Events</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.notices') }}"><i class="bi bi-arrow-right-short text-brand"></i>Notices</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.faq') }}"><i class="bi bi-arrow-right-short text-brand"></i>FAQ</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.contact') }}"><i class="bi bi-arrow-right-short text-brand"></i>Contact</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.privacy') }}"><i class="bi bi-arrow-right-short text-brand"></i>Privacy policy</a></div><div class="col-sm-6 col-lg-4"><a class="card-brand p-3 d-block" href="{{ route('frontend.terms') }}"><i class="bi bi-arrow-right-short text-brand"></i>Terms &amp; conditions</a></div>
+</div></div></section>
+</main>
+@endsection
