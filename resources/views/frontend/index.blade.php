@@ -298,7 +298,7 @@
                         </article>
                     </div>
                 </div>
-                <div class="text-center mt-4"><a class="btn btn-outline-brand btn-lg" href="programs.html">View all programs</a></div>
+                <div class="text-center mt-4"><a class="btn btn-outline-brand btn-lg" href="{{ route('frontend.all_program') }}">View all programs</a></div>
             </div>
         </section>
 

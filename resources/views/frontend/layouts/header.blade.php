@@ -40,7 +40,7 @@
             <li><a class="dropdown-item" href="{{ route('frontend.program-details') }}">BSN Generic</a></li>
             <!-- <li><hr class="dropdown-divider"></li> -->
           
-            <li><a class="dropdown-item fw-600" href="{{ route('frontend.program-details') }}">View all programs</a></li>
+            <li><a class="dropdown-item fw-600" href="{{ route('frontend.all_program') }}">View all programs</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">

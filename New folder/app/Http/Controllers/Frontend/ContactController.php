@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProgramDetailController extends Controller
+class ContactController extends Controller
 {
-    public function programs()
+    public function contact()
     {
-        return view('frontend.program_details');
+        return view('frontend.contact');
     }
 }
