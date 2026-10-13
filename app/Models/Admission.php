@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Admission extends Model
@@ -46,4 +47,17 @@ class Admission extends Model
         'other_documents' => 'array',
         'terms_accepted' => 'boolean',
     ];
+
+    /**
+     * Human-friendly admission form number, e.g. KTC-2026-00042.
+     * Derived from the record id + year, so it is stable and needs no extra column.
+     */
+    protected function formNumber(): Attribute
+    {
+        return Attribute::get(function () {
+            $year = ($this->created_at ?? now())->format('Y');
+
+            return sprintf('KTC-%s-%05d', $year, $this->id);
+        });
+    }
 }

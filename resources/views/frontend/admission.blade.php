@@ -176,8 +176,8 @@
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label" for="email">Email</label>
-                                    <input class="form-control" type="email" id="email" name="email" value="{{ old('email') }}" placeholder="you@example.com" autocomplete="email">
+                                    <label class="form-label" for="email">Email *</label>
+                                    <input class="form-control" type="email" id="email" name="email" value="{{ old('email') }}" placeholder="you@example.com" autocomplete="email" required>
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>

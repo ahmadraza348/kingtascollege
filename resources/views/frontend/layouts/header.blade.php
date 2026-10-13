@@ -5,7 +5,7 @@
       <span class="divider d-none d-sm-inline">|</span>
       <a class="topbar-item d-none d-sm-inline-flex" href="tel:+923260298542"><i class="bi bi-telephone"></i>0326-0298542</a>
       <span class="divider d-none d-lg-inline">|</span>
-      <a class="topbar-item d-none d-lg-inline-flex" href="mailto:info@kingtascollege.edu.pk">info@kingtascollege.edu.pk</a>
+      <a class="topbar-item d-none d-lg-inline-flex" href="mailto:info@kingtascollege.com">info@kingtascollege.com</a>
     </div>
     <div class="d-flex align-items-center gap-3">
       <span class="admission-pill"><span class="dot" aria-hidden="true"></span>Admissions Open — Session 2026–27</span>

@@ -43,7 +43,7 @@
         <ul class="footer-contact">
           <li><i class="bi bi-geo-alt"></i><span>Main Painsara Road, College Road, Near Model City Phase 3, Gojra, District Toba Tek Singh, Punjab, Pakistan</span></li>
           <li><i class="bi bi-telephone"></i><span><a href="tel:+923028098542">0302-8098542</a><br><a href="tel:+923260298542">0326-0298542</a></span></li>
-          <li><i class="bi bi-envelope"></i><a href="mailto:info@kingtascollege.edu.pk">info@kingtascollege.edu.pk</a></li>
+          <li><i class="bi bi-envelope"></i><a href="mailto:info@kingtascollege.com">info@kingtascollege.com</a></li>
           <li><i class="bi bi-clock"></i><span>Office hours to be confirmed by the college</span></li>
         </ul>
       </div>

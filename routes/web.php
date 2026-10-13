@@ -23,6 +23,7 @@ Route::name('frontend.')->group(function () {
     // Admissions
     Route::get('/admission', [AdmissionController::class, 'admission'])->name('admission');
     Route::post('/admission', [AdmissionController::class, 'store'])->name('admission.store');
+    Route::get('/admission/success', [AdmissionController::class, 'success'])->name('admission_success');
     Route::get('/eligibility', [EligibilityController::class, 'eligibility'])->name('eligibility');
 
     // Academics

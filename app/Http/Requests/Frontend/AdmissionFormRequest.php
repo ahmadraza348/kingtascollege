@@ -31,7 +31,7 @@ class AdmissionFormRequest extends FormRequest
             'cnic' => ['required', 'string', 'max:20', 'regex:/^\d{5}-?\d{7}-?\d$/'],
             'phone' => ['required', 'string', 'max:30', 'regex:/^(0\d{3}-?\d{7}|\+92\d{10})$/'],
             'whatsapp' => ['nullable', 'string', 'max:30', 'regex:/^(0\d{3}-?\d{7}|\+92\d{10})$/'],
-            'email' => ['nullable', 'email', 'max:150'],
+            'email' => ['required', 'email:rfc', 'max:150'],
 
             // Academic information
             'qualification' => ['required', 'string', Rule::in([

@@ -13,8 +13,7 @@
   </div>
 </header>
 <section class="section"><div class="container"><div class="row justify-content-center"><div class="col-lg-8">
-  <div class="demo-note mb-4"><i class="bi bi-info-circle me-1"></i>Placeholder policy. The final privacy policy must be
-  reviewed and approved by the institution before publishing.</div>
+ 
   <h2 class="h5">Information we collect</h2>
   <p>Information submitted through admission or inquiry forms — such as name, contact details, academic information and
   documents — is intended to be used only for admission processing and communication with the applicant.</p>
