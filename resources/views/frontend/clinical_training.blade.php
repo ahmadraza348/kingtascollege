@@ -101,8 +101,33 @@
         </div>
       </div>
     </div>
-    <p class="placeholder-note text-center mt-4 mb-0">No specific hospital affiliation is claimed. Clinical placement arrangements
-    are confirmed by the college administration.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header"><span class="eyebrow">Practical Learning / Internship</span><h2>3 Hospitals for hands-on practice</h2>
+    <p>Students gain practical learning and internship experience in real hospital settings at these partner hospitals in Gojra.</p></div>
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="1">
+        <div class="card-brand p-4 h-100 text-center">
+          <span class="icon-badge mb-3"><i class="bi bi-hospital"></i></span>
+          <h3 class="h6 mb-0">Albarkat Hospital Gojra</h3>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
+        <div class="card-brand p-4 h-100 text-center">
+          <span class="icon-badge mb-3"><i class="bi bi-hospital"></i></span>
+          <h3 class="h6 mb-0">Hajra Tufail Hospital Gojra</h3>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3">
+        <div class="card-brand p-4 h-100 text-center">
+          <span class="icon-badge mb-3"><i class="bi bi-hospital"></i></span>
+          <h3 class="h6 mb-0">THQ Hospital Gojra</h3>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 

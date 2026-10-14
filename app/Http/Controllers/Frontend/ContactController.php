@@ -3,30 +3,27 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use App\Http\Requests\Frontend\ContactFormRequest;
+use App\Services\Frontend\ContactService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class ContactController extends Controller
 {
-    public function contact()
+    public function contact(): View
     {
         return view('frontend.contact');
     }
 
-    public function store(Request $request)
+    public function store(ContactFormRequest $request, ContactService $contactService): RedirectResponse
     {
-        $data = $request->validate([
-            'name'    => ['required', 'string', 'min:3', 'max:120'],
-            'phone'   => ['required', 'string', 'max:30'],
-            'email'   => ['nullable', 'email', 'max:150'],
-            'subject' => ['required', 'string', 'max:150'],
-            'program' => ['nullable', 'string', 'max:100'],
-            'message' => ['required', 'string', 'max:2000'],
-        ]);
+        // Validation already passed (ContactFormRequest). The service saves the query
+        // and emails the college. The visitor's query is saved even if the email fails,
+        // so we always show a success message.
+        $contactService->create($request->validated());
 
-        // TODO: save to a database table or send a Mail here.
-        Log::info('Contact form submitted', $data);
+        toastr()->success('Thank you. Your query has been sent. Our admissions team will contact you soon.');
 
-        return redirect()->to(route('frontend.contact') . '?sent=1');
+        return redirect()->route('frontend.contact');
     }
 }

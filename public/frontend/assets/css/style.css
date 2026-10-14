@@ -545,6 +545,7 @@ body.nav-stuck { padding-top: 78px; }
   border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); min-height: 340px;
   background: var(--light); display: flex; align-items: center; justify-content: center; text-align: center; padding: 2rem;
 }
+.map-frame { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); line-height: 0; }
 .contact-tile { display: flex; gap: 1rem; padding: 1.25rem; }
 .contact-tile i { font-size: 1.4rem; color: var(--primary); }
 

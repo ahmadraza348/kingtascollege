@@ -43,7 +43,8 @@ Route::name('frontend.')->group(function () {
 
     // Contact
     Route::get('/contact', [ContactController::class, 'contact'])->name('contact');
-    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+    // Max 5 submissions per minute per visitor, to stop spam.
+    Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('contact.store');
 
     // Legal / utility
     Route::get('/privacy', [PageController::class, 'privacy'])->name('privacy');
