@@ -9,6 +9,9 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsController;
 use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\ProgramController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ContactMessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
@@ -51,3 +54,28 @@ Route::name('frontend.')->group(function () {
     Route::get('/terms', [PageController::class, 'terms'])->name('terms');
     Route::get('/sitemap', [PageController::class, 'sitemap'])->name('sitemap');
 });
+
+
+// Admin Panel Routes
+Route::prefix('admin')->group(function () {
+    Route::get('login', [AuthController::class, 'login'])->name('admin.login');
+    Route::post('login/submit', [AuthController::class, 'login_submit'])->name('admin.login.submit');
+    Route::get('login/forget-password', [AuthController::class, 'forgetpass'])->name('admin.forgetpass');
+    Route::post('login/forget-password/submit', [AuthController::class, 'submitforgetpass'])->name('admin.forgetpass.submit');
+    Route::get('login/reset-password/{token}', [AuthController::class, 'show_reset_pass_form'])->name('reset.password.get');
+    Route::post('login/reset-password/{token}', [AuthController::class, 'submit_reset_pass_form'])->name('reset.password.post');
+});
+
+Route::prefix('admin')->middleware('adminauth')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+        Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');  
+        
+        Route::prefix('contact-messages')->name('contact-message.')->group(function () {
+            Route::get('/', [ContactMessageController::class, 'index'])->name('index');
+            Route::get('{message}', [ContactMessageController::class, 'show'])->name('show');
+            Route::delete('{message}', [ContactMessageController::class, 'destroy'])->name('destroy');
+        });
+
+
+    }
+);
