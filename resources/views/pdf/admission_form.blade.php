@@ -50,7 +50,7 @@
             <div class="title">ADMISSION FORM &mdash; SESSION {{ $admission->session }}</div>
             <div style="margin:8px 0 6px 0;"><span class="badge">Form No: {{ $admission->form_number }}</span></div>
             <div>Submitted on: <strong>{{ $admission->created_at->format('d M Y, h:i A') }}</strong></div>
-            <div>Status: <span class="status">{{ ucfirst($admission->status) }}</span></div>
+            <div>Status: <span class="status">{{ $admission->status_label }}</span></div>
             <div class="copy" style="margin-top:6px;">{{ $copyLabel }}</div>
         </td>
         <td style="width:100px;vertical-align:top;" align="right">

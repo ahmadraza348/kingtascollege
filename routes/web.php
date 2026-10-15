@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\ProgramController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\AdmissionController as AdminAdmissionController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
@@ -70,6 +71,20 @@ Route::prefix('admin')->middleware('adminauth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
         Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');  
         
+        Route::prefix('admissions')->name('admission.')->group(function () {
+            Route::get('/', [AdminAdmissionController::class, 'index'])->name('index');
+            Route::get('export', [AdminAdmissionController::class, 'export'])->name('export');
+            Route::get('{admission}', [AdminAdmissionController::class, 'show'])->name('show');
+            Route::patch('{admission}/status', [AdminAdmissionController::class, 'updateStatus'])->name('status');
+            Route::patch('{admission}/notes', [AdminAdmissionController::class, 'updateNotes'])->name('notes');
+            Route::get('{admission}/pdf', [AdminAdmissionController::class, 'pdf'])->name('pdf');
+            Route::get('{admission}/documents/{key}', [AdminAdmissionController::class, 'document'])
+                ->where('key', '[a-z_0-9]+')->name('document');
+            Route::post('{admission}/documents/{key}/verify', [AdminAdmissionController::class, 'toggleDocument'])
+                ->where('key', '[a-z_0-9]+')->name('document.verify');
+            Route::delete('{admission}', [AdminAdmissionController::class, 'destroy'])->name('destroy');
+        });
+
         Route::prefix('contact-messages')->name('contact-message.')->group(function () {
             Route::get('/', [ContactMessageController::class, 'index'])->name('index');
             Route::get('{message}', [ContactMessageController::class, 'show'])->name('show');

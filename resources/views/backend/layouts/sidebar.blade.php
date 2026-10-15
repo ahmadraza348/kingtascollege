@@ -11,6 +11,13 @@
                     </a>
                 </li>          
 
+                <li class="{{ request()->routeIs('admission.*') ? 'active' : '' }}">
+                    <a href="{{ route('admission.index') }}">
+                        <img src="{{ asset('backend/assets/img/icons/users1.svg') }}" alt="img">
+                        <span>Admissions</span>
+                    </a>
+                </li>
+
           
                 <li class="{{ request()->routeIs('contact-message.*') ? 'active' : '' }}">
                     <a href="{{ route('contact-message.index') }}">
