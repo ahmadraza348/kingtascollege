@@ -10,6 +10,7 @@
         healthcare education and professional student development.</p>
         <div class="footer-social mt-3">
           <a href="https://www.facebook.com/people/King-TAS-college-of-Nursing-and-Allied-Health-Sciences/100063958600873/" target="_blank" rel="noopener" aria-label="Facebook page"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.instagram.com/king.tas.college/" target="_blank" rel="noopener" aria-label="Instagram page"><i class="bi bi-instagram"></i></a>
           <a href="https://wa.me/923028098542?text=Hello%2C%20I%20would%20like%20information%20about%20admissions%20at%20King%20TAS%20College." target="_blank" rel="noopener" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
           <a href="tel:+923028098542" aria-label="Call the college"><i class="bi bi-telephone"></i></a>
         </div>
@@ -20,8 +21,8 @@
           <li><a href="{{ route('frontend.about') }}">About</a></li>
           <li><a href="{{ route('frontend.all_program') }}">Programs</a></li>
           <li><a href="{{ route('frontend.admission') }}">Admissions</a></li>
-          <li><a href="{{ route('frontend.faculty') }}">Faculty</a></li>
-          <li><a href="{{ route('frontend.campus-life') }}">Campus</a></li>
+          <!-- <li><a href="{{ route('frontend.faculty') }}">Faculty</a></li> -->
+          <!-- <li><a href="{{ route('frontend.campus-life') }}">Campus</a></li> -->
           <li><a href="{{ route('frontend.gallery') }}">Gallery</a></li>
           <li><a href="{{ route('frontend.contact') }}">Contact</a></li>
         </ul>
@@ -53,7 +54,7 @@
       <p class="mb-0 d-flex gap-3">
         <a href="{{ route('frontend.privacy') }}">Privacy Policy</a>
         <a href="{{ route('frontend.terms') }}">Terms &amp; Conditions</a>
-        <a href="{{ route('frontend.sitemap') }}">Site Map</a>
+        <!-- <a href="{{ route('frontend.sitemap') }}">Site Map</a> -->
       </p>
     </div>
   </div>

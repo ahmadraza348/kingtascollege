@@ -347,7 +347,7 @@
   </div>
 </section>
 
-<section class="section">
+<!-- <section class="section">
   <div class="container">
     <div class="cta-band text-center" data-reveal>
       <span class="eyebrow eyebrow-light mb-3">Admissions Open — Session 2026–27</span>
@@ -359,5 +359,6 @@
       </div>
     </div>
   </div>
-</section></main>
+</section> -->
+</main>
 @endsection

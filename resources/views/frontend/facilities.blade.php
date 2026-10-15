@@ -80,34 +80,10 @@
         </div>
       </div>
     </div>
-    <p class="placeholder-note text-center mt-4 mb-0">Facilities listed during development are indicative. Availability will be
-    confirmed and updated by the college administration.</p>
+  
   </div>
 </section>
 
-<section class="section bg-light-soft">
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-lg-6" data-reveal="left"><div class="media-frame rounded-brand shadow-brand ratio-4x3">
-        <img src="{{ asset('frontend/assets/images/campus/classroom.jpg') }}" alt="Classroom at the college" loading="lazy" width="1200" height="800"></div></div>
-      <div class="col-lg-6" data-reveal="right"><div class="media-frame rounded-brand shadow-brand ratio-4x3">
-        <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Medical laboratory learning space" loading="lazy" width="1200" height="800"></div></div>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="container">
-    <div class="cta-band text-center" data-reveal>
-      <span class="eyebrow eyebrow-light mb-3">Admissions Open — Session 2026–27</span>
-      <h2>Begin your healthcare career</h2>
-      <p class="mb-4">Choose the right program and take the first step toward your professional healthcare journey.</p>
-      <div class="d-flex flex-wrap justify-content-center gap-2">
-        <a class="btn btn-brand-red btn-lg" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-        <a class="btn btn-outline-light-brand btn-lg" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
-      </div>
-    </div>
-  </div>
-</section>
 </main>
 @endsection

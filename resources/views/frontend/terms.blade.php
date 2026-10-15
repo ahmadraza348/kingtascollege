@@ -13,8 +13,7 @@
   </div>
 </header>
 <section class="section"><div class="container"><div class="row justify-content-center"><div class="col-lg-8">
-  <div class="demo-note mb-4"><i class="bi bi-info-circle me-1"></i>Generic, editable terms. Institution-specific legal
-  information must be reviewed and customised by the college before publishing.</div>
+
   <h2 class="h5">Use of this website</h2>
   <p>This website provides general information about programs, admissions and campus activities at King TAS College of Nursing
   &amp; Allied Health Sciences.</p>

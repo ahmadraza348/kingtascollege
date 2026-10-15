@@ -14,8 +14,6 @@
 </header>
 <section class="section">
   <div class="container">
-    <div class="demo-note mb-4"><i class="bi bi-info-circle me-1"></i>Requirements shown below are placeholders where official
-    values have not been supplied. Please confirm final eligibility with the Admissions Office.</div>
     <div class="accordion accordion-brand" id="eligibilityAccordion">
 <div class="accordion-item" data-reveal>
   <h3 class="accordion-header" id="elH0">
@@ -344,18 +342,5 @@
 </div>
   </div>
 </section>
-
-<section class="section">
-  <div class="container">
-    <div class="cta-band text-center" data-reveal>
-      <span class="eyebrow eyebrow-light mb-3">Admissions Open — Session 2026–27</span>
-      <h2>Begin your healthcare career</h2>
-      <p class="mb-4">Choose the right program and take the first step toward your professional healthcare journey.</p>
-      <div class="d-flex flex-wrap justify-content-center gap-2">
-        <a class="btn btn-brand-red btn-lg" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-        <a class="btn btn-outline-light-brand btn-lg" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
-      </div>
-    </div>
-  </div>
-</section></main>
+</main>
 @endsection

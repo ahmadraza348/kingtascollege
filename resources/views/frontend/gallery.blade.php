@@ -14,7 +14,7 @@
 </header>
 <section class="section">
   <div class="container">
-    <div class="d-flex flex-wrap gap-2 mb-4" id="galleryFilters" role="group" aria-label="Gallery filters">
+    <!-- <div class="d-flex flex-wrap gap-2 mb-4" id="galleryFilters" role="group" aria-label="Gallery filters">
       <button class="filter-chip active" data-filter="all">All</button>
       <button class="filter-chip" data-filter="Campus">Campus</button>
       <button class="filter-chip" data-filter="Students">Students</button>
@@ -24,7 +24,7 @@
       <button class="filter-chip" data-filter="Seminars">Seminars</button>
       <button class="filter-chip" data-filter="Clinical Training">Clinical Training</button>
       <button class="filter-chip" data-filter="Activities">Activities</button>
-    </div>
+    </div> -->
     <div class="gallery-grid" id="galleryGrid">
 <a class="gallery-item" href="{{ asset('frontend/assets/images/hero/hero-nursing.jpg') }}" data-item data-category="Nursing" data-caption="Nursing skills practice session" aria-label="Open image: Nursing skills practice session">
   <img src="{{ asset('frontend/assets/images/hero/hero-nursing.jpg') }}" alt="Nursing skills practice session" loading="lazy">
@@ -76,22 +76,9 @@
 </a>
 <div class="empty-state d-none" data-empty><i class="bi bi-images d-block mb-2"></i>No images in this category yet.</div>
 </div>
-    <p class="placeholder-note mt-4 mb-0">Placeholder photography is used during development and should be replaced with the
-    college's own images before publishing.</p>
+
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="cta-band text-center" data-reveal>
-      <span class="eyebrow eyebrow-light mb-3">Admissions Open — Session 2026–27</span>
-      <h2>Begin your healthcare career</h2>
-      <p class="mb-4">Choose the right program and take the first step toward your professional healthcare journey.</p>
-      <div class="d-flex flex-wrap justify-content-center gap-2">
-        <a class="btn btn-brand-red btn-lg" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-        <a class="btn btn-outline-light-brand btn-lg" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
-      </div>
-    </div>
-  </div>
-</section></main>
+</main>
 @endsection

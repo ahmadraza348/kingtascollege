@@ -11,6 +11,7 @@
       <span class="admission-pill"><span class="dot" aria-hidden="true"></span>Admissions Open — Session 2026–27</span>
       <span class="social-links d-none d-md-inline-flex gap-1">
         <a href="https://www.facebook.com/people/King-TAS-college-of-Nursing-and-Allied-Health-Sciences/100063958600873/" target="_blank" rel="noopener" aria-label="King TAS College on Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/king.tas.college/" target="_blank" rel="noopener" aria-label="King TAS College on Instagram"><i class="bi bi-instagram"></i></a>
         <a href="https://wa.me/923028098542?text=Hello%2C%20I%20would%20like%20information%20about%20admissions%20at%20King%20TAS%20College." target="_blank" rel="noopener" aria-label="WhatsApp the admissions office"><i class="bi bi-whatsapp"></i></a>
       </span>
     </div>
@@ -61,11 +62,11 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ route('frontend.clinical-training') }}">Clinical Training</a></li>
             <li><a class="dropdown-item" href="{{ route('frontend.facilities') }}">Facilities</a></li>
-            <li><a class="dropdown-item" href="{{ route('frontend.faculty') }}">Faculty</a></li>
+            <!-- <li><a class="dropdown-item" href="{{ route('frontend.faculty') }}">Faculty</a></li> -->
             <!-- <li><a class="dropdown-item" href="{{ route('frontend.notices') }}">Notice Board</a></li> -->
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('frontend.campus-life') }}">Campus</a></li>
+        <!-- <li class="nav-item"><a class="nav-link" href="{{ route('frontend.campus-life') }}">Campus</a></li> -->
         <!-- <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="{{ route('frontend.news') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">News &amp; Events</a>
           <ul class="dropdown-menu">

@@ -14,15 +14,8 @@
 </header>
 <section class="section">
   <div class="container">
-    <div class="demo-note mb-4"><i class="bi bi-info-circle me-1"></i>Placeholder faculty records — no real staff identities are
-    shown. The college administration will supply verified profiles, photographs and qualifications.</div>
-    <div class="d-flex flex-wrap gap-2 mb-4" id="facultyFilters" role="group" aria-label="Faculty filters">
-      <button class="filter-chip active" data-filter="all">All</button>
-      <button class="filter-chip" data-filter="Nursing">Nursing</button>
-      <button class="filter-chip" data-filter="Allied Health">Allied Health</button>
-      <button class="filter-chip" data-filter="Clinical">Clinical</button>
-      <button class="filter-chip" data-filter="Administration">Administration</button>
-    </div>
+   
+
     <div class="row g-4" id="facultyGrid">
 <div class="col-sm-6 col-lg-3" data-reveal data-reveal-delay="1" data-item data-category="Administration">
   <article class="card-brand faculty-card text-center h-100">
@@ -135,18 +128,5 @@
 </div>
   </div>
 </section>
-
-<section class="section">
-  <div class="container">
-    <div class="cta-band text-center" data-reveal>
-      <span class="eyebrow eyebrow-light mb-3">Admissions Open — Session 2026–27</span>
-      <h2>Begin your healthcare career</h2>
-      <p class="mb-4">Choose the right program and take the first step toward your professional healthcare journey.</p>
-      <div class="d-flex flex-wrap justify-content-center gap-2">
-        <a class="btn btn-brand-red btn-lg" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-        <a class="btn btn-outline-light-brand btn-lg" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
-      </div>
-    </div>
-  </div>
-</section></main>
+</main>
 @endsection

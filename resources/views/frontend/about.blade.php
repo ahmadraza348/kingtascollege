@@ -55,7 +55,6 @@
           <li><i class="bi bi-dot"></i><span>Lifelong learning</span></li>
         </ul></div></div>
     </div>
-    <p class="placeholder-note text-center mt-4 mb-0">Suggested content — mission, vision and values require approval by the college administration.</p>
   </div>
 </section>
 
@@ -90,18 +89,5 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="container">
-    <div class="cta-band text-center" data-reveal>
-      <span class="eyebrow eyebrow-light mb-3">Admissions Open — Session 2026–27</span>
-      <h2>Begin your healthcare career</h2>
-      <p class="mb-4">Choose the right program and take the first step toward your professional healthcare journey.</p>
-      <div class="d-flex flex-wrap justify-content-center gap-2">
-        <a class="btn btn-brand-red btn-lg" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-        <a class="btn btn-outline-light-brand btn-lg" href="{{ route('frontend.contact') }}">Talk to Admissions</a>
-      </div>
-    </div>
-  </div>
-</section>
 </main>
 @endsection
