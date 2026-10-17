@@ -81,7 +81,8 @@ class AdmissionService
                     'institution' => $validated['institution'],
                     'obtained_marks' => $validated['obtained'] ?? null,
                     'total_marks' => $validated['total'] ?? null,
-                    'percentage' => $validated['percentage'] ?? null,
+                    'percentage' => $this->calculatePercentage($validated['obtained'] ?? null, $validated['total'] ?? null)
+                        ?? ($validated['percentage'] ?? null),
 
                     'program' => $validated['program'],
                     'session' => '2026–27',
@@ -129,6 +130,16 @@ class AdmissionService
         $storedPaths[] = $path;
 
         return $path;
+    }
+
+    /** Percentage worked out from the marks, so it is correct even if the browser sent something else. */
+    private function calculatePercentage(mixed $obtained, mixed $total): ?float
+    {
+        if (! is_numeric($obtained) || ! is_numeric($total) || (float) $total <= 0) {
+            return null;
+        }
+
+        return round(min(100, ((float) $obtained / (float) $total) * 100), 2);
     }
 
     /**

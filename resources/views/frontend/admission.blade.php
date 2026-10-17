@@ -215,7 +215,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label" for="percentage">Percentage</label>
-                                    <input class="form-control" id="percentage" name="percentage" type="number" data-validate="number" min="0" max="100" step="any" value="{{ old('percentage') }}">
+                                    <input class="form-control" id="percentage" name="percentage" type="number" data-validate="number" min="0" max="100" step="any" value="{{ old('percentage') }}" readonly tabindex="-1" placeholder="Auto-calculated" aria-live="polite">
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>

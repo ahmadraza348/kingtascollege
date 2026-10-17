@@ -100,6 +100,42 @@
     </div>
   </section>
 
+  <section class="section bg-light-soft" id="ceo-message">
+    <div class="container">
+      <div class="row align-items-center ">
+        <div class="col-lg-4" data-reveal="left">
+          @php
+            // Drop the CEO's photo at public/frontend/assets/images/ceo/ceo.jpg and it appears here automatically.
+            $ceoPhoto = file_exists(public_path('frontend/assets/images/ceo/ceo.jpg'))
+                ? 'frontend/assets/images/ceo/ceo.jpg'
+                : 'frontend/assets/images/ceo/ceo-placeholder.svg';
+          @endphp
+          <div class="ceo-photo"style="width:100px; height:100px; border-radius:50%;">
+            <img src="{{ asset($ceoPhoto) }}" alt="CEO of King TAS College" loading="lazy" width="100" height="100">
+          </div>
+        </div>
+        <div class="col-lg-8" data-reveal="right">
+          <div class="ceo-message">
+            <span class="eyebrow">Message from the CEO</span>
+            <h2 class="mt-3">Building skilled, compassionate healthcare professionals</h2>
+            <i class="bi bi-quote quote-mark" aria-hidden="true"></i>
+            <p class="ceo-text">Welcome to King TAS College of Nursing &amp; Allied Health Sciences. Our mission is to prepare students
+              for meaningful careers in healthcare through practical training, professional values and a strong sense of service
+              to patients and communities.</p>
+            <p class="ceo-text">We believe good healthcare begins with well-trained, caring people. That is why we focus on hands-on
+              learning, supervised clinical practice and the guidance students need to grow with confidence.</p>
+            <p class="ceo-text mb-0">I warmly invite you to join our college and begin your journey towards a rewarding career in
+              nursing and allied health sciences.</p>
+            <div class="ceo-signoff">
+              <p class="ceo-name">CEO Name</p>
+              <p class="ceo-role">Chief Executive Officer, King TAS College</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container">
       <div class="section-header">

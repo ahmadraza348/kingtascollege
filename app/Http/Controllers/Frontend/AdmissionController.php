@@ -8,12 +8,35 @@ use App\Services\Frontend\AdmissionNotificationService;
 use App\Services\Frontend\AdmissionService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdmissionController extends Controller
 {
     public function admission(): View
     {
         return view('frontend.admission');
+    }
+
+    /**
+     * Download the admission form (linked from the navbar).
+     *
+     * If you put your own form at public/downloads/admission-form.pdf (or .doc / .docx / .jpg / .png)
+     * that exact file is downloaded. Otherwise a printable blank form is generated.
+     */
+    public function downloadForm(AdmissionNotificationService $notifications): Response
+    {
+        $ownFile = glob(public_path('downloads/admission-form.*')) ?: [];
+
+        if ($ownFile) {
+            $extension = pathinfo($ownFile[0], PATHINFO_EXTENSION);
+
+            return response()->download($ownFile[0], 'King-TAS-College-Admission-Form.' . $extension);
+        }
+
+        return response($notifications->makeBlankPdf(), 200, [
+            'Content-Type'        => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="King-TAS-College-Admission-Form.pdf"',
+        ]);
     }
 
     public function store(

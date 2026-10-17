@@ -42,7 +42,12 @@ class AdmissionFormRequest extends FormRequest
                 'Other',
             ])],
             'institution' => ['required', 'string', 'max:150'],
-            'obtained' => ['nullable', 'numeric', 'min:0'],
+            'obtained' => ['nullable', 'numeric', 'min:0', function (string $attribute, mixed $value, \Closure $fail) {
+                $total = $this->input('total');
+                if (is_numeric($value) && is_numeric($total) && (float) $value > (float) $total) {
+                    $fail('Marks obtained cannot be more than total marks.');
+                }
+            }],
             'total' => ['nullable', 'numeric', 'min:0'],
             'percentage' => ['nullable', 'numeric', 'between:0,100'],
 

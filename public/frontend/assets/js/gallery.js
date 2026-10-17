@@ -34,9 +34,10 @@
       const link = visible[current];
       const img = link.querySelector("img");
       const category = link.dataset.category || "";
+      const caption = link.dataset.caption || "";
       lb.querySelector("#lbImage").src = link.getAttribute("href");
-      lb.querySelector("#lbImage").alt = link.dataset.caption || img.alt;
-      lb.querySelector("#lbCaption").textContent = `${link.dataset.caption || img.alt} — ${category}`;
+      lb.querySelector("#lbImage").alt = caption || img.alt;
+      lb.querySelector("#lbCaption").textContent = category ? `${caption || img.alt} — ${category}` : caption;
     }
 
     grid.addEventListener("click", (e) => {

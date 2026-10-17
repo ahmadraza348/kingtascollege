@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\ProgramController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\AdmissionController as AdminAdmissionController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::name('frontend.')->group(function () {
     // Admissions
     Route::get('/admission', [AdmissionController::class, 'admission'])->name('admission');
     Route::post('/admission', [AdmissionController::class, 'store'])->name('admission.store');
+    Route::get('/admission/download-form', [AdmissionController::class, 'downloadForm'])->name('admission.download');
     Route::get('/admission/success', [AdmissionController::class, 'success'])->name('admission_success');
     Route::get('/eligibility', [EligibilityController::class, 'eligibility'])->name('eligibility');
 
@@ -89,6 +91,12 @@ Route::prefix('admin')->middleware('adminauth')->group(function () {
             Route::get('/', [ContactMessageController::class, 'index'])->name('index');
             Route::get('{message}', [ContactMessageController::class, 'show'])->name('show');
             Route::delete('{message}', [ContactMessageController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('gallery')->name('gallery.')->group(function () {
+            Route::get('/', [AdminGalleryController::class, 'index'])->name('index');
+            Route::post('/', [AdminGalleryController::class, 'store'])->name('store');
+            Route::delete('{gallery}', [AdminGalleryController::class, 'destroy'])->name('destroy');
         });
 
 

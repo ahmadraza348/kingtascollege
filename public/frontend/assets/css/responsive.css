@@ -24,7 +24,8 @@
   body { font-size: .97rem; }
   .section { padding: 52px 0; }
   .section-header { margin-bottom: 34px; }
-  .topbar { font-size: .78rem; }
+  .topbar { font-size: .92rem; padding: .65rem 0; }
+  .admission-pill { font-size: .82rem; padding: .3rem .9rem; }
   .hero { padding: 54px 0 64px; }
   .hero-actions .btn { flex: 1 1 100%; }
   .hero-facts { gap: .85rem 1.25rem; }

@@ -110,6 +110,16 @@
                 return { valid: false, message: 'Enter a valid non-negative number.' };
             }
         }
+        if (field.id === 'total' && Number(value) <= 0) {
+            return { valid: false, message: 'Total marks must be greater than zero.' };
+        }
+        if (field.id === 'obtained') {
+            const totalField = document.getElementById('total');
+            const totalMarks = totalField ? parseFloat(totalField.value) : NaN;
+            if (Number.isFinite(totalMarks) && Number(value) > totalMarks) {
+                return { valid: false, message: 'Marks obtained cannot be more than total marks.' };
+            }
+        }
         if (field.minLength > 0 && value.length < field.minLength) {
             return { valid: false, message: `Please enter at least ${field.minLength} characters.` };
         }
@@ -445,6 +455,39 @@
         });
     }
 
+    /* ------------------------------------------------------------------
+     * Percentage = (marks obtained / total marks) x 100, filled in
+     * automatically in the read-only Percentage field.
+     * ---------------------------------------------------------------- */
+    function initPercentageCalc() {
+        const obtained = document.getElementById('obtained');
+        const total = document.getElementById('total');
+        const percentage = document.getElementById('percentage');
+        if (!obtained || !total || !percentage) return;
+
+        function calculate() {
+            const got = parseFloat(obtained.value);
+            const max = parseFloat(total.value);
+
+            if (!Number.isFinite(got) || !Number.isFinite(max) || max <= 0 || got < 0 || got > max) {
+                percentage.value = '';
+            } else {
+                percentage.value = parseFloat(((got / max) * 100).toFixed(2));
+            }
+
+            // If "Marks obtained" was already checked, refresh its message (e.g. total lowered below obtained).
+            if (obtained.classList.contains('is-invalid') || obtained.classList.contains('is-valid')) {
+                const result = validateField(obtained);
+                setFieldValidity(obtained, result.valid, result.message);
+            }
+        }
+
+        obtained.addEventListener('input', calculate);
+        total.addEventListener('input', calculate);
+        calculate();
+    }
+
+    initPercentageCalc();
     initAdmissionForm();
     initContactForm();
 })();

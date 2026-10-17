@@ -26,6 +26,13 @@
                     </a>
                 </li>
 
+                <li class="{{ request()->routeIs('gallery.*') ? 'active' : '' }}">
+                    <a href="{{ route('gallery.index') }}">
+                        <img src="{{ asset('backend/assets/img/icons/product.svg') }}" alt="img">
+                        <span>Gallery</span>
+                    </a>
+                </li>
+
             </ul>
 
 

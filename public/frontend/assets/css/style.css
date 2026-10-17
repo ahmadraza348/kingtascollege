@@ -140,24 +140,25 @@ img { max-width: 100%; }
 .topbar {
   background: var(--primary-darker);
   color: #c9d9ec;
-  font-size: .85rem;
-  padding: .45rem 0;
+  font-size: 1rem;
+  padding: .8rem 0;
 }
 .topbar a { color: #c9d9ec; }
 .topbar a:hover { color: #fff; }
-.topbar .topbar-item { display: inline-flex; align-items: center; gap: .4rem; }
-.topbar .divider { opacity: .3; margin: 0 .75rem; }
+.topbar .topbar-item { display: inline-flex; align-items: center; gap: .6rem; font-weight: 500; padding: .15rem 0; }
+.topbar .topbar-item i { font-size: 1.15rem; }
+.topbar .divider { opacity: .3; margin: 0 1.1rem; }
 .admission-pill {
   display: inline-flex; align-items: center; gap: .45rem;
   background: var(--secondary); color: #fff; border-radius: 999px;
-  padding: .12rem .8rem; font-weight: 600; font-size: .78rem;
+  padding: .35rem 1.1rem; font-weight: 600; font-size: .92rem;
 }
 .admission-pill .dot {
-  width: 8px; height: 8px; border-radius: 50%; background: #fff;
+  width: 10px; height: 10px; border-radius: 50%; background: #fff;
   animation: pulse-dot 1.8s ease-in-out infinite;
 }
 .topbar .social-links a {
-  width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; font-size: 1.2rem; display: inline-flex; align-items: center; justify-content: center;
   border-radius: 50%; background: rgba(255,255,255,.1);
 }
 .topbar .social-links a:hover { background: var(--primary); color: #fff; }
@@ -560,3 +561,26 @@ html[dir="rtl"] .timeline-step { left: auto; right: 0; }
 html[dir="rtl"] .floating-actions { right: auto; left: 18px; }
 html[dir="rtl"] .back-to-top { right: auto; left: 18px; }
 html[dir="rtl"] .badge-float { left: auto; right: 12px; }
+
+/* ---------- CEO message (home page) -------------------------------------- */
+.ceo-photo { position: relative; max-width: 360px; margin: 0 auto; }
+.ceo-photo::before {
+  content: ""; position: absolute; inset: 16px -16px -16px 16px; z-index: 0;
+  border: 3px solid var(--secondary); border-radius: var(--radius-lg);
+}
+.ceo-photo img {
+  position: relative; z-index: 1; display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); background: var(--primary-soft);
+}
+.ceo-message .quote-mark { display: block; font-size: 3.2rem; line-height: 1; color: var(--primary); opacity: .25; margin-bottom: .25rem; }
+.ceo-message .ceo-text { font-size: 1.05rem; color: var(--text); }
+.ceo-signoff { border-left: 4px solid var(--secondary); padding-left: 1rem; margin-top: 1.5rem; }
+.ceo-signoff .ceo-name { font-family: var(--font-heading); font-weight: 700; color: var(--dark); font-size: 1.15rem; margin: 0; }
+.ceo-signoff .ceo-role { color: var(--muted-text); font-size: .92rem; margin: 0; }
+@media (max-width: 575.98px) {
+  .ceo-photo { max-width: 280px; }
+  .ceo-photo::before { inset: 12px -10px -12px 10px; }
+}
+
+/* ---------- Auto-calculated percentage (admission form) ------------------- */
+#percentage[readonly] { background-color: var(--primary-soft); font-weight: 600; color: var(--dark); cursor: default; }

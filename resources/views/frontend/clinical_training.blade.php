@@ -104,7 +104,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="internship">
   <div class="container">
     <div class="section-header"><span class="eyebrow">Practical Learning / Internship</span><h2>3 Hospitals for hands-on practice</h2>
     <p>Students gain practical learning and internship experience in real hospital settings at these partner hospitals in Gojra.</p></div>

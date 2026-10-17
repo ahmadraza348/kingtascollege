@@ -2,10 +2,10 @@
 
     <div class="header-left active">
         <a href="{{ route('admin.dashboard') }}" class="logo">
-            <img src="{{ asset('backend/assets/img/logo.png') }}" alt="">
+            <img src="{{ asset('frontend/assets/images/logo/logo.png') }}" alt=""style="width: 48px; height: 48px; ">
         </a>
         <a href="index.html" class="logo-small">
-            <img src="{{ asset('backend/assets/img/logo-small.png') }}" alt="">
+            <img src="{{ asset('frontend/assets/images/logo/logo.png') }}" alt="" style="width: 48px; height: 48px;">
         </a>
         <a id="toggle_btn" href="javascript:void(0);">
         </a>
@@ -79,11 +79,11 @@
                         </div>
                     </div>
                     <hr class="m-0">
-                    <a class="dropdown-item" href=""> <i class="me-2"
+                    <!-- <a class="dropdown-item" href=""> <i class="me-2"
                             data-feather="user"></i>
                         My Profile</a>
                     <a class="dropdown-item" href=""><i class="me-2"
-                            data-feather="settings"></i>Settings</a>
+                            data-feather="settings"></i>Settings</a> -->
                     <hr class="m-0">
                     {{-- <a class="dropdown-item logout pb-0" href="signin.html"><img
                             src="{{ asset('backend/assets/img/icons/log-out.svg') }}" class="me-2"

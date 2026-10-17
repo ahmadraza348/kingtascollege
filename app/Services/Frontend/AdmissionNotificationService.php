@@ -68,6 +68,16 @@ class AdmissionNotificationService
         ])->setPaper('a4', 'portrait')->output();
     }
 
+    /**
+     * Build the empty, printable admission form students can download from the website.
+     */
+    public function makeBlankPdf(): string
+    {
+        return Pdf::loadView('pdf.admission_form_blank', [
+            'logo' => $this->publicImageDataUri('frontend/assets/images/logo/logo.png'),
+        ])->setPaper('a4', 'portrait')->output();
+    }
+
     /** Embed a public-folder image as a data URI (DomPDF needs no remote access). */
     private function publicImageDataUri(string $relativePath): ?string
     {
