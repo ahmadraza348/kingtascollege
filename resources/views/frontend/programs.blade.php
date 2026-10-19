@@ -52,10 +52,10 @@
       </div>
       <p class="small text-soft flex-grow-1">A professional nursing degree pathway focused on patient care, clinical competence and evidence-based nursing practice.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>4 years (Degree Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>FSc Pre-Medical, min. 50% &bull; Age 14&ndash;35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=bsn-generic">Learn More</a>
@@ -77,10 +77,10 @@
       </div>
       <p class="small text-soft flex-grow-1">A progression pathway for registered nurses who want to advance academic qualifications and professional responsibility.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>2 years (Post RN BSN / BSM Degree Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Nursing diploma + 1&ndash;2 yrs experience &bull; Age 35&ndash;55</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=post-rn">Learn More</a>
@@ -102,10 +102,10 @@
       </div>
       <p class="small text-soft flex-grow-1">Community and maternal healthcare training focused on family health education, preventive care and primary healthcare support.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>2 years (Diploma Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>FSc / Matric Science, min. 45% &bull; Age 14&ndash;35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=lhv">Learn More</a>
@@ -127,10 +127,10 @@
       </div>
       <p class="small text-soft flex-grow-1">Maternal and newborn care training covering antenatal, delivery and postnatal support within community healthcare settings.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>18 months (Diploma Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric (Arts or Science), min. 40% &bull; Age 14&ndash;40</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=cmw">Learn More</a>
@@ -152,10 +152,10 @@
       </div>
       <p class="small text-soft flex-grow-1">Entry-level patient-care training covering basic nursing assistance, hygiene care, vitals monitoring and ward support.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>2 years (Diploma Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>FSc / Matric Science 45%, or Matric Arts / FA 50% &bull; Age 14&ndash;35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=cna">Learn More</a>
@@ -180,7 +180,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
@@ -205,7 +205,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
@@ -230,7 +230,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
@@ -255,7 +255,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=dental-technician">Learn More</a>
@@ -280,7 +280,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=operation-theater-technology">Learn More</a>
@@ -305,7 +305,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=dispenser">Learn More</a>
@@ -330,7 +330,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science or Computer Science, 2nd Div. &bull; No age limit</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=b-category-pharmacy-technician">Learn More</a>

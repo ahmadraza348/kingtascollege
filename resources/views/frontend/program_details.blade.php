@@ -37,8 +37,8 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">FSc (Pre-Medical) with a minimum of 50% marks (Physics, Chemistry &amp; Biology compulsory). Age limit: 14&ndash;35 years. Gender ratio: open merit.</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">4 years (Degree Program)</p></div></div>
   </div>
 
   <h2 class="h4 mt-5">Study structure</h2>
@@ -107,8 +107,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -117,8 +116,8 @@
 <ul class="list-unstyled small mb-4">
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>BSN Generic</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Nursing</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>4 years (Degree Program)</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>FSc Pre-Medical, min. 50% &bull; Age 14&ndash;35</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -147,10 +146,10 @@
       </div>
       <p class="small text-soft flex-grow-1">A progression pathway for registered nurses who want to advance academic qualifications and professional responsibility.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>2 years (Post RN BSN / BSM Degree Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Nursing diploma + 1&ndash;2 yrs experience &bull; Age 35&ndash;55</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=post-rn">Learn More</a>
@@ -172,10 +171,10 @@
       </div>
       <p class="small text-soft flex-grow-1">Community and maternal healthcare training focused on family health education, preventive care and primary healthcare support.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>2 years (Diploma Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>FSc / Matric Science, min. 45% &bull; Age 14&ndash;35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=lhv">Learn More</a>
@@ -197,10 +196,10 @@
       </div>
       <p class="small text-soft flex-grow-1">Maternal and newborn care training covering antenatal, delivery and postnatal support within community healthcare settings.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>18 months (Diploma Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric (Arts or Science), min. 40% &bull; Age 14&ndash;40</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=cmw">Learn More</a>
@@ -247,8 +246,8 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Matric with Science (Biology, Chemistry &amp; Physics) or Matric Arts as per HEC; some universities also accept FSc. Mandatory: 3-year Diploma in General Nursing, plus 1-year Diploma in Midwifery (female nurses) or a 1-year specialized post-basic diploma (male nurses). Minimum 1 to 2 years of clinical experience as a Registered Nurse. Age limit: generally 35&ndash;55 years.</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">2 years (Post RN BSN / BSM Degree Program)</p></div></div>
   </div>
 
   <h2 class="h4 mt-5">Study structure</h2>
@@ -317,8 +316,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -327,8 +325,8 @@
 <ul class="list-unstyled small mb-4">
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>Post RN</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Nursing</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>2 years (Post RN BSN / BSM Degree Program)</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Nursing diploma + 1&ndash;2 yrs experience &bull; Age 35&ndash;55</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -357,10 +355,10 @@
       </div>
       <p class="small text-soft flex-grow-1">A professional nursing degree pathway focused on patient care, clinical competence and evidence-based nursing practice.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>4 years (Degree Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>FSc Pre-Medical, min. 50% &bull; Age 14&ndash;35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=bsn-generic">Learn More</a>
@@ -382,10 +380,10 @@
       </div>
       <p class="small text-soft flex-grow-1">Community and maternal healthcare training focused on family health education, preventive care and primary healthcare support.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>2 years (Diploma Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>FSc / Matric Science, min. 45% &bull; Age 14&ndash;35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=lhv">Learn More</a>
@@ -407,10 +405,10 @@
       </div>
       <p class="small text-soft flex-grow-1">Maternal and newborn care training covering antenatal, delivery and postnatal support within community healthcare settings.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>18 months (Diploma Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric (Arts or Science), min. 40% &bull; Age 14&ndash;40</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=cmw">Learn More</a>
@@ -457,8 +455,8 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">FSc (Pre-Medical) with minimum 45% marks, or Matric (Science) with minimum 45% marks (Physics, Chemistry &amp; Biology compulsory). Age limit: 14&ndash;35 years.</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">2 years (Diploma Program)</p></div></div>
   </div>
 
   <h2 class="h4 mt-5">Study structure</h2>
@@ -526,8 +524,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -536,8 +533,8 @@
 <ul class="list-unstyled small mb-4">
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>LHV (Lady Health Visitor)</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Nursing</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>2 years (Diploma Program)</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>FSc / Matric Science, min. 45% &bull; Age 14&ndash;35</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -566,10 +563,10 @@
       </div>
       <p class="small text-soft flex-grow-1">A professional nursing degree pathway focused on patient care, clinical competence and evidence-based nursing practice.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>4 years (Degree Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>FSc Pre-Medical, min. 50% &bull; Age 14&ndash;35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=bsn-generic">Learn More</a>
@@ -591,10 +588,10 @@
       </div>
       <p class="small text-soft flex-grow-1">A progression pathway for registered nurses who want to advance academic qualifications and professional responsibility.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>2 years (Post RN BSN / BSM Degree Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Nursing diploma + 1&ndash;2 yrs experience &bull; Age 35&ndash;55</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=post-rn">Learn More</a>
@@ -616,10 +613,10 @@
       </div>
       <p class="small text-soft flex-grow-1">Maternal and newborn care training covering antenatal, delivery and postnatal support within community healthcare settings.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>18 months (Diploma Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric (Arts or Science), min. 40% &bull; Age 14&ndash;40</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=cmw">Learn More</a>
@@ -666,8 +663,8 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Matric (either Arts or Science) with 40% marks. Age limit: 14&ndash;40 years.</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">18 months (Diploma Program)</p></div></div>
   </div>
 
   <h2 class="h4 mt-5">Study structure</h2>
@@ -735,8 +732,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -745,8 +741,8 @@
 <ul class="list-unstyled small mb-4">
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>CMW (Community Midwife)</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Nursing</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>18 months (Diploma Program)</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Matric (Arts or Science), min. 40% &bull; Age 14&ndash;40</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -775,10 +771,10 @@
       </div>
       <p class="small text-soft flex-grow-1">A professional nursing degree pathway focused on patient care, clinical competence and evidence-based nursing practice.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>4 years (Degree Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>FSc Pre-Medical, min. 50% &bull; Age 14&ndash;35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=bsn-generic">Learn More</a>
@@ -800,10 +796,10 @@
       </div>
       <p class="small text-soft flex-grow-1">A progression pathway for registered nurses who want to advance academic qualifications and professional responsibility.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>2 years (Post RN BSN / BSM Degree Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Nursing diploma + 1&ndash;2 yrs experience &bull; Age 35&ndash;55</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=post-rn">Learn More</a>
@@ -825,10 +821,10 @@
       </div>
       <p class="small text-soft flex-grow-1">Community and maternal healthcare training focused on family health education, preventive care and primary healthcare support.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>2 years (Diploma Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>FSc / Matric Science, min. 45% &bull; Age 14&ndash;35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=lhv">Learn More</a>
@@ -875,8 +871,8 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">FSc (Pre-Medical) or Matric (Science) with minimum 45% marks (Physics, Chemistry &amp; Biology compulsory), or Matric (Arts) / FA with 50% marks. Age limit: 14&ndash;35 years.</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">2 years (Diploma Program)</p></div></div>
   </div>
 
   <h2 class="h4 mt-5">Study structure</h2>
@@ -944,8 +940,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -954,8 +949,8 @@
 <ul class="list-unstyled small mb-4">
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>CNA (Certified Nursing Assistant)</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Nursing</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>2 years (Diploma Program)</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>FSc / Matric Science 45%, or Matric Arts / FA 50% &bull; Age 14&ndash;35</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -984,10 +979,10 @@
       </div>
       <p class="small text-soft flex-grow-1">A professional nursing degree pathway focused on patient care, clinical competence and evidence-based nursing practice.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>4 years (Degree Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>FSc Pre-Medical, min. 50% &bull; Age 14&ndash;35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=bsn-generic">Learn More</a>
@@ -1009,10 +1004,10 @@
       </div>
       <p class="small text-soft flex-grow-1">A progression pathway for registered nurses who want to advance academic qualifications and professional responsibility.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>2 years (Post RN BSN / BSM Degree Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Nursing diploma + 1&ndash;2 yrs experience &bull; Age 35&ndash;55</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=post-rn">Learn More</a>
@@ -1034,10 +1029,10 @@
       </div>
       <p class="small text-soft flex-grow-1">Community and maternal healthcare training focused on family health education, preventive care and primary healthcare support.</p>
       <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-clock me-1"></i>2 years (Diploma Program)</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>FSc / Matric Science, min. 45% &bull; Age 14&ndash;35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=lhv">Learn More</a>
@@ -1084,7 +1079,7 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Matriculation with Science (Physics, Chemistry and Biology) in at least 2nd Division (unadjusted); combined science marks not less than 45%. Age limit: maximum 35 years.</p></div></div>
     <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
   </div>
 
@@ -1153,8 +1148,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -1164,7 +1158,7 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>Anesthesia Technician</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Allied Health</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Matric Science, 2nd Div., science 45% &bull; Max age 35</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -1196,7 +1190,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
@@ -1221,7 +1215,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
@@ -1246,7 +1240,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=dental-technician">Learn More</a>
@@ -1293,7 +1287,7 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Matriculation with Science (Physics, Chemistry and Biology) in at least 2nd Division (unadjusted); combined science marks not less than 45%. Age limit: maximum 35 years.</p></div></div>
     <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
   </div>
 
@@ -1362,8 +1356,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -1373,7 +1366,7 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>Radiography Technology + F.Sc</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Allied Health</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Matric Science, 2nd Div., science 45% &bull; Max age 35</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -1405,7 +1398,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
@@ -1430,7 +1423,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
@@ -1455,7 +1448,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=dental-technician">Learn More</a>
@@ -1502,7 +1495,7 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Matriculation with Science (Physics, Chemistry and Biology) in at least 2nd Division (unadjusted); combined science marks not less than 45%. Age limit: maximum 35 years.</p></div></div>
     <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
   </div>
 
@@ -1571,8 +1564,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -1582,7 +1574,7 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>Medical Lab Technology + F.Sc</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Allied Health</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Matric Science, 2nd Div., science 45% &bull; Max age 35</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -1614,7 +1606,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
@@ -1639,7 +1631,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
@@ -1664,7 +1656,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=dental-technician">Learn More</a>
@@ -1711,7 +1703,7 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Matriculation with Science (Physics, Chemistry and Biology) in at least 2nd Division (unadjusted); combined science marks not less than 45%. Age limit: maximum 35 years.</p></div></div>
     <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
   </div>
 
@@ -1780,8 +1772,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -1791,7 +1782,7 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>Dental Technician</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Allied Health</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Matric Science, 2nd Div., science 45% &bull; Max age 35</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -1823,7 +1814,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
@@ -1848,7 +1839,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
@@ -1873,7 +1864,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
@@ -1920,7 +1911,7 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Matriculation with Science (Physics, Chemistry and Biology) in at least 2nd Division (unadjusted); combined science marks not less than 45%. Age limit: maximum 35 years.</p></div></div>
     <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
   </div>
 
@@ -1989,8 +1980,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -2000,7 +1990,7 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>Operation Theater Technology + F.Sc</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Allied Health</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Matric Science, 2nd Div., science 45% &bull; Max age 35</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -2032,7 +2022,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
@@ -2057,7 +2047,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
@@ -2082,7 +2072,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
@@ -2129,7 +2119,7 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Matriculation with Science (Physics, Chemistry and Biology) in at least 2nd Division (unadjusted); combined science marks not less than 45%. Age limit: maximum 35 years.</p></div></div>
     <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
   </div>
 
@@ -2198,8 +2188,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -2209,7 +2198,7 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>Dispenser + F.Sc</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Allied Health</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Matric Science, 2nd Div., science 45% &bull; Max age 35</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -2241,7 +2230,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
@@ -2266,7 +2255,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
@@ -2291,7 +2280,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
@@ -2338,7 +2327,7 @@
   learning environment.</p>
 
   <div class="row g-3 mt-4">
-    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
+    <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-mortarboard text-brand me-2"></i>Eligibility</h3><p class="small mb-0">Matriculation with Science (Physics, Chemistry and Biology) &mdash; Computer Science is also acceptable &mdash; in at least 2nd Division (unadjusted); combined science marks not less than 45%. No age limit.</p></div></div>
     <div class="col-md-6"><div class="card-brand p-3 h-100"><h3 class="h6"><i class="bi bi-clock text-brand me-2"></i>Duration</h3><p class="small mb-0">Details to be confirmed by Admissions Office</p></div></div>
   </div>
 
@@ -2407,8 +2396,7 @@
 </div>
   </div>
 
-  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Program duration, eligibility and affiliation details
-  are pending confirmation by the college administration and should be verified before publishing.</div>
+  <div class="demo-note mt-4"><i class="bi bi-info-circle me-1"></i>Eligibility is as listed above. Please confirm the final requirements and required documents with the Admissions Office before applying.</div>
 </article>
       </div>
       <aside class="col-lg-4">
@@ -2418,7 +2406,7 @@
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Program</span><strong>B-Category Pharmacy Technician</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Category</span><strong>Allied Health</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Duration</span><strong>Details to be confirmed by Admissions Office</strong></li>
-  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Details to be confirmed by Admissions Office</strong></li>
+  <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Eligibility</span><strong>Matric Science or Computer Science, 2nd Div. &bull; No age limit</strong></li>
   <li class="d-flex justify-content-between border-bottom py-2"><span class="text-soft">Admission status</span><strong class="text-brand-red">Admissions Open</strong></li>
   <li class="d-flex justify-content-between py-2"><span class="text-soft">How to apply</span><strong>Online form or campus visit</strong></li>
 </ul>
@@ -2450,7 +2438,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
@@ -2475,7 +2463,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
@@ -2500,7 +2488,7 @@
         <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
       </div>
       <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>

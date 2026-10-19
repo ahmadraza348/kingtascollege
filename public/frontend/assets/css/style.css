@@ -184,7 +184,7 @@ body.nav-stuck { padding-top: 78px; }
   color: var(--dark);
   padding: .55rem .78rem !important;
   position: relative;
-  font-size: .93rem;
+  font-size: 1.08rem;
 }
 .site-navbar .nav-link::after {
   content: ""; position: absolute; left: .78rem; right: .78rem; bottom: .28rem;
@@ -204,7 +204,7 @@ body.nav-stuck { padding-top: 78px; }
   min-width: 250px;
 }
 .site-navbar .dropdown-item {
-  border-radius: 8px; padding: .5rem .75rem; font-size: .9rem; color: var(--text);
+  border-radius: 8px; padding: .5rem .75rem; font-size: 1rem; color: var(--text);
 }
 .site-navbar .dropdown-item:hover, .site-navbar .dropdown-item:focus { background: var(--primary-soft); color: var(--primary-dark); }
 .dropdown-header { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--secondary); font-weight: 700; }
@@ -584,3 +584,25 @@ html[dir="rtl"] .badge-float { left: auto; right: 12px; }
 
 /* ---------- Auto-calculated percentage (admission form) ------------------- */
 #percentage[readonly] { background-color: var(--primary-soft); font-weight: 600; color: var(--dark); cursor: default; }
+
+/* ---------- CEO message box (home page) ---------------------------------- */
+.ceo-box {
+  display: flex; align-items: stretch; margin: 0 auto;
+  background: #fff; border: 1px solid var(--border); border-top: 5px solid var(--secondary);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
+}
+.ceo-box-photo { flex: 0 0 280px; background: var(--primary-soft); }
+.ceo-box-photo img { display: block; width: 100%; height: 100%; min-height: 320px; object-fit: cover; }
+.ceo-box-body { flex: 1; padding: 2.25rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+.ceo-box-quote { font-size: 3rem; line-height: 1; color: var(--primary); opacity: .25; margin: .5rem 0 0; }
+.ceo-box-text { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 500; line-height: 1.5; color: var(--dark); margin: 0 0 1.5rem; }
+.ceo-box-sign { border-left: 4px solid var(--secondary); padding-left: 1rem; }
+.ceo-box-sign .ceo-name { font-family: var(--font-heading); font-weight: 700; color: var(--dark); font-size: 1.25rem; margin: 0; }
+.ceo-box-sign .ceo-role { color: var(--muted-text); font-size: .92rem; margin: 0; }
+@media (max-width: 767.98px) {
+  .ceo-box { flex-direction: column; }
+  .ceo-box-photo { flex: none; }
+  .ceo-box-photo img { min-height: 0; height: 280px; object-position: top; }
+  .ceo-box-body { padding: 1.5rem; }
+  .ceo-box-text { font-size: 1.1rem; }
+}

@@ -1,7 +1,20 @@
 /* Responsive refinements — mobile first priorities */
 
+/* Laptop widths: slightly tighter links so the full menu (incl. Eligibility) fits on one line. */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+  .site-navbar .nav-link { padding: .55rem .5rem !important; font-size: 1rem; }
+  .site-navbar .nav-link::after { left: .5rem; right: .5rem; }
+}
+
+/* Below 1200px the menu collapses into the hamburger. */
 @media (max-width: 1199.98px) {
-  .site-navbar .nav-link { padding: .55rem .6rem !important; font-size: .9rem; }
+  .site-navbar .navbar-collapse {
+    background: #fff; border-top: 1px solid var(--border); margin-top: .6rem;
+    padding: .75rem .25rem; max-height: 72vh; overflow-y: auto;
+  }
+  .site-navbar .dropdown-menu { border: 0; box-shadow: none; padding-left: .5rem; }
+  .site-navbar .nav-link::after { display: none; }
+  .site-navbar .nav-link { font-size: 1.1rem; }
 }
 
 @media (max-width: 991.98px) {
@@ -11,13 +24,6 @@
   .gallery-grid { column-count: 2; }
   .cta-band { padding: 2.25rem 1.5rem; }
   .sticky-side { position: static; }
-
-  .site-navbar .navbar-collapse {
-    background: #fff; border-top: 1px solid var(--border); margin-top: .6rem;
-    padding: .75rem .25rem; max-height: 72vh; overflow-y: auto;
-  }
-  .site-navbar .dropdown-menu { border: 0; box-shadow: none; padding-left: .5rem; }
-  .site-navbar .nav-link::after { display: none; }
 }
 
 @media (max-width: 767.98px) {

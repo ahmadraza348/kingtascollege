@@ -147,6 +147,68 @@
     }
 
     /* ------------------------------------------------------------------
+     * Admission form: English only + no browser autofill
+     *
+     * - Fields marked data-english accept English characters only. Urdu (or any
+     *   other script) is removed as it is typed/pasted and the user is told why.
+     *   data-english="name"  -> letters, space, dot, apostrophe, hyphen
+     *   data-english="text"  -> any printable English (ASCII) character
+     * - Browsers are told not to autofill (autocomplete="off" in the markup).
+     *   Some browsers ignore that, so text fields start read-only and unlock when
+     *   the person clicks/tabs into them, and any value injected by an autofill
+     *   (an input event that is not real typing/pasting) is cleared.
+     * The server validates the same rules, so this is only a convenience.
+     * ---------------------------------------------------------------- */
+    const ENGLISH_MESSAGE = 'Please type in English only. Urdu or other scripts are not allowed.';
+    const disallowed = {
+        name: /[^A-Za-z .'\-]/g,
+        text: /[^\x20-\x7E\r\n]/g
+    };
+
+    function initEnglishOnly(form) {
+        form.querySelectorAll('[data-english]').forEach((field) => {
+            const rule = disallowed[field.dataset.english] || disallowed.text;
+
+            field.setAttribute('lang', 'en');
+            field.setAttribute('dir', 'ltr');
+
+            field.addEventListener('input', (event) => {
+                const original = field.value;
+                const cleaned = original.replace(rule, '');
+                if (cleaned !== original) {
+                    field.value = cleaned;
+                    setFieldValidity(field, false, ENGLISH_MESSAGE);
+                }
+            });
+        });
+    }
+
+    function initNoAutofill(form) {
+        const guarded = Array.from(form.querySelectorAll(
+            'input[type="text"], input:not([type]), input[type="email"], input[type="tel"], textarea'
+        )).filter((field) => !field.readOnly);
+
+        guarded.forEach((field) => {
+            // Unlock when the person actually interacts with the field.
+            field.readOnly = true;
+            const unlock = () => { field.readOnly = false; };
+            field.addEventListener('focus', unlock);
+            field.addEventListener('pointerdown', unlock);
+            field.addEventListener('touchstart', unlock, { passive: true });
+
+            // Autofill fires a plain Event; typing/pasting fires an InputEvent.
+            field.addEventListener('input', (event) => {
+                if (typeof InputEvent !== 'undefined' && !(event instanceof InputEvent) && field.value) {
+                    field.value = '';
+                }
+            });
+        });
+
+        // Make sure nothing stays locked when the form is submitted.
+        form.addEventListener('submit', () => guarded.forEach((field) => { field.readOnly = false; }), true);
+    }
+
+    /* ------------------------------------------------------------------
      * Multi-step admission application
      * ---------------------------------------------------------------- */
     function initAdmissionForm() {
@@ -170,6 +232,9 @@
         let reviewObjectUrls = [];
 
         attachLiveValidation(form);
+        // Attached after live validation so the English-only message is not wiped straight away.
+        initEnglishOnly(form);
+        initNoAutofill(form);
 
         function validateStep(stepIndex) {
             let allValid = true;

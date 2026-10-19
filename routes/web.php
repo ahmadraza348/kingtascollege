@@ -28,8 +28,14 @@ Route::name('frontend.')->group(function () {
     // Admissions
     Route::get('/admission', [AdmissionController::class, 'admission'])->name('admission');
     Route::post('/admission', [AdmissionController::class, 'store'])->name('admission.store');
+    Route::get('/admission/view-form', [AdmissionController::class, 'viewForm'])->name('admission.view-form');
+    Route::get('/admission/form-preview', [AdmissionController::class, 'previewForm'])->name('admission.form-preview');
     Route::get('/admission/download-form', [AdmissionController::class, 'downloadForm'])->name('admission.download');
     Route::get('/admission/success', [AdmissionController::class, 'success'])->name('admission_success');
+    // After applying, the student can view their own uploaded documents and submitted form.
+    Route::get('/admission/success/form', [AdmissionController::class, 'myForm'])->name('admission.my-form');
+    Route::get('/admission/success/documents/{key}', [AdmissionController::class, 'myDocument'])
+        ->where('key', '[a-z_0-9]+')->name('admission.my-document');
     Route::get('/eligibility', [EligibilityController::class, 'eligibility'])->name('eligibility');
 
     // Academics

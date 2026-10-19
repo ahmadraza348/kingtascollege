@@ -82,13 +82,13 @@
                                 <td data-order="{{ $item->created_at->timestamp }}">{{ $item->created_at->format('d M Y') }}</td>
                                 <td class="text-nowrap">
                                     <a href="{{ route('admission.show', $item) }}" class="me-3" title="Open"><img src="{{ asset('backend/assets/img/icons/eye.svg') }}" alt="Open"></a>
-                                    <form action="{{ route('admission.destroy', $item) }}" method="POST" class="d-inline">
+                                    <!-- <form action="{{ route('admission.destroy', $item) }}" method="POST" class="d-inline">
                                         @csrf @method('DELETE')
                                         <button type="submit" class="btn btn-link p-0" title="Delete"
                                                 onclick="return confirm('Delete this application and all its documents? This cannot be undone.');">
                                             <img src="{{ asset('backend/assets/img/icons/delete.svg') }}" alt="Delete">
                                         </button>
-                                    </form>
+                                    </form> -->
                                 </td>
                             </tr>
                         @endforeach

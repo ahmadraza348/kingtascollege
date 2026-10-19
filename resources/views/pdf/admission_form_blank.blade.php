@@ -4,27 +4,27 @@
 <meta charset="utf-8">
 <title>King TAS College - Admission Form (Session 2026-27)</title>
 <style>
-    @page { margin: 22px 34px 46px 34px; }
-    body { font-family: 'DejaVu Sans', sans-serif; font-size: 10px; color: #334155; line-height: 1.3; }
+    @page { margin: 16px 30px 34px 30px; }
+    body { font-family: 'DejaVu Sans', sans-serif; font-size: 9.5px; color: #334155; line-height: 1.25; }
     table { width: 100%; border-collapse: collapse; }
     .header { background: #10233f; color: #fff; border-bottom: 4px solid #d71919; }
-    .header td { padding: 9px 14px; vertical-align: middle; }
-    .college { font-size: 16px; font-weight: bold; color: #fff; }
-    .sub { font-size: 9px; color: #bcd3ee; letter-spacing: .5px; }
-    .title { font-size: 15px; font-weight: bold; color: #10233f; }
-    .photo { width: 92px; height: 112px; border: 1px dashed #94a3b8; text-align: center; color: #94a3b8; font-size: 8.5px; }
-    .section-title { background: #075db8; color: #fff; font-weight: bold; padding: 5px 10px; font-size: 11px; margin-top: 7px; }
-    table.grid td { padding: 5px 9px 1px 9px; vertical-align: bottom; }
-    td.label { color: #64748b; font-size: 9.5px; width: 17%; white-space: nowrap; }
+    .header td { padding: 6px 12px; vertical-align: middle; }
+    .college { font-size: 14px; font-weight: bold; color: #fff; }
+    .sub { font-size: 8px; color: #bcd3ee; letter-spacing: .3px; }
+    .title { font-size: 13px; font-weight: bold; color: #10233f; }
+    .photo { width: 78px; height: 92px; border: 1px dashed #94a3b8; text-align: center; color: #94a3b8; font-size: 7.5px; }
+    .section-title { background: #075db8; color: #fff; font-weight: bold; padding: 4px 8px; font-size: 10px; margin-top: 7px; }
+    table.grid td { padding: 11px 8px 1px 8px; vertical-align: bottom; }
+    td.label { color: #64748b; font-size: 9px; width: 17%; white-space: nowrap; }
     td.line { border-bottom: 1px solid #94a3b8; width: 33%; }
-    td.choices { padding-top: 5px; font-size: 10px; color: #10233f; vertical-align: top; line-height: 1.35; }
+    td.choices { padding-top: 6px; font-size: 9.5px; color: #10233f; vertical-align: top; line-height: 1.3; }
     table.grid td.top { vertical-align: top; }
-    .box { font-size: 13px; }
-    .note { font-size: 9px; color: #64748b; margin-top: 6px; }
-    .declaration { border: 1px solid #e2e8f0; background: #f6f9fc; padding: 8px 10px; margin-top: 4px; font-size: 9.5px; }
-    .sign td { padding-top: 22px; text-align: center; font-size: 9.5px; color: #64748b; }
+    .box { font-size: 11px; }
+    .note { font-size: 8px; color: #64748b; margin-top: 4px; }
+    .declaration { border: 1px solid #e2e8f0; background: #f6f9fc; padding: 6px 8px; margin-top: 3px; font-size: 9px; }
+    .sign td { padding-top: 34px; padding-left: 8px; padding-right: 8px; text-align: center; font-size: 8.5px; color: #64748b; }
     .sign .line { border-top: 1px solid #94a3b8; padding-top: 4px; }
-    .footer { position: fixed; bottom: -30px; left: 0; right: 0; text-align: center; font-size: 8.5px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 5px; }
+    .footer { position: fixed; bottom: -22px; left: 0; right: 0; text-align: center; font-size: 8px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 3px; }
 </style>
 </head>
 <body>
@@ -32,7 +32,7 @@
 {{-- Letterhead --}}
 <table class="header">
     <tr>
-        <td style="width:62px;">@if($logo)<img src="{{ $logo }}" width="52" height="52" style="background:#fff;padding:3px;">@endif</td>
+        <td style="width:52px;">@if($logo)<img src="{{ $logo }}" width="42" height="42" style="background:#fff;padding:2px;">@endif</td>
         <td>
             <div class="college">King TAS College of Nursing &amp; Allied Health Sciences</div>
             <div class="sub">Main Painsara Road, College Road, Near Model City Phase 3, Gojra, Toba Tek Singh, Punjab</div>
@@ -42,7 +42,7 @@
 </table>
 
 {{-- Title + form number + photo --}}
-<table style="margin:10px 0 2px 0;">
+<table style="margin:6px 0 0 0;">
     <tr>
         <td style="vertical-align:top;">
             <div class="title">ADMISSION FORM &mdash; SESSION 2026&ndash;27</div>
@@ -56,8 +56,8 @@
             </table>
             <div class="note" style="margin-top:3px;">Please fill in this form in block letters and attach photocopies of the documents listed in section 5.</div>
         </td>
-        <td style="width:100px;vertical-align:top;" align="right">
-            <div class="photo"><div style="padding-top:34px;">Affix recent<br>passport size<br>photograph</div></div>
+        <td style="width:86px;vertical-align:top;" align="right">
+            <div class="photo"><div style="padding-top:26px;">Affix recent<br>passport size<br>photograph</div></div>
         </td>
     </tr>
 </table>

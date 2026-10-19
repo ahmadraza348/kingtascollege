@@ -32,6 +32,14 @@
           <li><i class="bi bi-check-circle-fill"></i><span>Practical skill development alongside theory</span></li>
           <li><i class="bi bi-check-circle-fill"></i><span>Admissions guidance for students and families</span></li>
         </ul>
+        <div class="row g-3 mt-3">
+          <div class="col-sm-6"><div class="card-brand p-3 h-100 d-flex align-items-center gap-3">
+            <span class="icon-badge mb-0"><i class="bi bi-award"></i></span>
+            <div><strong class="d-block h5 mb-0">7 Years</strong><span class="small text-soft">of serving healthcare education</span></div></div></div>
+          <div class="col-sm-6"><div class="card-brand p-3 h-100 d-flex align-items-center gap-3">
+            <span class="icon-badge red mb-0"><i class="bi bi-clock"></i></span>
+            <div><strong class="d-block h5 mb-0">8:00 AM – 3:00 PM</strong><span class="small text-soft">College time</span></div></div></div>
+        </div>
       </div>
     </div>
   </div>

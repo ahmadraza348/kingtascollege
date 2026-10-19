@@ -49,6 +49,31 @@
             Please also check your Spam / Junk folder.
           </div>
 
+          <div class="text-start mb-4">
+            <h3 class="h6 mb-3"><i class="bi bi-folder2-open me-2"></i>Your submitted form &amp; documents</h3>
+            <div class="list-group">
+              <a class="list-group-item list-group-item-action d-flex align-items-center gap-3"
+                 href="{{ route('frontend.admission.my-form') }}" target="_blank" rel="noopener">
+                <span class="doc-thumb"><i class="bi bi-file-earmark-pdf fs-3"></i></span>
+                <span class="flex-grow-1"><strong class="d-block">Admission form</strong><span class="small text-soft">PDF copy of your application</span></span>
+                <span class="btn btn-sm btn-brand"><i class="bi bi-eye me-1"></i>View</span>
+              </a>
+              @foreach ($documents as $doc)
+                @php $ext = strtolower(pathinfo($doc['path'], PATHINFO_EXTENSION)); @endphp
+                <a class="list-group-item list-group-item-action d-flex align-items-center gap-3"
+                   href="{{ route('frontend.admission.my-document', $doc['key']) }}" target="_blank" rel="noopener">
+                  @if (in_array($ext, ['jpg', 'jpeg', 'png'], true))
+                    <img class="doc-thumb" src="{{ route('frontend.admission.my-document', $doc['key']) }}" alt="" loading="lazy">
+                  @else
+                    <span class="doc-thumb"><i class="bi bi-file-earmark-pdf fs-3"></i></span>
+                  @endif
+                  <span class="flex-grow-1"><strong class="d-block">{{ $doc['label'] }}</strong><span class="small text-soft">{{ strtoupper($ext) }} file</span></span>
+                  <span class="btn btn-sm btn-outline-brand"><i class="bi bi-eye me-1"></i>View</span>
+                </a>
+              @endforeach
+            </div>
+          </div>
+
           <p class="small text-soft mb-4">
             Please keep your form number safe and quote it whenever you contact the admissions office.
             Our team will review your application and get in touch with you.
@@ -64,4 +89,8 @@
   </div>
 </section>
 </main>
+<style>
+  .doc-thumb { width: 52px; height: 52px; flex: none; display: inline-flex; align-items: center; justify-content: center;
+               object-fit: cover; border: 1px solid var(--border); border-radius: .5rem; background: var(--primary-soft); color: var(--primary); }
+</style>
 @endsection

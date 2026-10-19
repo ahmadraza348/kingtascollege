@@ -24,8 +24,8 @@
         <i class="bi bi-whatsapp"></i><div><h2 class="h6 mb-1">WhatsApp</h2>
         <p class="small mb-0"><a href="https://wa.me/923028098542?text=Hello%2C%20I%20would%20like%20information%20about%20admissions%20at%20King%20TAS%20College." target="_blank" rel="noopener">Message admissions</a></p></div></div></div>
       <div class="col-md-6 col-lg-3" data-reveal data-reveal-delay="4"><div class="card-brand contact-tile h-100">
-        <i class="bi bi-clock"></i><div><h2 class="h6 mb-1">Office hours</h2>
-        <p class="small text-soft mb-0">To be confirmed by the college administration.</p></div></div></div>
+        <i class="bi bi-clock"></i><div><h2 class="h6 mb-1">College time</h2>
+        <p class="small mb-0">8:00 AM to 3:00 PM</p></div></div></div>
     </div>
 
     <div class="row g-5">

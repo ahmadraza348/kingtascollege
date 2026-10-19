@@ -24,14 +24,14 @@ class AdmissionFormRequest extends FormRequest
     {
         return [
             // Personal information
-            'fullName' => ['required', 'string', 'min:3', 'max:120'],
-            'fatherName' => ['required', 'string', 'min:3', 'max:120'],
+            'fullName' => ['required', 'string', 'min:3', 'max:120', 'regex:/^[A-Za-z][A-Za-z .\'-]*$/'],
+            'fatherName' => ['required', 'string', 'min:3', 'max:120', 'regex:/^[A-Za-z][A-Za-z .\'-]*$/'],
             'dob' => ['required', 'date', 'before:today'],
             'gender' => ['required', 'string', Rule::in(['Female', 'Male', 'Prefer not to say'])],
             'cnic' => ['required', 'string', 'max:20', 'regex:/^\d{5}-?\d{7}-?\d$/'],
             'phone' => ['required', 'string', 'max:30', 'regex:/^(0\d{3}-?\d{7}|\+92\d{10})$/'],
             'whatsapp' => ['nullable', 'string', 'max:30', 'regex:/^(0\d{3}-?\d{7}|\+92\d{10})$/'],
-            'email' => ['required', 'email:rfc', 'max:150'],
+            'email' => ['required', 'email:rfc', 'max:150', 'regex:/^[\x20-\x7E]+$/'],
 
             // Academic information
             'qualification' => ['required', 'string', Rule::in([
@@ -41,7 +41,7 @@ class AdmissionFormRequest extends FormRequest
                 'Bachelor',
                 'Other',
             ])],
-            'institution' => ['required', 'string', 'max:150'],
+            'institution' => ['required', 'string', 'max:150', 'regex:/^[\x20-\x7E]+$/'],
             'obtained' => ['nullable', 'numeric', 'min:0', function (string $attribute, mixed $value, \Closure $fail) {
                 $total = $this->input('total');
                 if (is_numeric($value) && is_numeric($total) && (float) $value > (float) $total) {
@@ -67,12 +67,12 @@ class AdmissionFormRequest extends FormRequest
                 'B-Category Pharmacy Technician',
             ])],
             'session' => ['required', Rule::in(['2026–27'])],
-            'notes' => ['nullable', 'string', 'max:600'],
+            'notes' => ['nullable', 'string', 'max:600', 'regex:/^[\x20-\x7E\r\n]*$/'],
 
             // Address
-            'street' => ['required', 'string', 'max:200'],
-            'city' => ['required', 'string', 'max:100'],
-            'district' => ['nullable', 'string', 'max:100'],
+            'street' => ['required', 'string', 'max:200', 'regex:/^[\x20-\x7E]+$/'],
+            'city' => ['required', 'string', 'max:100', 'regex:/^[\x20-\x7E]+$/'],
+            'district' => ['nullable', 'string', 'max:100', 'regex:/^[\x20-\x7E]+$/'],
             'province' => ['nullable', 'string', Rule::in([
                 'Punjab',
                 'Sindh',
@@ -138,6 +138,16 @@ class AdmissionFormRequest extends FormRequest
     {
         return [
             'dob.before' => 'Date of birth must be before today.',
+
+            // The form must be filled in English only (no Urdu or other scripts).
+            'fullName.regex' => 'Please write the full name in English letters only.',
+            'fatherName.regex' => "Please write the father's name in English letters only.",
+            'email.regex' => 'Please enter the email address in English characters only.',
+            'institution.regex' => 'Please write the institution name in English only.',
+            'notes.regex' => 'Please write the notes in English only.',
+            'street.regex' => 'Please write the postal address in English only.',
+            'city.regex' => 'Please write the city name in English only.',
+            'district.regex' => 'Please write the district name in English only.',
             'cnic.regex' => 'Enter a valid CNIC / B-Form number, for example 33302-1234567-1.',
             'phone.regex' => 'Enter a valid Pakistani phone number, for example 0300-1234567.',
             'whatsapp.regex' => 'Enter a valid Pakistani WhatsApp number, for example 0300-1234567.',

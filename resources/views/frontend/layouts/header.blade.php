@@ -18,7 +18,7 @@
   </div>
 </div>
 
-<nav class="navbar navbar-expand-lg site-navbar" id="siteNavbar" aria-label="Main navigation">
+<nav class="navbar navbar-expand-xl site-navbar" id="siteNavbar" aria-label="Main navigation">
   <div class="container">
     <a class="navbar-brand navbar-brand-block" href="{{ route('frontend.home') }}">
       <img src="{{ asset('frontend/assets/images/logo/logo.png') }}" alt="King TAS College logo" width="48" height="48">
@@ -32,9 +32,9 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="mainNav">
-      <ul class="navbar-nav ms-auto align-items-lg-center">
+      <ul class="navbar-nav ms-auto align-items-xl-center">
         <li class="nav-item"><a class="nav-link" href="{{ route('frontend.home') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('frontend.about') }}">About</a></li>
+        <!-- <li class="nav-item"><a class="nav-link" href="{{ route('frontend.about') }}">About</a></li> -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="{{ route('frontend.all_program') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">Programs</a>
           <ul class="dropdown-menu">
@@ -52,12 +52,13 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ route('frontend.admission') }}">Admission Process</a></li>
             <li><a class="dropdown-item" href="{{ route('frontend.admission') }}#apply">Online Application</a></li>
-            <li><a class="dropdown-item" href="{{ route('frontend.admission.download') }}"><i class="bi bi-download me-1"></i>Download Admission Form</a></li>
+            <li><a class="dropdown-item" href="{{ route('frontend.admission.view-form') }}">View Admission Form</a></li>
             <li><a class="dropdown-item" href="{{ route('frontend.eligibility') }}">Eligibility</a></li>
             <li><a class="dropdown-item" href="{{ route('frontend.admission') }}#scholarships">Financial Support</a></li>
             <li><a class="dropdown-item" href="{{ route('frontend.faq') }}">Admission FAQs</a></li>
           </ul>
         </li>
+        <li class="nav-item"><a class="nav-link{{ request()->routeIs('frontend.eligibility') ? ' active' : '' }}" href="{{ route('frontend.eligibility') }}">Eligibility</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Academics</a>
           <ul class="dropdown-menu">
@@ -79,7 +80,7 @@
         </li> -->
         <li class="nav-item"><a class="nav-link" href="{{ route('frontend.gallery') }}">Gallery</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('frontend.contact') }}">Contact</a></li>
-        <li class="nav-item ms-lg-2 my-2 my-lg-0">
+        <li class="nav-item ms-xl-2 my-2 my-xl-0">
           <a class="btn btn-brand-red btn-sm w-100" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
         </li>
       </ul>

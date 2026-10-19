@@ -54,11 +54,13 @@
                             <li><i class="bi bi-person-vcard"></i><span>Applicant's CNIC or B-Form — front and back</span></li>
                             <li><i class="bi bi-geo"></i><span>Domicile certificate</span></li>
                             <li><i class="bi bi-camera"></i><span>Recent passport-size personal photograph</span></li>
-                            <li><i class="bi bi-person-vcard"></i><span>Father's/guardian's CNIC copy, if requested</span></li>
+                            <li><i class="bi bi-person-vcard"></i><span>Father's CNIC copy</span></li>
+                            <li><i class="bi bi-telephone"></i><span>Phone number</span></li>
                         </ul>
                         <div class="demo-note mt-3"><i class="bi bi-info-circle me-1"></i>Upload clear, readable scans. Confirm the final document requirements with the Admissions Office.</div>
                         <a class="btn btn-brand w-100 mt-3" href="#apply">Apply online</a>
                         <a class="btn btn-outline-brand w-100 mt-2" href="{{ route('frontend.eligibility') }}">Check eligibility</a>
+                        <a class="btn btn-outline-brand w-100 mt-2" href="{{ route('frontend.admission.view-form') }}"><i class="bi bi-eye me-1"></i>View admission form</a>
                     </div>
                 </div>
             </div>
@@ -122,7 +124,7 @@
                         <div class="progress-bar bg-primary" id="admissionProgress" style="width:16.6667%"></div>
                     </div>
 
-                    <form id="admissionForm" class="card-brand p-4" method="post" action="{{ route('frontend.admission.store') }}" enctype="multipart/form-data" novalidate>
+                    <form id="admissionForm" class="card-brand p-4" autocomplete="off" method="post" action="{{ route('frontend.admission.store') }}" enctype="multipart/form-data" novalidate>
                         @csrf
 
                         @if ($errors->any())
@@ -137,22 +139,22 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label" for="fullName">Full name *</label>
-                                    <input class="form-control" id="fullName" name="fullName" value="{{ old('fullName') }}" required minlength="3" autocomplete="name">
+                                    <input data-english="name" class="form-control" id="fullName" name="fullName" value="{{ old('fullName') }}" required minlength="3" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="fatherName">Father's name *</label>
-                                    <input class="form-control" id="fatherName" name="fatherName" value="{{ old('fatherName') }}" required minlength="3">
+                                    <input data-english="name" class="form-control" id="fatherName" name="fatherName" value="{{ old('fatherName') }}" required minlength="3" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="dob">Date of birth *</label>
-                                    <input class="form-control" type="date" id="dob" name="dob" value="{{ old('dob') }}" required>
+                                    <input class="form-control" type="date" id="dob" name="dob" value="{{ old('dob') }}" required autocomplete="off">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="gender">Gender *</label>
-                                    <select class="form-select" id="gender" name="gender" required>
+                                    <select class="form-select" id="gender" name="gender" required autocomplete="off">
                                         <option value="">Select</option>
                                         <option value="Female" @selected(old('gender') === 'Female')>Female</option>
                                         <option value="Male" @selected(old('gender') === 'Male')>Male</option>
@@ -162,22 +164,22 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="cnic">CNIC / B-Form number *</label>
-                                    <input class="form-control" id="cnic" name="cnic" value="{{ old('cnic') }}" placeholder="33302-1234567-1" data-validate="cnic" required autocomplete="off">
+                                    <input class="form-control" id="cnic" name="cnic" value="{{ old('cnic') }}" placeholder="33302-1234567-1" data-validate="cnic" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="phone">Phone *</label>
-                                    <input class="form-control" id="phone" name="phone" value="{{ old('phone') }}" placeholder="0300-1234567" type="tel" data-validate="phone" required autocomplete="tel">
+                                    <input class="form-control" id="phone" name="phone" value="{{ old('phone') }}" placeholder="0300-1234567" type="tel" data-validate="phone" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="whatsapp">WhatsApp number</label>
-                                    <input class="form-control" id="whatsapp" name="whatsapp" value="{{ old('whatsapp') }}" placeholder="0300-1234567" type="tel" data-validate="phone">
+                                    <input class="form-control" id="whatsapp" name="whatsapp" value="{{ old('whatsapp') }}" placeholder="0300-1234567" type="tel" data-validate="phone" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="email">Email *</label>
-                                    <input class="form-control" type="email" id="email" name="email" value="{{ old('email') }}" placeholder="you@example.com" autocomplete="email" required>
+                                    <input data-english="text" class="form-control" type="email" id="email" name="email" value="{{ old('email') }}" placeholder="you@example.com" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -188,7 +190,7 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label class="form-label" for="qualification">Previous qualification *</label>
-                                    <select class="form-select" id="qualification" name="qualification" required>
+                                    <select class="form-select" id="qualification" name="qualification" required autocomplete="off">
                                         <option value="">Select</option>
                                         <option value="Matric" @selected(old('qualification') === 'Matric')>Matric</option>
                                         <option value="F.Sc / Intermediate" @selected(old('qualification') === 'F.Sc / Intermediate')>F.Sc / Intermediate</option>
@@ -200,22 +202,22 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="institution">Institution *</label>
-                                    <input class="form-control" id="institution" name="institution" value="{{ old('institution') }}" required>
+                                    <input data-english="text" class="form-control" id="institution" name="institution" value="{{ old('institution') }}" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label" for="obtained">Marks obtained</label>
-                                    <input class="form-control" id="obtained" name="obtained" type="number" data-validate="number" min="0" step="any" value="{{ old('obtained') }}">
+                                    <input class="form-control" id="obtained" name="obtained" type="number" data-validate="number" min="0" step="any" value="{{ old('obtained') }}" autocomplete="off">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label" for="total">Total marks</label>
-                                    <input class="form-control" id="total" name="total" type="number" data-validate="number" min="0" step="any" value="{{ old('total') }}">
+                                    <input class="form-control" id="total" name="total" type="number" data-validate="number" min="0" step="any" value="{{ old('total') }}" autocomplete="off">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label" for="percentage">Percentage</label>
-                                    <input class="form-control" id="percentage" name="percentage" type="number" data-validate="number" min="0" max="100" step="any" value="{{ old('percentage') }}" readonly tabindex="-1" placeholder="Auto-calculated" aria-live="polite">
+                                    <input class="form-control" id="percentage" name="percentage" type="number" data-validate="number" min="0" max="100" step="any" value="{{ old('percentage') }}" readonly tabindex="-1" placeholder="Auto-calculated" aria-live="polite" autocomplete="off">
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -226,7 +228,7 @@
                             <div class="row g-3">
                                 <div class="col-md-8">
                                     <label class="form-label" for="program">Preferred program *</label>
-                                    <select class="form-select" id="program" name="program" required>
+                                    <select class="form-select" id="program" name="program" required autocomplete="off">
                                         <option value="">Select a program</option>
                                         <optgroup label="Nursing Programs">
                                             <option value="BSN Generic" @selected(old('program') === 'BSN Generic')>BSN Generic</option>
@@ -249,11 +251,11 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label" for="session">Session</label>
-                                    <input class="form-control" id="session" name="session" value="2026–27" readonly>
+                                    <input class="form-control" id="session" name="session" value="2026–27" readonly autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label" for="notes">Notes for the admissions office</label>
-                                    <textarea class="form-control" id="notes" name="notes" rows="3" maxlength="600">{{ old('notes') }}</textarea>
+                                    <textarea data-english="text" class="form-control" id="notes" name="notes" rows="3" maxlength="600" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">{{ old('notes') }}</textarea>
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -264,21 +266,21 @@
                             <div class="row g-3">
                                 <div class="col-12">
                                     <label class="form-label" for="street">Postal address *</label>
-                                    <input class="form-control" id="street" name="street" value="{{ old('street') }}" required autocomplete="street-address">
+                                    <input data-english="text" class="form-control" id="street" name="street" value="{{ old('street') }}" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label" for="city">City *</label>
-                                    <input class="form-control" id="city" name="city" value="{{ old('city') }}" required>
+                                    <input data-english="text" class="form-control" id="city" name="city" value="{{ old('city') }}" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                                     <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label" for="district">District</label>
-                                    <input class="form-control" id="district" name="district" value="{{ old('district') }}">
+                                    <input data-english="text" class="form-control" id="district" name="district" value="{{ old('district') }}" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label" for="province">Province</label>
-                                    <select class="form-select" id="province" name="province">
+                                    <select class="form-select" id="province" name="province" autocomplete="off">
                                         <option value="Punjab" @selected(old('province', 'Punjab') === 'Punjab')>Punjab</option>
                                         <option value="Sindh" @selected(old('province') === 'Sindh')>Sindh</option>
                                         <option value="Khyber Pakhtunkhwa" @selected(old('province') === 'Khyber Pakhtunkhwa')>Khyber Pakhtunkhwa</option>
@@ -297,7 +299,7 @@
                                 <div class="col-md-6">
                                     <div class="document-upload-card h-100 p-3 border rounded">
                                         <label class="form-label fw-semibold" for="cnic_front">CNIC / B-Form — Front *</label>
-                                        <input class="form-control" type="file" id="cnic_front" name="cnic_front" accept=".pdf,.jpg,.jpeg,.png" required data-max-mb="5" data-review-label="CNIC / B-Form — Front">
+                                        <input class="form-control" type="file" id="cnic_front" name="cnic_front" accept=".pdf,.jpg,.jpeg,.png" required data-max-mb="5" data-review-label="CNIC / B-Form — Front" autocomplete="off">
                                         <div class="form-text">Upload the front side, fully visible and readable. PDF/JPG/PNG, max 5 MB.</div>
                                         <div class="invalid-feedback"></div>
                                         <div class="small mt-2 text-break" data-file-summary="cnic_front">No file selected.</div>
@@ -306,7 +308,7 @@
                                 <div class="col-md-6">
                                     <div class="document-upload-card h-100 p-3 border rounded">
                                         <label class="form-label fw-semibold" for="cnic_back">CNIC / B-Form — Back *</label>
-                                        <input class="form-control" type="file" id="cnic_back" name="cnic_back" accept=".pdf,.jpg,.jpeg,.png" required data-max-mb="5" data-review-label="CNIC / B-Form — Back">
+                                        <input class="form-control" type="file" id="cnic_back" name="cnic_back" accept=".pdf,.jpg,.jpeg,.png" required data-max-mb="5" data-review-label="CNIC / B-Form — Back" autocomplete="off">
                                         <div class="form-text">Upload the back side, fully visible and readable. PDF/JPG/PNG, max 5 MB.</div>
                                         <div class="invalid-feedback"></div>
                                         <div class="small mt-2 text-break" data-file-summary="cnic_back">No file selected.</div>
@@ -315,7 +317,7 @@
                                 <div class="col-md-6">
                                     <div class="document-upload-card h-100 p-3 border rounded">
                                         <label class="form-label fw-semibold" for="domicile_document">Domicile certificate *</label>
-                                        <input class="form-control" type="file" id="domicile_document" name="domicile_document" accept=".pdf,.jpg,.jpeg,.png" required data-max-mb="5" data-review-label="Domicile certificate">
+                                        <input class="form-control" type="file" id="domicile_document" name="domicile_document" accept=".pdf,.jpg,.jpeg,.png" required data-max-mb="5" data-review-label="Domicile certificate" autocomplete="off">
                                         <div class="form-text">Upload a complete, readable domicile certificate. PDF/JPG/PNG, max 5 MB.</div>
                                         <div class="invalid-feedback"></div>
                                         <div class="small mt-2 text-break" data-file-summary="domicile_document">No file selected.</div>
@@ -324,7 +326,7 @@
                                 <div class="col-md-6">
                                     <div class="document-upload-card h-100 p-3 border rounded">
                                         <label class="form-label fw-semibold" for="degree_documents">Educational certificates / degree documents *</label>
-                                        <input class="form-control" type="file" id="degree_documents" name="degree_documents[]" accept=".pdf,.jpg,.jpeg,.png" multiple required data-max-mb="5" data-review-label="Educational certificates / degree documents">
+                                        <input class="form-control" type="file" id="degree_documents" name="degree_documents[]" accept=".pdf,.jpg,.jpeg,.png" multiple required data-max-mb="5" data-review-label="Educational certificates / degree documents" autocomplete="off">
                                         <div class="form-text">Select one or more mark sheets, certificates or degree documents. Each file max 5 MB.</div>
                                         <div class="invalid-feedback"></div>
                                         <div class="small mt-2 text-break" data-file-summary="degree_documents">No files selected.</div>
@@ -333,7 +335,7 @@
                                 <div class="col-md-6">
                                     <div class="document-upload-card h-100 p-3 border rounded">
                                         <label class="form-label fw-semibold" for="personal_picture">Recent personal photograph *</label>
-                                        <input class="form-control" type="file" id="personal_picture" name="personal_picture" accept=".jpg,.jpeg,.png" required data-max-mb="2" data-review-label="Personal photograph">
+                                        <input class="form-control" type="file" id="personal_picture" name="personal_picture" accept=".jpg,.jpeg,.png" required data-max-mb="2" data-review-label="Personal photograph" autocomplete="off">
                                         <div class="form-text">Use a recent, clear passport-size photograph. JPG/PNG only, max 2 MB.</div>
                                         <div class="invalid-feedback"></div>
                                         <div class="small mt-2 text-break" data-file-summary="personal_picture">No file selected.</div>
@@ -342,7 +344,7 @@
                                 <div class="col-md-6">
                                     <div class="document-upload-card h-100 p-3 border rounded">
                                         <label class="form-label fw-semibold" for="other_documents">Additional supporting documents</label>
-                                        <input class="form-control" type="file" id="other_documents" name="other_documents[]" accept=".pdf,.jpg,.jpeg,.png" multiple data-max-mb="5" data-review-label="Additional supporting documents">
+                                        <input class="form-control" type="file" id="other_documents" name="other_documents[]" accept=".pdf,.jpg,.jpeg,.png" multiple data-max-mb="5" data-review-label="Additional supporting documents" autocomplete="off">
                                         <div class="form-text">Optional: guardian CNIC or other documents specifically requested by the college. Each file max 5 MB.</div>
                                         <div class="invalid-feedback"></div>
                                         <div class="small mt-2 text-break" data-file-summary="other_documents">No files selected.</div>
@@ -363,7 +365,7 @@
                                 </table>
                             </div>
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" id="agreeTerms" name="agreeTerms" value="1" required>
+                                <input class="form-check-input" type="checkbox" id="agreeTerms" name="agreeTerms" value="1" required autocomplete="off">
                                 <label class="form-check-label small" for="agreeTerms">I confirm the information provided is accurate and I accept the <a href="{{ route('frontend.terms') }}" target="_blank" rel="noopener">terms &amp; conditions</a>. *</label>
                                 <div class="invalid-feedback"></div>
                             </div>

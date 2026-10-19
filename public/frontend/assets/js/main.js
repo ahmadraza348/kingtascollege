@@ -61,7 +61,7 @@
     if (!collapse) return;
     $$("a.nav-link:not(.dropdown-toggle), .dropdown-item", collapse).forEach((link) => {
       link.addEventListener("click", () => {
-        if (window.innerWidth < 992 && collapse.classList.contains("show")) {
+        if (window.innerWidth < 1200 && collapse.classList.contains("show")) {
           window.bootstrap?.Collapse.getOrCreateInstance(collapse).hide();
         }
       });

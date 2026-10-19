@@ -26,6 +26,7 @@
           <div class="hero-facts">
             <span class="hero-fact"><i class="bi bi-heart-pulse"></i>Nursing programs</span>
             <span class="hero-fact"><i class="bi bi-activity"></i>Allied health programs</span>
+            <span class="hero-fact"><i class="bi bi-award"></i>7 Years of Excellence</span>
             <span class="hero-fact"><i class="bi bi-geo-alt"></i>Gojra, Punjab</span>
           </div>
         </div>
@@ -38,6 +39,7 @@
               <li><i class="bi bi-check-circle-fill"></i><span>Nursing: BSN Generic, Post RN, LHV, CMW, CNA</span></li>
               <li><i class="bi bi-check-circle-fill"></i><span>Allied Health: Lab, Radiography, OT, Anesthesia and more</span></li>
               <li><i class="bi bi-check-circle-fill"></i><span>Guidance from the admissions office at every step</span></li>
+              <li><i class="bi bi-clock-fill"></i><span>College Time: 8:00 AM to 3:00 PM</span></li>
             </ul>
             <a class="btn btn-brand w-100 mb-2" href="{{ route('frontend.admission') }}#apply">Start your application</a>
             <a class="btn btn-outline-brand w-100" href="tel:+923028098542"><i class="bi bi-telephone me-2"></i>0302-8098542</a>
@@ -102,34 +104,23 @@
 
   <section class="section bg-light-soft" id="ceo-message">
     <div class="container">
-      <div class="row align-items-center ">
-        <div class="col-lg-4" data-reveal="left">
-          @php
-            // Drop the CEO's photo at public/frontend/assets/images/ceo/ceo.jpg and it appears here automatically.
-            $ceoPhoto = file_exists(public_path('frontend/assets/images/ceo/ceo.jpg'))
-                ? 'frontend/assets/images/ceo/ceo.jpg'
-                : 'frontend/assets/images/ceo/ceo-placeholder.svg';
-          @endphp
-          <div class="ceo-photo"style="width:100px; height:100px; border-radius:50%;">
-            <img src="{{ asset($ceoPhoto) }}" alt="CEO of King TAS College" loading="lazy" width="100" height="100">
-          </div>
+      @php
+        // Put the CEO's photo at public/frontend/assets/images/ceo/tahir-farooq-ceo.jpeg and it appears here automatically.
+        $ceoPhoto = file_exists(public_path('frontend/assets/images/ceo/tahir-farooq-ceo.jpeg'))
+            ? 'frontend/assets/images/ceo/tahir-farooq-ceo.jpeg'
+            : 'frontend/assets/images/ceo/ceo-placeholder.svg';
+      @endphp
+      <div class="ceo-box" data-reveal>
+        <div class="ceo-box-photo">
+          <img src="{{ asset($ceoPhoto) }}" alt="Tahir Farooq, CEO of King TAS College" loading="lazy" width="300" height="360">
         </div>
-        <div class="col-lg-8" data-reveal="right">
-          <div class="ceo-message">
-            <span class="eyebrow">Message from the CEO</span>
-            <h2 class="mt-3">Building skilled, compassionate healthcare professionals</h2>
-            <i class="bi bi-quote quote-mark" aria-hidden="true"></i>
-            <p class="ceo-text">Welcome to King TAS College of Nursing &amp; Allied Health Sciences. Our mission is to prepare students
-              for meaningful careers in healthcare through practical training, professional values and a strong sense of service
-              to patients and communities.</p>
-            <p class="ceo-text">We believe good healthcare begins with well-trained, caring people. That is why we focus on hands-on
-              learning, supervised clinical practice and the guidance students need to grow with confidence.</p>
-            <p class="ceo-text mb-0">I warmly invite you to join our college and begin your journey towards a rewarding career in
-              nursing and allied health sciences.</p>
-            <div class="ceo-signoff">
-              <p class="ceo-name">CEO Name</p>
-              <p class="ceo-role">Chief Executive Officer, King TAS College</p>
-            </div>
+        <div class="ceo-box-body">
+          <span class="eyebrow">Message from the CEO</span>
+          <i class="bi bi-quote ceo-box-quote" aria-hidden="true"></i>
+          <p class="ceo-box-text">Good healthcare begins with well-trained, caring people. Join us and start a rewarding career in nursing and allied health sciences.</p>
+          <div class="ceo-box-sign">
+            <p class="ceo-name">Tahir Farooq</p>
+            <p class="ceo-role">Chief Executive Officer, King TAS College</p>
           </div>
         </div>
       </div>
@@ -157,10 +148,10 @@
               </div>
               <p class="small text-soft flex-grow-1">A professional nursing degree pathway focused on patient care, clinical competence and evidence-based nursing practice.</p>
               <div class="meta-row mb-2">
-                <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+                <span><i class="bi bi-clock me-1"></i>4 years (Degree Program)</span>
               </div>
               <div class="meta-row mb-3">
-                <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+                <span><i class="bi bi-mortarboard me-1"></i>FSc Pre-Medical, min. 50% &bull; Age 14&ndash;35</span>
               </div>
               <div class="d-flex gap-2">
                 <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=bsn-generic">Learn More</a>
@@ -182,10 +173,10 @@
               </div>
               <p class="small text-soft flex-grow-1">A progression pathway for registered nurses who want to advance academic qualifications and professional responsibility.</p>
               <div class="meta-row mb-2">
-                <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+                <span><i class="bi bi-clock me-1"></i>2 years (Post RN BSN / BSM Degree Program)</span>
               </div>
               <div class="meta-row mb-3">
-                <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+                <span><i class="bi bi-mortarboard me-1"></i>Nursing diploma + 1&ndash;2 yrs experience &bull; Age 35&ndash;55</span>
               </div>
               <div class="d-flex gap-2">
                 <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=post-rn">Learn More</a>
@@ -207,10 +198,10 @@
               </div>
               <p class="small text-soft flex-grow-1">Community and maternal healthcare training focused on family health education, preventive care and primary healthcare support.</p>
               <div class="meta-row mb-2">
-                <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+                <span><i class="bi bi-clock me-1"></i>2 years (Diploma Program)</span>
               </div>
               <div class="meta-row mb-3">
-                <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+                <span><i class="bi bi-mortarboard me-1"></i>FSc / Matric Science, min. 45% &bull; Age 14&ndash;35</span>
               </div>
               <div class="d-flex gap-2">
                 <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=lhv">Learn More</a>
@@ -232,10 +223,10 @@
               </div>
               <p class="small text-soft flex-grow-1">Maternal and newborn care training covering antenatal, delivery and postnatal support within community healthcare settings.</p>
               <div class="meta-row mb-2">
-                <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+                <span><i class="bi bi-clock me-1"></i>18 months (Diploma Program)</span>
               </div>
               <div class="meta-row mb-3">
-                <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+                <span><i class="bi bi-mortarboard me-1"></i>Matric (Arts or Science), min. 40% &bull; Age 14&ndash;40</span>
               </div>
               <div class="d-flex gap-2">
                 <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=cmw">Learn More</a>
@@ -257,10 +248,10 @@
               </div>
               <p class="small text-soft flex-grow-1">Entry-level patient-care training covering basic nursing assistance, hygiene care, vitals monitoring and ward support.</p>
               <div class="meta-row mb-2">
-                <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+                <span><i class="bi bi-clock me-1"></i>2 years (Diploma Program)</span>
               </div>
               <div class="meta-row mb-3">
-                <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+                <span><i class="bi bi-mortarboard me-1"></i>FSc / Matric Science 45%, or Matric Arts / FA 50% &bull; Age 14&ndash;35</span>
               </div>
               <div class="d-flex gap-2">
                 <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=cna">Learn More</a>
@@ -285,7 +276,7 @@
                 <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
               </div>
               <div class="meta-row mb-3">
-                <span><i class="bi bi-mortarboard me-1"></i>Details to be confirmed by Admissions Office</span>
+                <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
               </div>
               <div class="d-flex gap-2">
                 <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
