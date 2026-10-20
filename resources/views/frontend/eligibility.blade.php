@@ -52,7 +52,6 @@
     ];
 
     $pmfPrograms = [
-        'Anesthesia Technician',
         'Radiography Technology + F.Sc',
         'Medical Lab Technology + F.Sc',
         'Dental Technician',
@@ -75,6 +74,14 @@
         'qualification' => 'Matriculation with Science (Physics, Chemistry and Biology) — Computer Science is also acceptable — in at least 2nd Division (unadjusted).',
         'subjects' => 'Physics, Chemistry & Biology (or Computer Science). ' . $pmfScience,
         'age' => 'No age limit',
+        'notes' => [],
+    ];
+    // Anesthesia Technician is listed last among the allied health programs.
+    $allied[] = [
+        'name' => 'Anesthesia Technician', 'duration' => 'Confirm with the Admissions Office',
+        'qualification' => $pmfQualification,
+        'subjects' => 'Physics, Chemistry & Biology. ' . $pmfScience,
+        'age' => $pmfAge,
         'notes' => [],
     ];
 

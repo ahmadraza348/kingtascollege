@@ -1,4 +1,5 @@
 @extends('backend.auth.layouts.layout')
+@section('title', 'Reset Password - King TAS Admin')
 @section('content')
 
 <div class="main-wrapper">
@@ -11,35 +12,18 @@
                     </div>
                     <div class="login-userheading">
                         <h3>Reset Password</h3>
-                        <h4>Enter your new password below.</h4>
+                        <h4>Choose a new password for <strong>{{ $email }}</strong>.</h4>
                     </div>
-                    <!-- Start of Updated Reset Password Form -->
-                    <form action="{{ route('reset.password.post', ['token' => $token]) }}" method="POST">
+                    <form action="{{ route('reset.password.post', ['token' => $token]) }}" method="POST" autocomplete="off">
                         @csrf
-                        <input type="hidden" name="token" value="{{ $token }}">
 
                         <div class="form-login">
-                            <label>Email</label>
-                            <div class="form-addons">
-                                <input type="email" required name="email" id="form2Example11"
-                                    class="form-control" placeholder="Enter your email address"
-                                    value="{{ old('email') }}">
-                                <img src="{{ asset('backend/assets/img/icons/mail.svg') }}" alt="img">
+                            <label>New password</label>
+                            <div class="position-relative">
+                                <input type="password" required name="password" class="form-control pw-field"
+                                    placeholder="At least 8 characters, letters and numbers" minlength="8" autocomplete="new-password">
+                                <span class="fas fa-eye-slash pw-toggle" role="button" tabindex="0" aria-label="Show or hide password" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;"></span>
                             </div>
-                            <div class="text-danger">
-                                @error('email')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-login">
-                            <label>Password</label>
-                            <div class="form-addons">
-                                <input type="password" required name="password" id="form2Example11"
-                                    class=" pass-input form-control" placeholder="Enter your new password">
-                                    <span class="fas toggle-password fa-eye-slash"></span>
-                                </div>
                             <div class="text-danger">
                                 @error('password')
                                     {{ $message }}
@@ -48,23 +32,21 @@
                         </div>
 
                         <div class="form-login">
-                            <label>Confirm Password</label>
-                            <div class="form-addons">
-                                <input type="password" required name="password_confirmation"id="password"
-                                    class=" form-control" placeholder="Confirm your new password">
-                                </div>
-                            <div class="text-danger">
-                                @error('password_confirmation')
-                                    {{ $message }}
-                                @enderror
+                            <label>Confirm new password</label>
+                            <div class="position-relative">
+                                <input type="password" required name="password_confirmation" class="form-control pw-field"
+                                    placeholder="Re-enter the new password" minlength="8" autocomplete="new-password">
+                                <span class="fas fa-eye-slash pw-toggle" role="button" tabindex="0" aria-label="Show or hide password" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;"></span>
                             </div>
                         </div>
 
                         <div class="form-login">
                             <button class="btn btn-login" type="submit">Reset Password</button>
                         </div>
+                        <div class="form-login text-center">
+                            <a href="{{ route('admin.login') }}" class="hover-a">&larr; Back to Sign In</a>
+                        </div>
                     </form>
-                    <!-- End of Updated Reset Password Form -->
                 </div>
             </div>
             <div class="login-img">
@@ -75,3 +57,19 @@
 </div>
 
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.pw-toggle').forEach(function (icon) {
+        function flip() {
+            var input = icon.parentElement.querySelector('.pw-field');
+            var show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
+            icon.classList.toggle('fa-eye', show);
+            icon.classList.toggle('fa-eye-slash', !show);
+        }
+        icon.addEventListener('click', flip);
+        icon.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); } });
+    });
+});
+</script>

@@ -68,16 +68,18 @@ Route::name('frontend.')->group(function () {
 // Admin Panel Routes
 Route::prefix('admin')->group(function () {
     Route::get('login', [AuthController::class, 'login'])->name('admin.login');
-    Route::post('login/submit', [AuthController::class, 'login_submit'])->name('admin.login.submit');
+    Route::post('login/submit', [AuthController::class, 'login_submit'])->middleware('throttle:10,1')->name('admin.login.submit');
     Route::get('login/forget-password', [AuthController::class, 'forgetpass'])->name('admin.forgetpass');
-    Route::post('login/forget-password/submit', [AuthController::class, 'submitforgetpass'])->name('admin.forgetpass.submit');
+    Route::post('login/forget-password/submit', [AuthController::class, 'submitforgetpass'])->middleware('throttle:5,1')->name('admin.forgetpass.submit');
     Route::get('login/reset-password/{token}', [AuthController::class, 'show_reset_pass_form'])->name('reset.password.get');
-    Route::post('login/reset-password/{token}', [AuthController::class, 'submit_reset_pass_form'])->name('reset.password.post');
+    Route::post('login/reset-password/{token}', [AuthController::class, 'submit_reset_pass_form'])->middleware('throttle:10,1')->name('reset.password.post');
 });
 
 Route::prefix('admin')->middleware('adminauth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
-        Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');  
+        Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
+        Route::get('change-password', [AuthController::class, 'changePasswordForm'])->name('admin.password.change');
+        Route::post('change-password', [AuthController::class, 'changePasswordSubmit'])->name('admin.password.update');
         
         Route::prefix('admissions')->name('admission.')->group(function () {
             Route::get('/', [AdminAdmissionController::class, 'index'])->name('index');

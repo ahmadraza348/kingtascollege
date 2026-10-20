@@ -35,11 +35,13 @@ class AdmissionFormRequest extends FormRequest
 
             // Academic information
             'qualification' => ['required', 'string', Rule::in([
-                'Matric',
-                'F.Sc / Intermediate',
-                'Diploma',
-                'Bachelor',
-                'Other',
+                'Matric – Science (Biology)',
+                'Matric – Science (Computer)',
+                'Matric – Arts',
+                'Intermediate – Science (F.Sc Pre-Medical)',
+                'Intermediate – Science (F.Sc Pre-Engineering)',
+                'Intermediate – Science (ICS)',
+                'Intermediate – Arts',
             ])],
             'institution' => ['required', 'string', 'max:150', 'regex:/^[\x20-\x7E]+$/'],
             'obtained' => ['nullable', 'numeric', 'min:0', function (string $attribute, mixed $value, \Closure $fail) {
@@ -58,13 +60,13 @@ class AdmissionFormRequest extends FormRequest
                 'LHV (Lady Health Visitor)',
                 'CMW (Community Midwife)',
                 'CNA (Certified Nursing Assistant)',
-                'Anesthesia Technician',
                 'Radiography Technology + F.Sc',
                 'Medical Lab Technology + F.Sc',
                 'Dental Technician',
                 'Operation Theater Technology + F.Sc',
                 'Dispenser + F.Sc',
                 'B-Category Pharmacy Technician',
+                'Anesthesia Technician',
             ])],
             'session' => ['required', Rule::in(['2026–27'])],
             'notes' => ['nullable', 'string', 'max:600', 'regex:/^[\x20-\x7E\r\n]*$/'],

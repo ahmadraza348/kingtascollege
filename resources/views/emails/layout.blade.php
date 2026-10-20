@@ -9,6 +9,7 @@
 @php
     $fb  = 'https://www.facebook.com/people/King-TAS-college-of-Nursing-and-Allied-Health-Sciences/100063958600873/';
     $wa  = 'https://wa.me/923028098542?text=Hello%2C%20I%20would%20like%20information%20about%20admissions%20at%20King%20TAS%20College.';
+    $yt  = 'https://www.youtube.com/@Doctor_Tahir';
 @endphp
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;">@yield('preheader')</div>
 
@@ -44,6 +45,7 @@
         <table role="presentation" cellpadding="0" cellspacing="0" align="center">
           <tr>
             <td style="padding:0 5px;"><a href="{{ $fb }}" target="_blank" style="display:inline-block;background:#1877f2;color:#ffffff;text-decoration:none;font-size:13px;font-weight:bold;padding:9px 16px;border-radius:30px;">Facebook</a></td>
+            <td style="padding:0 5px;"><a href="{{ $yt }}" target="_blank" style="display:inline-block;background:#ff0000;color:#ffffff;text-decoration:none;font-size:13px;font-weight:bold;padding:9px 16px;border-radius:30px;">YouTube</a></td>
             <td style="padding:0 5px;"><a href="{{ $wa }}" target="_blank" style="display:inline-block;background:#25d366;color:#ffffff;text-decoration:none;font-size:13px;font-weight:bold;padding:9px 16px;border-radius:30px;">WhatsApp</a></td>
             <td style="padding:0 5px;"><a href="tel:+923028098542" style="display:inline-block;background:#075db8;color:#ffffff;text-decoration:none;font-size:13px;font-weight:bold;padding:9px 16px;border-radius:30px;">Call Us</a></td>
             <td style="padding:0 5px;"><a href="{{ url('/') }}" target="_blank" style="display:inline-block;background:#d71919;color:#ffffff;text-decoration:none;font-size:13px;font-weight:bold;padding:9px 16px;border-radius:30px;">Website</a></td>

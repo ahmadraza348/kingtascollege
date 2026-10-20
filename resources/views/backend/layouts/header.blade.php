@@ -74,11 +74,13 @@
                                 alt="">
                             <span class="status online"></span></span>
                         <div class="profilesets">
-                            <h6>John Doe</h6>
+                            <h6>{{ auth()->guard('admin')->user()->first_name ?? 'Admin' }} {{ auth()->guard('admin')->user()->last_name ?? '' }}</h6>
                             <h5>Admin</h5>
                         </div>
                     </div>
                     <hr class="m-0">
+                    <a class="dropdown-item" href="{{ route('admin.password.change') }}"><i class="me-2"
+                            data-feather="lock"></i>Change Password</a>
                     <!-- <a class="dropdown-item" href=""> <i class="me-2"
                             data-feather="user"></i>
                         My Profile</a>
@@ -112,12 +114,12 @@
         <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="">My Profile</a>
-            <a class="dropdown-item" href="generalsettings.html">Settings</a>
+            <a class="dropdown-item" href="{{ route('admin.password.change') }}">Change Password</a>
 
-            <form method="POST" action="{{ route('admin.logout') }}" id="logout-form">
+            <form method="POST" action="{{ route('admin.logout') }}" id="logout-form-mobile">
                 @csrf
-                <a class="dropdown-item">
+                <a class="dropdown-item" href="#"
+                    onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
                     Logout
                 </a>
             </form>

@@ -11,6 +11,7 @@
         <div class="footer-social mt-3">
           <a href="https://www.facebook.com/people/King-TAS-college-of-Nursing-and-Allied-Health-Sciences/100063958600873/" target="_blank" rel="noopener" aria-label="Facebook page"><i class="bi bi-facebook"></i></a>
           <a href="https://www.instagram.com/king.tas.college/" target="_blank" rel="noopener" aria-label="Instagram page"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.youtube.com/@Doctor_Tahir" target="_blank" rel="noopener" aria-label="YouTube channel"><i class="bi bi-youtube"></i></a>
           <a href="https://wa.me/923028098542?text=Hello%2C%20I%20would%20like%20information%20about%20admissions%20at%20King%20TAS%20College." target="_blank" rel="noopener" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
           <a href="tel:+923028098542" aria-label="Call the college"><i class="bi bi-telephone"></i></a>
         </div>

@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <title>King TAS College - Admission Form (Session 2026-27)</title>
 <style>
-    @page { margin: 16px 30px 34px 30px; }
+    @page { margin: 14px 30px 30px 30px; }
+    html, body { page-break-after: avoid; page-break-inside: avoid; }
+    table, .section-title, .declaration { page-break-inside: avoid; }
     body { font-family: 'DejaVu Sans', sans-serif; font-size: 9.5px; color: #334155; line-height: 1.25; }
     table { width: 100%; border-collapse: collapse; }
     .header { background: #10233f; color: #fff; border-bottom: 4px solid #d71919; }
@@ -13,8 +15,8 @@
     .sub { font-size: 8px; color: #bcd3ee; letter-spacing: .3px; }
     .title { font-size: 13px; font-weight: bold; color: #10233f; }
     .photo { width: 78px; height: 92px; border: 1px dashed #94a3b8; text-align: center; color: #94a3b8; font-size: 7.5px; }
-    .section-title { background: #075db8; color: #fff; font-weight: bold; padding: 4px 8px; font-size: 10px; margin-top: 7px; }
-    table.grid td { padding: 11px 8px 1px 8px; vertical-align: bottom; }
+    .section-title { background: #075db8; color: #fff; font-weight: bold; padding: 4px 8px; font-size: 10px; margin-top: 5px; }
+    table.grid td { padding: 8px 8px 1px 8px; vertical-align: bottom; }
     td.label { color: #64748b; font-size: 9px; width: 17%; white-space: nowrap; }
     td.line { border-bottom: 1px solid #94a3b8; width: 33%; }
     td.choices { padding-top: 6px; font-size: 9.5px; color: #10233f; vertical-align: top; line-height: 1.3; }
@@ -22,7 +24,7 @@
     .box { font-size: 11px; }
     .note { font-size: 8px; color: #64748b; margin-top: 4px; }
     .declaration { border: 1px solid #e2e8f0; background: #f6f9fc; padding: 6px 8px; margin-top: 3px; font-size: 9px; }
-    .sign td { padding-top: 34px; padding-left: 8px; padding-right: 8px; text-align: center; font-size: 8.5px; color: #64748b; }
+    .sign td { padding-top: 26px; padding-left: 8px; padding-right: 8px; text-align: center; font-size: 8.5px; color: #64748b; }
     .sign .line { border-top: 1px solid #94a3b8; padding-top: 4px; }
     .footer { position: fixed; bottom: -22px; left: 0; right: 0; text-align: center; font-size: 8px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 3px; }
 </style>
@@ -77,11 +79,15 @@
     <tr>
         <td class="label">Qualification</td>
         <td class="choices" colspan="3">
-            <span class="box">&#9744;</span> Matric &nbsp;&nbsp;
-            <span class="box">&#9744;</span> F.Sc / Intermediate &nbsp;&nbsp;
-            <span class="box">&#9744;</span> Diploma &nbsp;&nbsp;
-            <span class="box">&#9744;</span> Bachelor &nbsp;&nbsp;
-            <span class="box">&#9744;</span> Other
+            <b>Matric:</b>
+            <span class="box">&#9744;</span> Science (Biology) &nbsp;
+            <span class="box">&#9744;</span> Science (Computer) &nbsp;
+            <span class="box">&#9744;</span> Arts<br>
+            <b>Intermediate:</b>
+            <span class="box">&#9744;</span> F.Sc Pre-Medical &nbsp;
+            <span class="box">&#9744;</span> F.Sc Pre-Engineering &nbsp;
+            <span class="box">&#9744;</span> ICS &nbsp;
+            <span class="box">&#9744;</span> Arts
         </td>
     </tr>
     <tr><td class="label">Institution</td><td class="line" colspan="3">&nbsp;</td></tr>
@@ -103,13 +109,13 @@
         </td>
         <td class="choices top" style="width:50%;">
             <div style="color:#64748b;font-size:9px;">Allied health programs</div>
-            <span class="box">&#9744;</span> Anesthesia Technician<br>
             <span class="box">&#9744;</span> Radiography Technology + F.Sc<br>
             <span class="box">&#9744;</span> Medical Lab Technology + F.Sc<br>
             <span class="box">&#9744;</span> Dental Technician<br>
             <span class="box">&#9744;</span> Operation Theater Technology + F.Sc<br>
             <span class="box">&#9744;</span> Dispenser + F.Sc<br>
-            <span class="box">&#9744;</span> B-Category Pharmacy Technician
+            <span class="box">&#9744;</span> B-Category Pharmacy Technician<br>
+            <span class="box">&#9744;</span> Anesthesia Technician
         </td>
     </tr>
 </table>

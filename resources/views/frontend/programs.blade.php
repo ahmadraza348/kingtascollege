@@ -164,32 +164,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3" data-item data-category="Allied Health" data-tags="2-Year|Professional Track" data-search="anesthesia technician allied health technical training in anesthesia equipment handling, operating room preparation and perioperative patient support. 2-year professional track">
-  <article class="card-brand program-card d-flex flex-column">
-    <div class="media-frame ratio-16x9">
-      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
-    </div>
-    <div class="p-4 d-flex flex-column flex-grow-1">
-      <div class="d-flex align-items-center gap-2 mb-2">
-        <i class="bi bi-lungs text-brand fs-5"></i>
-        <h3 class="h6 mb-0">Anesthesia Technician</h3>
-      </div>
-      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
-      <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
-      </div>
-      <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
-      </div>
-      <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-      </div>
-    </div>
-  </article>
-</div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="1" data-item data-category="Allied Health" data-tags="2-Year|F.Sc Based" data-search="radiography technology + f.sc allied health diagnostic imaging training combined with an f.sc pathway, covering radiographic techniques, positioning and radiation safety. 2-year f.sc based">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3" data-item data-category="Allied Health" data-tags="2-Year|F.Sc Based" data-search="radiography technology + f.sc allied health diagnostic imaging training combined with an f.sc pathway, covering radiographic techniques, positioning and radiation safety. 2-year f.sc based">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -214,7 +189,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2" data-item data-category="Allied Health" data-tags="2-Year|F.Sc Based" data-search="medical lab technology + f.sc allied health laboratory science training with an f.sc pathway, covering sample handling, clinical testing and laboratory quality practices. 2-year f.sc based">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="1" data-item data-category="Allied Health" data-tags="2-Year|F.Sc Based" data-search="medical lab technology + f.sc allied health laboratory science training with an f.sc pathway, covering sample handling, clinical testing and laboratory quality practices. 2-year f.sc based">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -239,7 +214,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3" data-item data-category="Allied Health" data-tags="2-Year|Professional Track" data-search="dental technician allied health dental laboratory and chair-side assistance training covering dental materials, appliance work and clinic support skills. 2-year professional track">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2" data-item data-category="Allied Health" data-tags="2-Year|Professional Track" data-search="dental technician allied health dental laboratory and chair-side assistance training covering dental materials, appliance work and clinic support skills. 2-year professional track">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -264,7 +239,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="1" data-item data-category="Allied Health" data-tags="2-Year|F.Sc Based" data-search="operation theater technology + f.sc allied health surgical theatre technology training covering sterilisation, instrument handling, theatre discipline and surgical assistance. 2-year f.sc based">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3" data-item data-category="Allied Health" data-tags="2-Year|F.Sc Based" data-search="operation theater technology + f.sc allied health surgical theatre technology training covering sterilisation, instrument handling, theatre discipline and surgical assistance. 2-year f.sc based">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -289,7 +264,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2" data-item data-category="Allied Health" data-tags="F.Sc Based|Professional Track" data-search="dispenser + f.sc allied health medicine dispensing training covering prescription handling, dosage awareness, storage practices and patient counselling basics. f.sc based professional track">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="1" data-item data-category="Allied Health" data-tags="F.Sc Based|Professional Track" data-search="dispenser + f.sc allied health medicine dispensing training covering prescription handling, dosage awareness, storage practices and patient counselling basics. f.sc based professional track">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -314,7 +289,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3" data-item data-category="Allied Health" data-tags="Professional Track" data-search="b-category pharmacy technician allied health pharmacy technician training focused on medicine handling, inventory practices, dispensing support and pharmacy operations. professional track">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2" data-item data-category="Allied Health" data-tags="Professional Track" data-search="b-category pharmacy technician allied health pharmacy technician training focused on medicine handling, inventory practices, dispensing support and pharmacy operations. professional track">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -334,6 +309,31 @@
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=b-category-pharmacy-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+      </div>
+    </div>
+  </article>
+</div>
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3" data-item data-category="Allied Health" data-tags="2-Year|Professional Track" data-search="anesthesia technician allied health technical training in anesthesia equipment handling, operating room preparation and perioperative patient support. 2-year professional track">
+  <article class="card-brand program-card d-flex flex-column">
+    <div class="media-frame ratio-16x9">
+      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+    </div>
+    <div class="p-4 d-flex flex-column flex-grow-1">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-lungs text-brand fs-5"></i>
+        <h3 class="h6 mb-0">Anesthesia Technician</h3>
+      </div>
+      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
+      <div class="meta-row mb-2">
+        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+      </div>
+      <div class="meta-row mb-3">
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
         <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>

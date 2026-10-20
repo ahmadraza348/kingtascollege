@@ -20,7 +20,7 @@
                         <div class="form-login">
                             <label>Email</label>
                             <div class="form-addons">
-                                <input type="email" required name="email" id="form2Example11"
+                                <input type="email" required name="email" id="reset_email" autocomplete="email"
                                     class="form-control" placeholder="Enter your email address"
                                     value="{{ old('email') }}">
                                 <img src="{{ asset('backend/assets/img/icons/mail.svg') }}" alt="img">
@@ -33,6 +33,9 @@
                         </div>
                         <div class="form-login">
                             <button class="btn btn-login" type="submit">Send Password Reset Link</button>
+                        </div>
+                        <div class="form-login text-center">
+                            <a href="{{ route('admin.login') }}" class="hover-a">&larr; Back to Sign In</a>
                         </div>
                     </form>
                     <!-- End of Updated Form -->

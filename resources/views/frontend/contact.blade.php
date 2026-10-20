@@ -59,13 +59,13 @@
     <option value="CNA (Certified Nursing Assistant)" @selected(old('program') === 'CNA (Certified Nursing Assistant)') data-program-id="cna">CNA (Certified Nursing Assistant)</option>
   </optgroup>
   <optgroup label="Allied Health Programs">
-    <option value="Anesthesia Technician" @selected(old('program') === 'Anesthesia Technician') data-program-id="anesthesia-technician">Anesthesia Technician</option>
     <option value="Radiography Technology + F.Sc" @selected(old('program') === 'Radiography Technology + F.Sc') data-program-id="radiography-technology">Radiography Technology + F.Sc</option>
     <option value="Medical Lab Technology + F.Sc" @selected(old('program') === 'Medical Lab Technology + F.Sc') data-program-id="medical-lab-technology">Medical Lab Technology + F.Sc</option>
     <option value="Dental Technician" @selected(old('program') === 'Dental Technician') data-program-id="dental-technician">Dental Technician</option>
     <option value="Operation Theater Technology + F.Sc" @selected(old('program') === 'Operation Theater Technology + F.Sc') data-program-id="operation-theater-technology">Operation Theater Technology + F.Sc</option>
     <option value="Dispenser + F.Sc" @selected(old('program') === 'Dispenser + F.Sc') data-program-id="dispenser">Dispenser + F.Sc</option>
     <option value="B-Category Pharmacy Technician" @selected(old('program') === 'B-Category Pharmacy Technician') data-program-id="b-category-pharmacy-technician">B-Category Pharmacy Technician</option>
+    <option value="Anesthesia Technician" @selected(old('program') === 'Anesthesia Technician') data-program-id="anesthesia-technician">Anesthesia Technician</option>
   </optgroup>
 </select></div>
             <div class="col-12"><label class="form-label" for="cMessage">Message *</label>

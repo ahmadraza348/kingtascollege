@@ -33,6 +33,13 @@
                     </a>
                 </li>
 
+                <li class="{{ request()->routeIs('admin.password.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.password.change') }}">
+                        <img src="{{ asset('backend/assets/img/icons/product.svg') }}" alt="img">
+                        <span>Change Password</span>
+                    </a>
+                </li>
+
             </ul>
 
 

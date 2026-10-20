@@ -192,11 +192,17 @@
                                     <label class="form-label" for="qualification">Previous qualification *</label>
                                     <select class="form-select" id="qualification" name="qualification" required autocomplete="off">
                                         <option value="">Select</option>
-                                        <option value="Matric" @selected(old('qualification') === 'Matric')>Matric</option>
-                                        <option value="F.Sc / Intermediate" @selected(old('qualification') === 'F.Sc / Intermediate')>F.Sc / Intermediate</option>
-                                        <option value="Diploma" @selected(old('qualification') === 'Diploma')>Diploma</option>
-                                        <option value="Bachelor" @selected(old('qualification') === 'Bachelor')>Bachelor</option>
-                                        <option value="Other" @selected(old('qualification') === 'Other')>Other</option>
+                                        <optgroup label="Matric">
+                                            <option value="Matric – Science (Biology)" @selected(old('qualification') === 'Matric – Science (Biology)')>Matric – Science (Biology)</option>
+                                            <option value="Matric – Science (Computer)" @selected(old('qualification') === 'Matric – Science (Computer)')>Matric – Science (Computer)</option>
+                                            <option value="Matric – Arts" @selected(old('qualification') === 'Matric – Arts')>Matric – Arts</option>
+                                        </optgroup>
+                                        <optgroup label="Intermediate">
+                                            <option value="Intermediate – Science (F.Sc Pre-Medical)" @selected(old('qualification') === 'Intermediate – Science (F.Sc Pre-Medical)')>Intermediate – Science (F.Sc Pre-Medical)</option>
+                                            <option value="Intermediate – Science (F.Sc Pre-Engineering)" @selected(old('qualification') === 'Intermediate – Science (F.Sc Pre-Engineering)')>Intermediate – Science (F.Sc Pre-Engineering)</option>
+                                            <option value="Intermediate – Science (ICS)" @selected(old('qualification') === 'Intermediate – Science (ICS)')>Intermediate – Science (ICS)</option>
+                                            <option value="Intermediate – Arts" @selected(old('qualification') === 'Intermediate – Arts')>Intermediate – Arts</option>
+                                        </optgroup>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
@@ -238,13 +244,13 @@
                                             <option value="CNA (Certified Nursing Assistant)" @selected(old('program') === 'CNA (Certified Nursing Assistant)')>CNA (Certified Nursing Assistant)</option>
                                         </optgroup>
                                         <optgroup label="Allied Health Programs">
-                                            <option value="Anesthesia Technician" @selected(old('program') === 'Anesthesia Technician')>Anesthesia Technician</option>
                                             <option value="Radiography Technology + F.Sc" @selected(old('program') === 'Radiography Technology + F.Sc')>Radiography Technology + F.Sc</option>
                                             <option value="Medical Lab Technology + F.Sc" @selected(old('program') === 'Medical Lab Technology + F.Sc')>Medical Lab Technology + F.Sc</option>
                                             <option value="Dental Technician" @selected(old('program') === 'Dental Technician')>Dental Technician</option>
                                             <option value="Operation Theater Technology + F.Sc" @selected(old('program') === 'Operation Theater Technology + F.Sc')>Operation Theater Technology + F.Sc</option>
                                             <option value="Dispenser + F.Sc" @selected(old('program') === 'Dispenser + F.Sc')>Dispenser + F.Sc</option>
                                             <option value="B-Category Pharmacy Technician" @selected(old('program') === 'B-Category Pharmacy Technician')>B-Category Pharmacy Technician</option>
+                                            <option value="Anesthesia Technician" @selected(old('program') === 'Anesthesia Technician')>Anesthesia Technician</option>
                                         </optgroup>
                                     </select>
                                     <div class="invalid-feedback"></div>

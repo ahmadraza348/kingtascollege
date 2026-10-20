@@ -105,22 +105,30 @@
   <section class="section bg-light-soft" id="ceo-message">
     <div class="container">
       @php
-        // Put the CEO's photo at public/frontend/assets/images/ceo/tahir-farooq-ceo.jpeg and it appears here automatically.
+        // Put the CEO photo at public/frontend/assets/images/ceo/tahir-farooq-ceo.jpeg and it appears here automatically.
         $ceoPhoto = file_exists(public_path('frontend/assets/images/ceo/tahir-farooq-ceo.jpeg'))
             ? 'frontend/assets/images/ceo/tahir-farooq-ceo.jpeg'
             : 'frontend/assets/images/ceo/ceo-placeholder.svg';
       @endphp
+      <div class="section-header">
+        <span class="eyebrow">Leadership</span>
+        <h2>A Message from the CEOs</h2>
+      </div>
       <div class="ceo-box" data-reveal>
         <div class="ceo-box-photo">
-          <img src="{{ asset($ceoPhoto) }}" alt="Tahir Farooq, CEO of King TAS College" loading="lazy" width="300" height="360">
+          <img src="{{ asset($ceoPhoto) }}" alt="CEOs of King TAS College" loading="lazy" width="300" height="360">
         </div>
         <div class="ceo-box-body">
-          <span class="eyebrow">Message from the CEO</span>
           <i class="bi bi-quote ceo-box-quote" aria-hidden="true"></i>
-          <p class="ceo-box-text">Good healthcare begins with well-trained, caring people. Join us and start a rewarding career in nursing and allied health sciences.</p>
+          <div class="ceo-box-text">
+            <p>It has been seven years since we began our journey in medical education with a shared vision, dedication, and a strong commitment to providing quality education. As the CEOs of this institution, we feel proud to be part of a journey focused on educating, guiding, and preparing skilled healthcare professionals for the future. Our aim has always been to create a supportive learning environment where students can gain knowledge, develop practical skills, and build the confidence they need to succeed in the medical field.</p>
+            <p>We strongly believe that education is not just about acquiring knowledge; it is about building character, developing professional abilities, and preparing individuals to serve humanity with care, honesty, and responsibility. Through our continuous efforts, we strive to provide students with quality education, proper guidance, and opportunities to achieve their career goals.</p>
+            <p>We are sincerely thankful to our dedicated faculty, hardworking staff, students, and parents for their trust, cooperation, and support throughout this journey. Their contribution motivates us to continue improving our institution and maintaining high standards of medical education. As we move forward, our vision is to expand our opportunities, strengthen our educational standards, and help more students build successful careers in the healthcare sector.</p>
+            <p>Our journey over the past seven years has been built on teamwork, commitment, and a shared passion for education. We look forward to many more years of growth, success, and achievements. Together, we will continue working towards a brighter future and making a positive difference in medical education and healthcare services for our community.</p>
+          </div>
           <div class="ceo-box-sign">
-            <p class="ceo-name">Tahir Farooq</p>
-            <p class="ceo-role">Chief Executive Officer, King TAS College</p>
+            <p class="ceo-name">The CEOs</p>
+            <p class="ceo-role">King TAS College of Nursing &amp; Allied Health Sciences</p>
           </div>
         </div>
       </div>
@@ -264,14 +272,14 @@
           <article class="card-brand program-card d-flex flex-column">
             <div class="media-frame ratio-16x9">
               <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-              <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+              <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
             </div>
             <div class="p-4 d-flex flex-column flex-grow-1">
               <div class="d-flex align-items-center gap-2 mb-2">
-                <i class="bi bi-lungs text-brand fs-5"></i>
-                <h3 class="h6 mb-0">Anesthesia Technician</h3>
+                <i class="bi bi-broadcast text-brand fs-5"></i>
+                <h3 class="h6 mb-0">Radiography Technology + F.Sc</h3>
               </div>
-              <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
+              <p class="small text-soft flex-grow-1">Diagnostic imaging training combined with an F.Sc pathway, covering radiographic techniques, positioning and radiation safety.</p>
               <div class="meta-row mb-2">
                 <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
               </div>
@@ -279,7 +287,7 @@
                 <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
               </div>
               <div class="d-flex gap-2">
-                <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
+                <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=radiography-technology">Learn More</a>
                 <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
               </div>
             </div>

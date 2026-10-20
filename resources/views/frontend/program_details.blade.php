@@ -1386,31 +1386,6 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
-    </div>
-    <div class="p-4 d-flex flex-column flex-grow-1">
-      <div class="d-flex align-items-center gap-2 mb-2">
-        <i class="bi bi-lungs text-brand fs-5"></i>
-        <h3 class="h6 mb-0">Anesthesia Technician</h3>
-      </div>
-      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
-      <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
-      </div>
-      <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
-      </div>
-      <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-      </div>
-    </div>
-  </article>
-</div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
-  <article class="card-brand program-card d-flex flex-column">
-    <div class="media-frame ratio-16x9">
-      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
       <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Medical Lab Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
@@ -1432,7 +1407,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -1452,6 +1427,31 @@
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=dental-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+      </div>
+    </div>
+  </article>
+</div>
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="1">
+  <article class="card-brand program-card d-flex flex-column">
+    <div class="media-frame ratio-16x9">
+      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+    </div>
+    <div class="p-4 d-flex flex-column flex-grow-1">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-lungs text-brand fs-5"></i>
+        <h3 class="h6 mb-0">Anesthesia Technician</h3>
+      </div>
+      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
+      <div class="meta-row mb-2">
+        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+      </div>
+      <div class="meta-row mb-3">
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
         <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
@@ -1594,31 +1594,6 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
-    </div>
-    <div class="p-4 d-flex flex-column flex-grow-1">
-      <div class="d-flex align-items-center gap-2 mb-2">
-        <i class="bi bi-lungs text-brand fs-5"></i>
-        <h3 class="h6 mb-0">Anesthesia Technician</h3>
-      </div>
-      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
-      <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
-      </div>
-      <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
-      </div>
-      <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-      </div>
-    </div>
-  </article>
-</div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
-  <article class="card-brand program-card d-flex flex-column">
-    <div class="media-frame ratio-16x9">
-      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
       <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
@@ -1640,7 +1615,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -1660,6 +1635,31 @@
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=dental-technician">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+      </div>
+    </div>
+  </article>
+</div>
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="1">
+  <article class="card-brand program-card d-flex flex-column">
+    <div class="media-frame ratio-16x9">
+      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+    </div>
+    <div class="p-4 d-flex flex-column flex-grow-1">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-lungs text-brand fs-5"></i>
+        <h3 class="h6 mb-0">Anesthesia Technician</h3>
+      </div>
+      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
+      <div class="meta-row mb-2">
+        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+      </div>
+      <div class="meta-row mb-3">
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
         <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
@@ -1802,31 +1802,6 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
-    </div>
-    <div class="p-4 d-flex flex-column flex-grow-1">
-      <div class="d-flex align-items-center gap-2 mb-2">
-        <i class="bi bi-lungs text-brand fs-5"></i>
-        <h3 class="h6 mb-0">Anesthesia Technician</h3>
-      </div>
-      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
-      <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
-      </div>
-      <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
-      </div>
-      <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-      </div>
-    </div>
-  </article>
-</div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
-  <article class="card-brand program-card d-flex flex-column">
-    <div class="media-frame ratio-16x9">
-      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
       <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
@@ -1848,7 +1823,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -1868,6 +1843,31 @@
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+      </div>
+    </div>
+  </article>
+</div>
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="1">
+  <article class="card-brand program-card d-flex flex-column">
+    <div class="media-frame ratio-16x9">
+      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+    </div>
+    <div class="p-4 d-flex flex-column flex-grow-1">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-lungs text-brand fs-5"></i>
+        <h3 class="h6 mb-0">Anesthesia Technician</h3>
+      </div>
+      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
+      <div class="meta-row mb-2">
+        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+      </div>
+      <div class="meta-row mb-3">
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
         <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
@@ -2010,31 +2010,6 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
-    </div>
-    <div class="p-4 d-flex flex-column flex-grow-1">
-      <div class="d-flex align-items-center gap-2 mb-2">
-        <i class="bi bi-lungs text-brand fs-5"></i>
-        <h3 class="h6 mb-0">Anesthesia Technician</h3>
-      </div>
-      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
-      <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
-      </div>
-      <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
-      </div>
-      <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-      </div>
-    </div>
-  </article>
-</div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
-  <article class="card-brand program-card d-flex flex-column">
-    <div class="media-frame ratio-16x9">
-      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
       <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
@@ -2056,7 +2031,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -2076,6 +2051,31 @@
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+      </div>
+    </div>
+  </article>
+</div>
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="1">
+  <article class="card-brand program-card d-flex flex-column">
+    <div class="media-frame ratio-16x9">
+      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+    </div>
+    <div class="p-4 d-flex flex-column flex-grow-1">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-lungs text-brand fs-5"></i>
+        <h3 class="h6 mb-0">Anesthesia Technician</h3>
+      </div>
+      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
+      <div class="meta-row mb-2">
+        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+      </div>
+      <div class="meta-row mb-3">
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
         <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
@@ -2218,31 +2218,6 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
-    </div>
-    <div class="p-4 d-flex flex-column flex-grow-1">
-      <div class="d-flex align-items-center gap-2 mb-2">
-        <i class="bi bi-lungs text-brand fs-5"></i>
-        <h3 class="h6 mb-0">Anesthesia Technician</h3>
-      </div>
-      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
-      <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
-      </div>
-      <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
-      </div>
-      <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-      </div>
-    </div>
-  </article>
-</div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
-  <article class="card-brand program-card d-flex flex-column">
-    <div class="media-frame ratio-16x9">
-      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
       <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
@@ -2264,7 +2239,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -2284,6 +2259,31 @@
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+      </div>
+    </div>
+  </article>
+</div>
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="1">
+  <article class="card-brand program-card d-flex flex-column">
+    <div class="media-frame ratio-16x9">
+      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+    </div>
+    <div class="p-4 d-flex flex-column flex-grow-1">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-lungs text-brand fs-5"></i>
+        <h3 class="h6 mb-0">Anesthesia Technician</h3>
+      </div>
+      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
+      <div class="meta-row mb-2">
+        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+      </div>
+      <div class="meta-row mb-3">
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
         <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>
@@ -2426,31 +2426,6 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
-    </div>
-    <div class="p-4 d-flex flex-column flex-grow-1">
-      <div class="d-flex align-items-center gap-2 mb-2">
-        <i class="bi bi-lungs text-brand fs-5"></i>
-        <h3 class="h6 mb-0">Anesthesia Technician</h3>
-      </div>
-      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
-      <div class="meta-row mb-2">
-        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
-      </div>
-      <div class="meta-row mb-3">
-        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
-      </div>
-      <div class="d-flex gap-2">
-        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
-        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
-      </div>
-    </div>
-  </article>
-</div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
-  <article class="card-brand program-card d-flex flex-column">
-    <div class="media-frame ratio-16x9">
-      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
       <img src="{{ asset('frontend/assets/images/programs/radiology.jpg') }}" alt="Radiography Technology + F.Sc program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
@@ -2472,7 +2447,7 @@
     </div>
   </article>
 </div>
-<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="3">
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="2">
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
@@ -2492,6 +2467,31 @@
       </div>
       <div class="d-flex gap-2">
         <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=medical-lab-technology">Learn More</a>
+        <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
+      </div>
+    </div>
+  </article>
+</div>
+<div class="col-md-6 col-lg-4" data-reveal data-reveal-delay="1">
+  <article class="card-brand program-card d-flex flex-column">
+    <div class="media-frame ratio-16x9">
+      <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
+      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+    </div>
+    <div class="p-4 d-flex flex-column flex-grow-1">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <i class="bi bi-lungs text-brand fs-5"></i>
+        <h3 class="h6 mb-0">Anesthesia Technician</h3>
+      </div>
+      <p class="small text-soft flex-grow-1">Technical training in anesthesia equipment handling, operating room preparation and perioperative patient support.</p>
+      <div class="meta-row mb-2">
+        <span><i class="bi bi-clock me-1"></i>Details to be confirmed by Admissions Office</span>
+      </div>
+      <div class="meta-row mb-3">
+        <span><i class="bi bi-mortarboard me-1"></i>Matric Science, 2nd Div., science 45% &bull; Max age 35</span>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-outline-brand btn-sm flex-fill" href="{{ route('frontend.program-details') }}?program=anesthesia-technician">Learn More</a>
         <a class="btn btn-brand-red btn-sm flex-fill" href="{{ route('frontend.admission') }}#apply">Apply Now</a>
       </div>
     </div>

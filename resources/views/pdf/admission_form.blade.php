@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <title>Admission Form {{ $admission->form_number }}</title>
 <style>
-    @page { margin: 16px 30px 34px 30px; }
+    @page { margin: 14px 30px 30px 30px; }
+    html, body { page-break-after: avoid; page-break-inside: avoid; }
+    table, .section-title, .declaration { page-break-inside: avoid; }
     body { font-family: 'DejaVu Sans', sans-serif; font-size: 9.5px; color: #334155; line-height: 1.3; }
     table { width: 100%; border-collapse: collapse; }
     .header { background: #10233f; color: #fff; border-bottom: 4px solid #d71919; }
@@ -24,7 +26,7 @@
     .ok { color: #15803d; font-weight: bold; }
     .status { background: #fff3cd; color: #8a6d00; font-weight: bold; padding: 2px 8px; }
     .declaration { border: 1px solid #e2e8f0; background: #f6f9fc; padding: 5px 8px; margin-top: 3px; font-size: 8.5px; }
-    .sign td { padding-top: 34px; padding-left: 8px; padding-right: 8px; text-align: center; font-size: 8.5px; color: #64748b; }
+    .sign td { padding-top: 26px; padding-left: 8px; padding-right: 8px; text-align: center; font-size: 8.5px; color: #64748b; }
     .sign .line { border-top: 1px solid #94a3b8; padding-top: 4px; }
     .footer { position: fixed; bottom: -22px; left: 0; right: 0; text-align: center; font-size: 8px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 3px; }
 </style>
