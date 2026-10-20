@@ -72,7 +72,7 @@ class AdmissionManagementService
         return $isNowVerified;
     }
 
-    /** Email the student about the new status. Never throws. */
+    /** Queue the status email to the student (sent by the queue worker). Never throws. */
     public function notifyStudent(Admission $admission, ?string $remarks): void
     {
         if (empty($admission->email)) {
@@ -80,9 +80,9 @@ class AdmissionManagementService
         }
 
         try {
-            Mail::to($admission->email)->send(new AdmissionStatusMail($admission, $remarks));
+            Mail::to($admission->email)->queue(new AdmissionStatusMail($admission, $remarks));
         } catch (Throwable $e) {
-            Log::error('Admission status email failed', [
+            Log::error('Admission status email could not be queued', [
                 'admission_id' => $admission->id,
                 'error' => $e->getMessage(),
             ]);

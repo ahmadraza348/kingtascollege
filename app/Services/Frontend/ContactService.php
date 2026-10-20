@@ -2,10 +2,9 @@
 
 namespace App\Services\Frontend;
 
-use App\Mail\NewContactMail;
+use App\Jobs\SendContactMessageEmail;
 use App\Models\ContactMessage;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Throwable;
 
 class ContactService
@@ -14,10 +13,11 @@ class ContactService
     private const COLLEGE_EMAIL = 'info@kingtascollege.com';
 
     /**
-     * Save the visitor's query, then email it to the college.
+     * Save the visitor's query, then queue the email to the college.
      *
-     * The query is saved first, so it is never lost even if the email fails.
-     * An email failure is logged and stored in the `email_sent` column.
+     * The query is saved first, so it is never lost. `email_sent` stays false until the
+     * queue worker has really sent the email (then the job sets it to true), so staff can
+     * still find unsent queries in the database.
      *
      * @param array<string, mixed> $data Validated form data.
      */
@@ -25,29 +25,15 @@ class ContactService
     {
         $contactMessage = ContactMessage::create($data);
 
-        $contactMessage->update([
-            'email_sent' => $this->sendToCollege($contactMessage),
-        ]);
-
-        return $contactMessage;
-    }
-
-    /**
-     * Returns true when the email was handed to the mail server, false otherwise.
-     */
-    private function sendToCollege(ContactMessage $contactMessage): bool
-    {
         try {
-            Mail::to(self::COLLEGE_EMAIL)->send(new NewContactMail($contactMessage));
-
-            return true;
+            SendContactMessageEmail::dispatch($contactMessage, self::COLLEGE_EMAIL);
         } catch (Throwable $e) {
-            Log::error('Contact form email failed', [
+            Log::error('Contact form email could not be queued', [
                 'contact_message_id' => $contactMessage->id,
                 'error' => $e->getMessage(),
             ]);
-
-            return false;
         }
+
+        return $contactMessage;
     }
 }

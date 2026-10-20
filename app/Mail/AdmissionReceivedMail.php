@@ -3,20 +3,38 @@
 namespace App\Mail;
 
 use App\Models\Admission;
+use App\Services\Frontend\AdmissionNotificationService;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
 
 /**
  * Sent to the student: "your admission form is under process" + PDF copy.
+ *
+ * Queued: the PDF is built by the queue worker (not while the student waits),
+ * so only the Admission id is stored in the jobs table.
  */
-class AdmissionReceivedMail extends Mailable
+class AdmissionReceivedMail extends Mailable implements ShouldQueue
 {
-    public function __construct(
-        public Admission $admission,
-        public ?string $pdf = null
-    ) {
+    use Queueable, SerializesModels;
+
+    /** Try 3 times (1 min, then 5 min apart) before the job lands in failed_jobs. */
+    public int $tries = 3;
+
+    public int $timeout = 60;
+
+    /** @return array<int, int> */
+    public function backoff(): array
+    {
+        return [60, 300];
+    }
+
+    public function __construct(public Admission $admission)
+    {
     }
 
     public function envelope(): Envelope
@@ -34,12 +52,14 @@ class AdmissionReceivedMail extends Mailable
     /** @return array<int, Attachment> */
     public function attachments(): array
     {
-        if (! $this->pdf) {
+        $pdf = app(AdmissionNotificationService::class)->makePdfSafely($this->admission, 'Applicant Copy');
+
+        if (! $pdf) {
             return [];
         }
 
         return [
-            Attachment::fromData(fn () => $this->pdf, 'Admission-Form-' . $this->admission->form_number . '.pdf')
+            Attachment::fromData(fn () => $pdf, 'Admission-Form-' . $this->admission->form_number . '.pdf')
                 ->withMime('application/pdf'),
         ];
     }

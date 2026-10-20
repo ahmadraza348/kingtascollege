@@ -14,30 +14,19 @@ use Throwable;
 class AdmissionNotificationService
 {
     /**
-     * Send the "form under process" email to the student and the
-     * "new student" email to the college. Failures are logged, never thrown.
+     * Queue the "form under process" email to the student and the "new student"
+     * email to the college. Nothing slow happens here: the PDFs are built and the
+     * mails are sent later by the queue worker (php artisan queue:work).
+     * Failures to queue are logged, never thrown, so a saved application is never undone.
      */
     public function send(Admission $admission): void
     {
-        $studentPdf = null;
-        $adminPdf = null;
-
-        try {
-            $studentPdf = $this->makePdf($admission, 'Applicant Copy');
-            $adminPdf = $this->makePdf($admission, 'Office Copy');
-        } catch (Throwable $e) {
-            Log::error('Admission PDF generation failed', [
-                'admission_id' => $admission->id,
-                'error' => $e->getMessage(),
-            ]);
-        }
-
         // Email to the student
         if (! empty($admission->email)) {
             try {
-                Mail::to($admission->email)->send(new AdmissionReceivedMail($admission, $studentPdf));
+                Mail::to($admission->email)->queue(new AdmissionReceivedMail($admission));
             } catch (Throwable $e) {
-                Log::error('Student admission email failed', [
+                Log::error('Student admission email could not be queued', [
                     'admission_id' => $admission->id,
                     'error' => $e->getMessage(),
                 ]);
@@ -46,12 +35,30 @@ class AdmissionNotificationService
 
         // Email to the college / admin (info@kingtascollege.com)
         try {
-            Mail::to(config('mail.from.address'))->send(new NewAdmissionMail($admission, $adminPdf));
+            Mail::to(config('mail.from.address'))->queue(new NewAdmissionMail($admission));
         } catch (Throwable $e) {
-            Log::error('Admin admission email failed', [
+            Log::error('Admin admission email could not be queued', [
                 'admission_id' => $admission->id,
                 'error' => $e->getMessage(),
             ]);
+        }
+    }
+
+    /**
+     * Like makePdf(), but returns null instead of throwing, so an email can still
+     * go out (without the attachment) if PDF generation fails.
+     */
+    public function makePdfSafely(Admission $admission, string $copyLabel = 'Applicant Copy'): ?string
+    {
+        try {
+            return $this->makePdf($admission, $copyLabel);
+        } catch (Throwable $e) {
+            Log::error('Admission PDF generation failed', [
+                'admission_id' => $admission->id,
+                'error' => $e->getMessage(),
+            ]);
+
+            return null;
         }
     }
 
