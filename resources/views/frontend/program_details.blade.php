@@ -162,7 +162,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lhv.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -371,7 +371,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lhv.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -442,7 +442,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="LHV (Lady Health Visitor) training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/lhv.jpg') }}" alt="LHV (Lady Health Visitor) training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -812,7 +812,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lhv.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -858,7 +858,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{ asset('frontend/assets/images/programs/clinical.jpg') }}" alt="CNA (Certified Nursing Assistant) training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/cna.jpg') }}" alt="CNA (Certified Nursing Assistant) training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -1020,7 +1020,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand  badge-float">Nursing</span>
-      <img src="{{ asset('frontend/assets/images/programs/maternal.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/lhv.jpg') }}" alt="LHV (Lady Health Visitor) program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1066,7 +1066,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/anesthesia.jpg') }}" alt="Anesthesia Technician training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -1228,7 +1228,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/dental.jpg') }}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1411,7 +1411,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/dental.jpg') }}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1436,7 +1436,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/anesthesia.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1619,7 +1619,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/dental.jpg') }}" alt="Dental Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1644,7 +1644,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/anesthesia.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -1690,7 +1690,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{ asset('frontend/assets/images/programs/lab.jpg') }}" alt="Dental Technician training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/dental.jpg') }}" alt="Dental Technician training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -1852,7 +1852,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/anesthesia.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2060,7 +2060,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/anesthesia.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2106,7 +2106,7 @@
     <div class="row g-5">
       <div class="col-lg-8">
         <div class="media-frame rounded-brand shadow-brand ratio-16x9 mb-4">
-          <img src="{{ asset('frontend/assets/images/programs/pharmacy.jpg') }}" alt="Dispenser + F.Sc training at King TAS College" width="1200" height="675">
+          <img src="{{ asset('frontend/assets/images/programs/dispenser.jpg') }}" alt="Dispenser + F.Sc training at King TAS College" width="1200" height="675">
         </div>
         <article>
   <h2 class="h4">Overview</h2>
@@ -2268,7 +2268,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/anesthesia.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
@@ -2476,7 +2476,7 @@
   <article class="card-brand program-card d-flex flex-column">
     <div class="media-frame ratio-16x9">
       <span class="badge-brand badge-brand-red badge-float">Allied Health</span>
-      <img src="{{ asset('frontend/assets/images/programs/ot.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
+      <img src="{{ asset('frontend/assets/images/programs/anesthesia.jpg') }}" alt="Anesthesia Technician program at King TAS College" loading="lazy" width="1200" height="675">
     </div>
     <div class="p-4 d-flex flex-column flex-grow-1">
       <div class="d-flex align-items-center gap-2 mb-2">
