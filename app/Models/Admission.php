@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Admission extends Model
 {
@@ -156,5 +157,29 @@ class Admission extends Model
         return $this->documents()
             ->where('required', true)
             ->every(fn ($d) => $this->isDocumentVerified($d['key']));
+    }
+
+    // student relationship: one admission can become one student, but not all admissions do.
+
+        public function student(): HasOne
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    /**
+     * Find an application from its form number (KTC-2026-00042).
+     * The number is built from the id and year, so we read the id back and re-check the whole string.
+     */
+    public static function findByFormNumber(string $formNumber): ?self
+    {
+        $formNumber = strtoupper(trim($formNumber));
+
+        if (! preg_match('/^KTC-\d{4}-(\d+)$/', $formNumber, $m)) {
+            return null;
+        }
+
+        $admission = static::find((int) $m[1]);
+
+        return $admission && $admission->form_number === $formNumber ? $admission : null;
     }
 }

@@ -14,6 +14,10 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\AdmissionController as AdminAdmissionController;
+use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\StudentImportController;
+use App\Http\Controllers\Admin\SchoolClassController;
+use App\Http\Controllers\Admin\SectionController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
@@ -75,12 +79,13 @@ Route::prefix('admin')->group(function () {
     Route::post('login/reset-password/{token}', [AuthController::class, 'submit_reset_pass_form'])->middleware('throttle:10,1')->name('reset.password.post');
 });
 
-Route::prefix('admin')->middleware('adminauth')->group(function () {
+Route::prefix('admin')->middleware('adminauth')->group(
+    function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
         Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
         Route::get('change-password', [AuthController::class, 'changePasswordForm'])->name('admin.password.change');
         Route::post('change-password', [AuthController::class, 'changePasswordSubmit'])->name('admin.password.update');
-        
+
         Route::prefix('admissions')->name('admission.')->group(function () {
             Route::get('/', [AdminAdmissionController::class, 'index'])->name('index');
             Route::get('export', [AdminAdmissionController::class, 'export'])->name('export');
@@ -107,6 +112,36 @@ Route::prefix('admin')->middleware('adminauth')->group(function () {
             Route::delete('{gallery}', [AdminGalleryController::class, 'destroy'])->name('destroy');
         });
 
+        // Academics: classes & sections
+        Route::resource('classes', SchoolClassController::class)
+            ->except('show')
+            ->parameters(['classes' => 'schoolClass'])
+            ->names('school-class');
 
+        Route::get('sections/by-class/{schoolClass}', [SectionController::class, 'byClass'])->name('section.by-class');
+
+        Route::resource('sections', SectionController::class)
+            ->except('show')
+            ->names('section');
+
+        // Students
+        Route::prefix('students')->name('student.')->group(function () {
+            Route::get('/', [StudentController::class, 'index'])->name('index');
+            Route::get('create', [StudentController::class, 'create'])->name('create');
+            Route::post('/', [StudentController::class, 'store'])->name('store');
+            Route::get('admission-lookup', [StudentController::class, 'admissionLookup'])->name('admission-lookup');
+            Route::post('bulk', [StudentController::class, 'bulk'])->name('bulk');
+
+            Route::get('import', [StudentImportController::class, 'create'])->name('import');
+            Route::get('import/template', [StudentImportController::class, 'template'])->name('import.template');
+            Route::post('import/preview', [StudentImportController::class, 'preview'])->name('import.preview');
+            Route::post('import/commit', [StudentImportController::class, 'commit'])->name('import.commit');
+
+            Route::post('{id}/restore', [StudentController::class, 'restore'])->whereNumber('id')->name('restore');
+            Route::get('{student}', [StudentController::class, 'show'])->name('show');
+            Route::get('{student}/edit', [StudentController::class, 'edit'])->name('edit');
+            Route::put('{student}', [StudentController::class, 'update'])->name('update');
+            Route::delete('{student}', [StudentController::class, 'destroy'])->name('destroy');
+        });
     }
 );

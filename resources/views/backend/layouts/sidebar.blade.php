@@ -9,7 +9,7 @@
                         <img src="{{ asset('backend/assets/img/icons/dashboard.svg') }}" alt="img">
                         <span>Dashboard</span>
                     </a>
-                </li>          
+                </li>
 
                 <li class="{{ request()->routeIs('admission.*') ? 'active' : '' }}">
                     <a href="{{ route('admission.index') }}">
@@ -18,11 +18,11 @@
                     </a>
                 </li>
 
-          
+
                 <li class="{{ request()->routeIs('contact-message.*') ? 'active' : '' }}">
                     <a href="{{ route('contact-message.index') }}">
                         <img src="{{ asset('backend/assets/img/icons/mail.svg') }}" alt="img">
-                        <span>Contact Messages</span>                       
+                        <span>Contact Messages</span>
                     </a>
                 </li>
 
@@ -33,13 +33,26 @@
                     </a>
                 </li>
 
-                <li class="{{ request()->routeIs('admin.password.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.password.change') }}">
+                <li class="{{ request()->routeIs('school-class.*') ? 'active' : '' }}">
+                    <a href="{{ route('school-class.index') }}">
                         <img src="{{ asset('backend/assets/img/icons/product.svg') }}" alt="img">
-                        <span>Change Password</span>
+                        <span>Classes</span>
                     </a>
                 </li>
 
+                <li class="{{ request()->routeIs('section.*') ? 'active' : '' }}">
+                    <a href="{{ route('section.index') }}">
+                        <img src="{{ asset('backend/assets/img/icons/quotation1.svg') }}" alt="img">
+                        <span>Sections</span>
+                    </a>
+                </li>
+
+                <li class="{{ request()->routeIs('student.*') ? 'active' : '' }}">
+                    <a href="{{ route('student.index') }}">
+                        <img src="{{ asset('backend/assets/img/icons/users1.svg') }}" alt="img">
+                        <span>Students</span>
+                    </a>
+                </li>
             </ul>
 
 

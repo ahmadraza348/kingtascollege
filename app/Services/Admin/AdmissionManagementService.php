@@ -43,7 +43,7 @@ class AdmissionManagementService
             // The roll number is created once, when the student is enrolled. It is based on the
             // record id, so it can never clash and needs no counter logic.
             if ($status === 'enrolled' && ! $admission->roll_number) {
-                $admission->roll_number = sprintf('KT-%s-%04d', now()->format('y'), $admission->id);
+                $admission->roll_number = app(\App\Services\Admin\StudentService::class)->nextRollNumber();
             }
 
             $admission->save();
