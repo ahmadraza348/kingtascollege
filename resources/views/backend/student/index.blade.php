@@ -30,7 +30,7 @@
 
         {{-- Status cards --}}
         <div class="row">
-            <div class="col-6 col-md-3 mb-3">
+            <div class="col-6 col-md-2 mb-3">
                 <a href="{{ route('student.index', $keep) }}" class="card h-100 mb-0 text-center text-decoration-none {{ ! $status && ! $trashed ? 'border-dark' : '' }}">
                     <div class="card-body py-3">
                         <h3 class="mb-0">{{ $counts->sum() }}</h3><small class="text-muted">All</small>
@@ -38,7 +38,7 @@
                 </a>
             </div>
             @foreach (\App\Models\Student::STATUSES as $key => $label)
-                <div class="col-6 col-md-3 mb-3">
+                <div class="col-6 col-md-2 mb-3">
                     <a href="{{ route('student.index', $keep + ['status' => $key]) }}"
                        class="card h-100 mb-0 text-center text-decoration-none {{ $status === $key ? 'border-' . \App\Models\Student::STATUS_COLORS[$key] : '' }}">
                         <div class="card-body py-3">
@@ -85,7 +85,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-12">
+                    <div class="col-lg-3 col-md-6 col-12 page-btn">
                         @if ($status) <input type="hidden" name="status" value="{{ $status }}"> @endif
                         <button type="submit" class="btn btn-submit me-2">Filter</button>
                         <a href="{{ route('student.index') }}" class="btn btn-cancel">Reset</a>
@@ -145,7 +145,7 @@
                                 <th>Class / Section</th>
                                 <th>Father</th>
                                 <th>Phone</th>
-                                <th>Admission</th>
+                                <!-- <th>Admission</th> -->
                                 <th>Status</th>
                                 <th data-orderable="false">Action</th>
                             </tr>
@@ -164,11 +164,11 @@
                                 <td>{{ $item->schoolClass->name }} / {{ $item->section->name }}</td>
                                 <td>{{ $item->father_name }}</td>
                                 <td>{{ $item->phone }}</td>
-                                <td>
+                                <!-- <td>
                                     @if ($item->admission_id)
                                         <a href="{{ route('admission.show', $item->admission_id) }}">{{ $item->admission_form_number }}</a>
                                     @else — @endif
-                                </td>
+                                </td> -->
                                 <td><span class="badge rounded-pill bg-{{ $item->status_color }}">{{ $item->status_label }}</span></td>
                                 <td class="text-nowrap">
                                     @if ($trashed)

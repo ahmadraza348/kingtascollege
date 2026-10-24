@@ -18,6 +18,10 @@ use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\StudentImportController;
 use App\Http\Controllers\Admin\SchoolClassController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\Admin\AttendanceController;
+use App\Http\Controllers\Admin\AttendanceDashboardController;
+use App\Http\Controllers\Admin\AttendanceReportController;
+use App\Http\Controllers\Admin\SchoolHolidayController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
@@ -142,6 +146,23 @@ Route::prefix('admin')->middleware('adminauth')->group(
             Route::get('{student}/edit', [StudentController::class, 'edit'])->name('edit');
             Route::put('{student}', [StudentController::class, 'update'])->name('update');
             Route::delete('{student}', [StudentController::class, 'destroy'])->name('destroy');
+        });
+
+        // Attendance
+        Route::prefix('attendance')->name('attendance.')->group(function () {
+            Route::get('/', [AttendanceDashboardController::class, 'index'])->name('dashboard');
+
+            Route::get('mark', [AttendanceController::class, 'index'])->name('mark');
+            Route::post('mark', [AttendanceController::class, 'save'])->name('save');
+
+            Route::get('reports', [AttendanceReportController::class, 'index'])->name('report');
+            Route::get('reports/pdf', [AttendanceReportController::class, 'pdf'])->name('report.pdf');
+            Route::get('reports/export/{format}', [AttendanceReportController::class, 'export'])
+                ->whereIn('format', ['xlsx', 'csv'])->name('report.export');
+
+            Route::get('holidays', [SchoolHolidayController::class, 'index'])->name('holidays');
+            Route::post('holidays', [SchoolHolidayController::class, 'store'])->name('holidays.store');
+            Route::delete('holidays/{holiday}', [SchoolHolidayController::class, 'destroy'])->name('holidays.destroy');
         });
     }
 );

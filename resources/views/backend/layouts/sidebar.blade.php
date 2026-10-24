@@ -53,6 +53,19 @@
                         <span>Students</span>
                     </a>
                 </li>
+
+                <li class="submenu">
+                    <a href="javascript:void(0);" class="{{ request()->routeIs('attendance.*') ? 'subdrop active' : '' }}">
+                        <img src="{{ asset('backend/assets/img/icons/calendars.svg') }}" alt="img">
+                        <span>Attendance</span> <span class="menu-arrow"></span>
+                    </a>
+                    <ul style="{{ request()->routeIs('attendance.*') ? 'display:block' : '' }}">
+                        <li><a href="{{ route('attendance.mark') }}" class="{{ request()->routeIs('attendance.mark') ? 'active' : '' }}">Mark Attendance</a></li>
+                        <li><a href="{{ route('attendance.dashboard') }}" class="{{ request()->routeIs('attendance.dashboard') ? 'active' : '' }}">Dashboard</a></li>
+                        <li><a href="{{ route('attendance.report') }}" class="{{ request()->routeIs('attendance.report*') ? 'active' : '' }}">Reports</a></li>
+                        <li><a href="{{ route('attendance.holidays') }}" class="{{ request()->routeIs('attendance.holidays*') ? 'active' : '' }}">Holidays</a></li>
+                    </ul>
+                </li>
             </ul>
 
 
