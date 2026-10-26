@@ -21,6 +21,18 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
+## Fee module
+
+The admin fee workflow is kept to the tasks the school needs:
+
+1. Set monthly amounts under **Fees → Class Fee Amounts** and confirm the bank details and due date under **Fees → Fee Settings**.
+2. Create monthly vouchers for a class/section, or create a voucher for one student.
+3. Print the voucher PDF. It includes bank, college and student copies, arrears and the late fee due through the print date.
+4. Record cash when received. For a bank deposit, record it after confirming the deposit slip; the system issues a receipt and updates the student's balance.
+5. Use **Fees → Student Accounts** to see each student's charges, payments and remaining balance.
+
+Late fees use the configured daily amount. The current amount is shown on the voucher; it is added to the saved fee balance when a payment is recorded.
+
 ## Learning Laravel
 
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.

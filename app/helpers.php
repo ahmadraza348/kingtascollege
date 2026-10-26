@@ -13,3 +13,17 @@ if (!function_exists('check_admin_auth')) {
   
 }
 
+if (! function_exists('fee_money')) {
+    function fee_money($amount): string
+    {
+        return \App\Support\FeeHelper::money($amount);
+    }
+}
+
+if (! function_exists('fee_date')) {
+    function fee_date($date, string $format = 'd M Y'): string
+    {
+        return $date ? \Carbon\Carbon::parse($date)->format($format) : '—';
+    }
+}
+

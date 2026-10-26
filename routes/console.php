@@ -25,3 +25,4 @@ Schedule::command('queue:work --stop-when-empty --max-time=55 --tries=3 --timeou
 
 // Keep the failed_jobs table small (forget failures older than 30 days).
 Schedule::command('queue:prune-failed --hours=720')->daily();
+

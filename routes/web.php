@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\PageController;
 use App\Http\Controllers\Frontend\ProgramController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HelpController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\AdmissionController as AdminAdmissionController;
@@ -22,6 +23,12 @@ use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\AttendanceDashboardController;
 use App\Http\Controllers\Admin\AttendanceReportController;
 use App\Http\Controllers\Admin\SchoolHolidayController;
+use App\Http\Controllers\Admin\FeeDashboardController;
+use App\Http\Controllers\Admin\FeePaymentController;
+use App\Http\Controllers\Admin\FeeSettingController;
+use App\Http\Controllers\Admin\FeeStructureController;
+use App\Http\Controllers\Admin\FeeStudentController;
+use App\Http\Controllers\Admin\FeeVoucherController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
@@ -86,6 +93,7 @@ Route::prefix('admin')->group(function () {
 Route::prefix('admin')->middleware('adminauth')->group(
     function () {
         Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/help', [HelpController::class, 'index'])->name('admin.help');
         Route::post('logout', [AuthController::class, 'logout'])->name('admin.logout');
         Route::get('change-password', [AuthController::class, 'changePasswordForm'])->name('admin.password.change');
         Route::post('change-password', [AuthController::class, 'changePasswordSubmit'])->name('admin.password.update');
@@ -163,6 +171,43 @@ Route::prefix('admin')->middleware('adminauth')->group(
             Route::get('holidays', [SchoolHolidayController::class, 'index'])->name('holidays');
             Route::post('holidays', [SchoolHolidayController::class, 'store'])->name('holidays.store');
             Route::delete('holidays/{holiday}', [SchoolHolidayController::class, 'destroy'])->name('holidays.destroy');
+        });
+
+                // Fee management
+        Route::prefix('fees')->name('fees.')->group(function () {
+            Route::get('/', [FeeDashboardController::class, 'index'])->name('dashboard');
+
+            // Setup
+            Route::get('settings', [FeeSettingController::class, 'edit'])->name('settings');
+            Route::put('settings', [FeeSettingController::class, 'update'])->name('settings.update');
+            Route::resource('structures', FeeStructureController::class)->except('show')->names('structures');
+
+            // Vouchers
+            Route::get('vouchers', [FeeVoucherController::class, 'index'])->name('vouchers');
+            Route::get('vouchers/create', [FeeVoucherController::class, 'create'])->name('vouchers.create');
+            Route::post('vouchers', [FeeVoucherController::class, 'store'])->name('vouchers.store');
+            Route::get('vouchers/bulk', [FeeVoucherController::class, 'bulk'])->name('vouchers.bulk');
+            Route::post('vouchers/bulk', [FeeVoucherController::class, 'bulkStore'])->name('vouchers.bulk.store');
+            Route::get('vouchers/print', [FeeVoucherController::class, 'printMany'])->name('vouchers.print-many');
+            Route::get('vouchers/{voucher}', [FeeVoucherController::class, 'show'])->name('vouchers.show');
+            Route::get('vouchers/{voucher}/pdf', [FeeVoucherController::class, 'pdf'])->name('vouchers.pdf');
+            Route::post('vouchers/{voucher}/cancel', [FeeVoucherController::class, 'cancel'])->name('vouchers.cancel');
+            Route::get('students-by-section/{section}', [FeeVoucherController::class, 'studentsBySection'])->name('students-by-section');
+
+            // Payments
+            Route::get('payments', [FeePaymentController::class, 'index'])->name('payments');
+            Route::get('payments/create', [FeePaymentController::class, 'create'])->name('payments.create');
+            Route::post('payments', [FeePaymentController::class, 'store'])->name('payments.store');
+            Route::get('payments/{payment}', [FeePaymentController::class, 'show'])->name('payments.show');
+            Route::get('payments/{payment}/receipt', [FeePaymentController::class, 'receipt'])->name('payments.receipt');
+            Route::post('payments/{payment}/verify', [FeePaymentController::class, 'verify'])->name('payments.verify');
+            Route::post('payments/{payment}/reject', [FeePaymentController::class, 'reject'])->name('payments.reject');
+            Route::post('payments/{payment}/cancel', [FeePaymentController::class, 'cancel'])->name('payments.cancel');
+
+            // Student fee accounts
+            Route::get('accounts', [FeeStudentController::class, 'index'])->name('accounts');
+            Route::get('accounts/{student}', [FeeStudentController::class, 'show'])->name('accounts.show');
+            Route::get('accounts/{student}/statement', [FeeStudentController::class, 'statementPdf'])->name('accounts.statement');
         });
     }
 );

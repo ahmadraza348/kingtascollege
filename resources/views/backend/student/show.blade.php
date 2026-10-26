@@ -67,6 +67,7 @@ $cards = [
                         </div>
                     </div>
                 </div>
+                
 
                 <div class="card">
                     <div class="card-body">
@@ -97,6 +98,19 @@ $cards = [
                             <h3 class="{{ $p !== null && $p < config('attendance.threshold') ? 'text-danger' : 'text-success' }}">{{ $p === null ? '—' : rtrim(rtrim(number_format($p, 1), '0'), '.') . '%' }}</h3>
                             <small class="text-muted">Present {{ $c['present'] }} · Absent {{ $c['absent'] }} · Late {{ $c['late'] }} · Excused {{ $c['excused'] }} · Half day {{ $c['half_day'] }}</small>
                             <div class="mt-2"><a href="{{ route('attendance.report', ['class' => $student->school_class_id, 'section' => $student->section_id]) }}">Full report</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                                @php $feeDue = (float) \App\Models\FeeVoucher::where('student_id', $student->id)->where('status', '!=', 'cancelled')->sum('balance'); @endphp
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="mb-3">Fees</h5>
+                        <h3 class="{{ $feeDue > 0 ? 'text-danger' : 'text-success' }}">{{ \App\Support\FeeHelper::money($feeDue) }}</h3>
+                        <small class="text-muted">remaining balance</small>
+                        <div class="mt-2">
+                            <a href="{{ route('fees.accounts.show', $student) }}">Fee account</a> ·
+                            <a href="{{ route('fees.vouchers.create', ['student' => $student->id, 'type' => 'admission']) }}">Admission fee voucher</a>
                         </div>
                     </div>
                 </div>
