@@ -1,71 +1,33 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# King TAS College — Individual Student Monthly Tuition Fee Update
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a partial update bundle, not a complete Laravel project. Copy these files into the matching paths of your existing project. It intentionally contains only the files required for this change.
 
-## About Laravel
+## What changed
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- The class/session fee structure remains the default; no existing table is recreated or replaced.
+- An additive migration adds a nullable `monthly_tuition_fee` column to `students`. No new table is created.
+- On the student create/edit form, leave **Monthly Tuition Fee Override (PKR)** blank to inherit the class/session Tuition Fee. Enter an amount to set a custom monthly tuition fee for that student. `0` explicitly waives the tuition line.
+- Single and bulk voucher generation both use the same `FeeVoucherService`, so the individual rate flows through voucher item totals, payments, fee statements and reports via the saved voucher snapshot.
+- Bulk voucher preview shows the student's selected tuition setting and the calculated voucher total.
+- Student import template supports an optional `Monthly Tuition Fee` column.
+- Admission and examination fee heads, fines and other non-tuition fee heads continue to follow their existing rules/class fee structure.
+- Vouchers already created are not recalculated. If a voucher for a period already exists, the current duplicate-voucher rules still apply; cancel/recreate it through the existing workflow if it must reflect a newly assigned amount.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Apply safely
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Back up your database and current project files.
+2. Copy the bundle's files/folders into the Laravel project root, preserving paths.
+3. From the actual Laravel project root, run:
 
-## Fee module
+   ```bash
+   php artisan migrate
+   ```
 
-The admin fee workflow is kept to the tasks the school needs:
+4. Edit a student and set the per-student monthly tuition amount in **Fee assignment**. Leave it blank to use the class/session default.
+5. Open **Fees → Generate Monthly Vouchers**, select the class and period, review the per-student amounts, and generate vouchers.
 
-1. Set monthly amounts under **Fees → Class Fee Amounts** and confirm the bank details and due date under **Fees → Fee Settings**.
-2. Create monthly vouchers for a class/section, or create a voucher for one student.
-3. Print the voucher PDF. It includes bank, college and student copies, arrears and the late fee due through the print date.
-4. Record cash when received. For a bank deposit, record it after confirming the deposit slip; the system issues a receipt and updates the student's balance.
-5. Use **Fees → Student Accounts** to see each student's charges, payments and remaining balance.
+Existing students will have `monthly_tuition_fee = NULL` after migration and will therefore continue using the class/session amount until an override is entered.
 
-Late fees use the configured daily amount. The current amount is shown on the voucher; it is added to the saved fee balance when a payment is recorded.
+## Validation performed here
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+PHP syntax checks passed for all changed PHP files. The provided ZIP is a partial project and does not include the application entry point, `composer.json`, installed dependencies, or a runnable test suite, so a full Laravel migration/integration test could not be run in this environment. Run the migration on a backed-up staging database first.

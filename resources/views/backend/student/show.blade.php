@@ -31,6 +31,11 @@ $cards = [
 'Marks' => $student->obtained_marks !== null ? rtrim(rtrim($student->obtained_marks, '0'), '.') . ' / ' . rtrim(rtrim((string) $student->total_marks, '0'), '.') : null,
 'Percentage' => $student->percentage !== null ? rtrim(rtrim($student->percentage, '0'), '.') . '%' : null,
 ],
+'Fee assignment' => [
+'Monthly tuition fee' => $student->monthly_tuition_fee !== null
+    ? \App\Support\FeeHelper::money($student->monthly_tuition_fee) . ' (student-specific)'
+    : 'Uses class/session default',
+],
 ];
 @endphp
 <div class="page-wrapper">

@@ -21,20 +21,7 @@
                 </li>
 
 
-                <li class="{{ request()->routeIs('contact-message.*') ? 'active' : '' }}">
-                    <a href="{{ route('contact-message.index') }}">
-                        <img src="{{ asset('backend/assets/img/icons/mail.svg') }}" alt="img">
-                        <span>Contact Messages</span>
-                    </a>
-                </li>
-
-                <li class="{{ request()->routeIs('gallery.*') ? 'active' : '' }}">
-                    <a href="{{ route('gallery.index') }}">
-                        <img src="{{ asset('backend/assets/img/icons/product.svg') }}" alt="img">
-                        <span>Gallery</span>
-                    </a>
-                </li>
-
+              
                 <li class="{{ request()->routeIs('school-class.*') ? 'active' : '' }}">
                     <a href="{{ route('school-class.index') }}">
                         <img src="{{ asset('backend/assets/img/icons/product.svg') }}" alt="img">
@@ -82,6 +69,20 @@
                         <li><a href="{{ route('fees.structures.index') }}" class="{{ request()->routeIs('fees.structures*') ? 'active' : '' }}">Class Fee Amounts</a></li>
                         <li><a href="{{ route('fees.settings') }}" class="{{ request()->routeIs('fees.settings*') ? 'active' : '' }}">Fee Settings</a></li>
                     </ul>
+                </li>
+
+                  <li class="{{ request()->routeIs('contact-message.*') ? 'active' : '' }}">
+                    <a href="{{ route('contact-message.index') }}">
+                        <img src="{{ asset('backend/assets/img/icons/mail.svg') }}" alt="img">
+                        <span> Messages</span>
+                    </a>
+                </li>
+
+                <li class="{{ request()->routeIs('gallery.*') ? 'active' : '' }}">
+                    <a href="{{ route('gallery.index') }}">
+                        <img src="{{ asset('backend/assets/img/icons/product.svg') }}" alt="img">
+                        <span>Gallery</span>
+                    </a>
                 </li>
 
                 <li class="{{ request()->routeIs('admin.help') ? 'active' : '' }}">

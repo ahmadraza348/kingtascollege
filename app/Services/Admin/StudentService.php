@@ -161,6 +161,7 @@ class StudentService
             'section_id'      => ['required', Rule::exists('sections', 'id')->where('school_class_id', $input['school_class_id'] ?? 0)],
             'program'         => ['nullable', 'string', 'max:100'],
             'session'         => ['required', 'string', 'max:20'],
+            'monthly_tuition_fee' => ['nullable', 'numeric', 'min:0', 'max:10000000', 'decimal:0,2'],
             'admission_date'  => ['nullable', 'date_format:Y-m-d'],
             'status'          => ['required', Rule::in(array_keys(Student::STATUSES))],
             'roll_number'     => ['nullable', 'string', 'max:30', Rule::unique('students', 'roll_number')->ignore($student?->id)],
@@ -203,6 +204,7 @@ class StudentService
         return [
             'school_class_id'       => 'class',
             'section_id'            => 'section',
+            'monthly_tuition_fee'   => 'monthly tuition fee override',
             'cnic'                  => 'CNIC / B-Form',
             'admission_form_number' => 'admission form number',
         ];

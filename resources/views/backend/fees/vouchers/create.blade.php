@@ -46,7 +46,7 @@
                 <div class="col-12 monthly-only"><label class="d-block mb-0"><input type="checkbox" name="include_absent_fine" value="1" checked> Include absent fine (only if an absent fine is set in Settings)</label></div>
             </div></div></div>
 
-            <div class="alert alert-info">Amounts come from the class fee structure. Previous unpaid vouchers are shown as <strong>arrears</strong> on the printed voucher automatically — do not add them here.</div>
+            <div class="alert alert-info">Monthly Tuition Fee uses the student-specific override when one is set; otherwise it uses the class/session fee structure. Other fee heads still use the class structure. Previously created vouchers do not change. Previous unpaid vouchers are shown as <strong>arrears</strong> on the printed voucher automatically — do not add them here.</div>
             <button type="submit" class="btn btn-submit me-2">Create voucher</button>
             <a href="{{ route('fees.vouchers') }}" class="btn btn-cancel">Cancel</a>
         </form>

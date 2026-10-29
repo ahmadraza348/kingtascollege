@@ -41,16 +41,17 @@ class Student extends Model
         'phone', 'whatsapp', 'email', 'guardian_name', 'guardian_phone',
         'street', 'city', 'district', 'province',
         'qualification', 'institution', 'obtained_marks', 'total_marks', 'percentage',
-        'school_class_id', 'section_id', 'program', 'session', 'admission_date', 'status',
+        'school_class_id', 'section_id', 'program', 'session', 'monthly_tuition_fee', 'admission_date', 'status',
         'notes',
     ];
 
     protected $casts = [
-        'date_of_birth'  => 'date',
-        'admission_date' => 'date',
-        'obtained_marks' => 'decimal:2',
-        'total_marks'    => 'decimal:2',
-        'percentage'     => 'decimal:2',
+        'date_of_birth'       => 'date',
+        'admission_date'      => 'date',
+        'obtained_marks'      => 'decimal:2',
+        'total_marks'         => 'decimal:2',
+        'percentage'          => 'decimal:2',
+        'monthly_tuition_fee' => 'decimal:2',
     ];
 
     public function schoolClass(): BelongsTo

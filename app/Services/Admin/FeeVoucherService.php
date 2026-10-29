@@ -26,6 +26,10 @@ class FeeVoucherService
 {
     private ?array $headIds = null;
 
+    private ?FeeHead $tuitionFeeHead = null;
+
+    private bool $tuitionFeeHeadLoaded = false;
+
     private array $structureCache = [];
 
     /* ------------------------------------------------------------------
@@ -119,20 +123,62 @@ class FeeVoucherService
                 }
 
                 $lines = [];
-                foreach ($structure->items as $item) {
-                    if ($item->head->frequency === $frequency && $item->head->is_active && (float) $item->amount > 0) {
-                        $lines[] = ['head_id' => $item->head->id, 'title' => $item->head->name, 'amount' => (float) $item->amount, 'source' => 'structure'];
+                $hasStudentTuitionOverride = $type === 'monthly' && $student->monthly_tuition_fee !== null;
+                $tuitionHead = null;
+                $tuitionItemFound = false;
+
+                if ($hasStudentTuitionOverride) {
+                    $tuitionHead = $this->tuitionFeeHead();
+
+                    if (! $tuitionHead || ! $tuitionHead->is_active || $tuitionHead->kind !== 'charge' || $tuitionHead->frequency !== 'monthly') {
+                        throw new DomainException('A custom monthly tuition amount is set for this student, but the Tuition Fee head is missing, inactive, or not configured as a monthly charge. Fix Fees → Fee Heads before generating this voucher.');
                     }
                 }
 
-                if (! $lines) {
-                    throw new DomainException('The fee structure "' . $structure->name . '" has no ' . strtolower(FeeVoucher::TYPES[$type]) . ' amounts.');
+                foreach ($structure->items as $item) {
+                    $head = $item->head;
+
+                    if ($hasStudentTuitionOverride && $head->id === $tuitionHead->id) {
+                        // A class structure may contain a zero/default tuition item; the student's explicit amount wins.
+                        $tuitionItemFound = true;
+                    }
+
+                    if ($head->frequency !== $frequency || ! $head->is_active) {
+                        continue;
+                    }
+
+                    $amount = (float) $item->amount;
+                    $source = 'structure';
+
+                    if ($hasStudentTuitionOverride && $head->id === $tuitionHead->id) {
+                        $amount = (float) $student->monthly_tuition_fee;
+                        $source = 'student_override';
+                    }
+
+                    if ($amount > 0) {
+                        $lines[] = ['head_id' => $head->id, 'title' => $head->name, 'amount' => $amount, 'source' => $source];
+                    }
+                }
+
+                // Allow a student override even when the class structure has no Tuition Fee line at all.
+                // All other fee heads still follow the existing class/session structure.
+                if ($hasStudentTuitionOverride && ! $tuitionItemFound && (float) $student->monthly_tuition_fee > 0) {
+                    $lines[] = [
+                        'head_id' => $tuitionHead->id,
+                        'title'   => $tuitionHead->name,
+                        'amount'  => (float) $student->monthly_tuition_fee,
+                        'source'  => 'student_override',
+                    ];
                 }
 
                 if ($type === 'monthly' && ($data['include_absent_fine'] ?? false)) {
                     if ($fine = $this->absentFine($student, $period)) {
                         $lines[] = $fine;
                     }
+                }
+
+                if (! $lines) {
+                    throw new DomainException('The fee structure "' . $structure->name . '" has no ' . strtolower(FeeVoucher::TYPES[$type]) . ' amounts.');
                 }
 
                 return $lines;
@@ -194,6 +240,16 @@ class FeeVoucherService
         }
 
         return $this->structureCache[$key];
+    }
+
+    private function tuitionFeeHead(): ?FeeHead
+    {
+        if (! $this->tuitionFeeHeadLoaded) {
+            $this->tuitionFeeHead = FeeHead::where('code', 'TUITION')->first();
+            $this->tuitionFeeHeadLoaded = true;
+        }
+
+        return $this->tuitionFeeHead;
     }
 
     private function headId(string $code): int

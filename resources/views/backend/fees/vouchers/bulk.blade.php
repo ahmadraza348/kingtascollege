@@ -31,11 +31,18 @@
                 </div>
 
                 <div class="table-responsive"><table class="table table-sm">
-                    <thead><tr><th>Roll No</th><th>Student</th><th>Section</th><th class="text-end">Amount</th><th>Result</th></tr></thead>
+                    <thead><tr><th>Roll No</th><th>Student</th><th>Section</th><th>Tuition setting</th><th class="text-end">Voucher total</th><th>Result</th></tr></thead>
                     <tbody>
                     @foreach ($preview as $row)
                         <tr>
                             <td>{{ $row['student']->roll_number }}</td><td>{{ $row['student']->full_name }}</td><td>{{ $row['student']->section->name }}</td>
+                            <td class="text-nowrap">
+                                @if ($row['student']->monthly_tuition_fee !== null)
+                                    {{ $F::money($row['student']->monthly_tuition_fee) }} <span class="small text-muted">(custom)</span>
+                                @else
+                                    <span class="text-muted">Class default</span>
+                                @endif
+                            </td>
                             <td class="text-end">{{ $F::number($row['amount']) }}</td>
                             <td>@if ($row['state'] === 'ready')<span class="badge bg-success">Ready</span>
                                 @elseif ($row['state'] === 'exists')<span class="badge bg-secondary">{{ $row['note'] }}</span>

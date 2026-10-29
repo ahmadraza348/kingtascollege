@@ -32,7 +32,7 @@
 
         <div class="card"><div class="card-body">
             <div class="table-responsive"><table class="table">
-                <thead><tr><th>Student</th><th>Class / Section</th><th>Fee status</th><th class="text-end">Total fees</th><th class="text-end">Paid</th><th class="text-end">Balance</th><th>Actions</th></tr></thead>
+                <thead><tr><th>Student</th><th>Class / Section</th><th>Monthly tuition</th><th>Fee status</th><th class="text-end">Total fees</th><th class="text-end">Paid</th><th class="text-end">Balance</th><th>Actions</th></tr></thead>
                 <tbody>
                 @forelse ($students as $s)
                     @php
@@ -45,18 +45,26 @@
                     <tr>
                         <td><a href="{{ route('fees.accounts.show', $s) }}"><strong>{{ $s->full_name }}</strong></a><div class="small text-muted">Roll No: {{ $s->roll_number }}</div></td>
                         <td>{{ $s->schoolClass?->name ?? '—' }} / {{ $s->section?->name ?? '—' }}</td>
+                        <td class="text-nowrap">
+                            @if ($s->monthly_tuition_fee !== null)
+                                <strong>{{ $F::money($s->monthly_tuition_fee) }}</strong><div class="small text-muted">Student-specific</div>
+                            @else
+                                <span class="text-muted">Class default</span>
+                            @endif
+                        </td>
                         <td><span class="badge rounded-pill bg-{{ $badge }}">{{ $feeStatus }}</span></td>
                         <td class="text-end">{{ $F::number($billed) }}</td>
                         <td class="text-end text-success">{{ $F::number($paid) }}</td>
                         <td class="text-end"><strong class="{{ $due > 0 ? 'text-danger' : 'text-success' }}">{{ $F::number($due) }}</strong></td>
                         <td class="text-nowrap">
                             <a href="{{ route('fees.accounts.show', $s) }}" class="me-2">View fees</a>
+                            <a href="{{ route('student.edit', $s) }}" class="me-2">Edit fee</a>
                             <a href="{{ route('fees.vouchers.create', ['student' => $s->id, 'type' => 'monthly']) }}" class="me-2">Voucher</a>
                             @if ($due > 0)<a href="{{ route('fees.payments.create', ['student' => $s->id]) }}" class="text-success">Receive payment</a>@endif
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="7" class="text-center text-muted py-4">No students found. Try changing the search or filters.</td></tr>
+                    <tr><td colspan="8" class="text-center text-muted py-4">No students found. Try changing the search or filters.</td></tr>
                 @endforelse
                 </tbody>
             </table></div>
