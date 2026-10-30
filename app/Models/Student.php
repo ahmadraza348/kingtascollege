@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Student extends Model
 {
@@ -108,8 +109,18 @@ class Student extends Model
             return 'https://wa.me/' . $digits;
         });
     }
-        public function feeVouchers(): HasMany
+    public function feeVouchers(): HasMany
     {
         return $this->hasMany(FeeVoucher::class);
+    }
+
+    public function feePlans(): HasMany
+    {
+        return $this->hasMany(FeePlan::class);
+    }
+
+    public function activeFeePlan(): HasOne
+    {
+        return $this->hasOne(FeePlan::class)->where('status', 'active');
     }
 }

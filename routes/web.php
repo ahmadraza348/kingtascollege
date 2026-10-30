@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\AttendanceReportController;
 use App\Http\Controllers\Admin\SchoolHolidayController;
 use App\Http\Controllers\Admin\FeeDashboardController;
 use App\Http\Controllers\Admin\FeePaymentController;
+use App\Http\Controllers\Admin\FeePlanController;
 use App\Http\Controllers\Admin\FeeSettingController;
 use App\Http\Controllers\Admin\FeeStructureController;
 use App\Http\Controllers\Admin\FeeStudentController;
@@ -208,6 +209,15 @@ Route::prefix('admin')->middleware('adminauth')->group(
             Route::get('accounts', [FeeStudentController::class, 'index'])->name('accounts');
             Route::get('accounts/{student}', [FeeStudentController::class, 'show'])->name('accounts.show');
             Route::get('accounts/{student}/statement', [FeeStudentController::class, 'statementPdf'])->name('accounts.statement');
+
+            // Fee plan (total fee split into installments)
+            Route::get('plans/bulk', [FeePlanController::class, 'bulk'])->name('plans.bulk');
+            Route::post('plans/bulk', [FeePlanController::class, 'bulkStore'])->name('plans.bulk.store');
+            Route::get('accounts/{student}/plan/create', [FeePlanController::class, 'create'])->name('plans.create');
+            Route::post('accounts/{student}/plan', [FeePlanController::class, 'store'])->name('plans.store');
+            Route::get('accounts/{student}/plan/edit', [FeePlanController::class, 'edit'])->name('plans.edit');
+            Route::put('accounts/{student}/plan', [FeePlanController::class, 'update'])->name('plans.update');
+            Route::post('accounts/{student}/plan/cancel', [FeePlanController::class, 'cancel'])->name('plans.cancel');
         });
     }
 );

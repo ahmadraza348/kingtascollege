@@ -60,7 +60,7 @@
                         <td><a href="{{ route('fees.vouchers.show', $v) }}"><strong>{{ $v->voucher_number }}</strong></a><div class="small text-muted">{{ $v->type_label }}</div></td>
                         <td>{{ $v->student->full_name }}<div class="small text-muted">{{ $v->roll_number }}</div></td>
                         <td>{{ $v->schoolClass->name }} / {{ $v->section->name }}</td>
-                        <td>{{ $v->period_label }}</td>
+                        <td>{{ $v->display_label }}</td>
                         <td>{{ $v->due_date->format('d M Y') }} @if ($v->is_overdue)<span class="badge bg-danger">Overdue</span>@endif</td>
                         <td class="text-end">{{ $F::number($v->total_amount) }}</td>
                         <td class="text-end"><strong>{{ $F::number($v->balance) }}</strong></td>

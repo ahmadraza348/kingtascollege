@@ -34,18 +34,19 @@
                     <div class="alert alert-success mt-3 mb-0">This student has no unpaid vouchers.</div>
                 @else
                     <div class="table-responsive mt-3"><table class="table table-sm">
-                        <thead><tr><th>Voucher</th><th>Month</th><th>Due</th><th class="text-end">Balance</th><th class="text-end">Late fee if paid today</th></tr></thead>
+                        <thead><tr><th>Voucher</th><th>For</th><th>Due</th><th class="text-end">Balance</th><th class="text-end">Late fee if paid today</th></tr></thead>
                         <tbody>
                         @foreach ($open as $v)
-                            <tr><td><a href="{{ route('fees.vouchers.show', $v) }}">{{ $v->voucher_number }}</a></td><td>{{ $v->period_label }}</td>
+                            <tr><td><a href="{{ route('fees.vouchers.show', $v) }}">{{ $v->voucher_number }}</a></td><td>{{ $v->display_label }}</td>
                                 <td>{{ $v->due_date->format('d M Y') }} @if ($v->is_overdue)<span class="badge bg-danger">Overdue</span>@endif</td>
                                 <td class="text-end">{{ $F::number($v->balance) }}</td>
                                 <td class="text-end">{{ $v->late_extra > 0 ? '+' . $F::number($v->late_extra) : '—' }}</td></tr>
                         @endforeach
                         </tbody>
-                        <tfoot><tr><th colspan="3" class="text-end">Total to clear everything today</th><th colspan="2" class="text-end text-danger">{{ $F::money($dueToday) }}</th></tr></tfoot>
+                        <tfoot><tr><th colspan="3" class="text-end">Total remaining (all installments)</th><th colspan="2" class="text-end text-danger">{{ $F::money($dueToday) }}</th></tr>
+                            @if ($payNow != $dueToday)<tr><th colspan="3" class="text-end">Due now (overdue + next installment)</th><th colspan="2" class="text-end text-success">{{ $F::money($payNow) }}</th></tr>@endif</tfoot>
                     </table></div>
-                    <small class="text-muted">Late fees are added automatically for the payment date when the payment is confirmed. A payment is applied to the oldest voucher first.</small>
+                    <small class="text-muted">Late fees are added automatically for the payment date when the payment is confirmed. A payment is applied to the oldest voucher / installment first, and a larger payment moves on to the next installment.</small>
                 @endif
             </div></div>
 
@@ -60,14 +61,18 @@
                             @foreach (\App\Models\FeePayment::METHODS as $k => $l)<option value="{{ $k }}" @selected(old('method', 'cash') === $k)>{{ $l }}</option>@endforeach</select>
                         @error('method')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror</div></div>
                     <div class="col-lg-3 col-md-6"><div class="form-group"><label>Amount received (Rs.) <span class="text-danger">*</span></label>
-                        <input type="number" step="0.01" min="1" name="amount" value="{{ old('amount', $dueToday) }}" required class="form-control @error('amount') is-invalid @enderror">
+                        <input type="number" step="0.01" min="1" name="amount" value="{{ old('amount', $payNow) }}" required class="form-control @error('amount') is-invalid @enderror">
+                        <div class="small mt-1">
+                            <a href="#" class="me-2" onclick="this.closest('.form-group').querySelector('input').value='{{ $payNow }}';return false;">Pay due now</a>
+                            @if ($payNow != $dueToday)<a href="#" onclick="this.closest('.form-group').querySelector('input').value='{{ $dueToday }}';return false;">Pay full balance</a>@endif
+                        </div>
                         @error('amount')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror</div></div>
                     <div class="col-lg-3 col-md-6"><div class="form-group"><label>Payment date <span class="text-danger">*</span></label>
                         <input type="date" name="payment_date" value="{{ old('payment_date', $today) }}" max="{{ $today }}" required class="form-control @error('payment_date') is-invalid @enderror">
                         @error('payment_date')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror</div></div>
                     <div class="col-lg-3 col-md-6"><div class="form-group"><label>Pay this voucher first</label>
                         <select name="preferred_voucher_id" class="form-select"><option value="">Oldest dues first (recommended)</option>
-                            @foreach ($open as $v)<option value="{{ $v->id }}" @selected((int) old('preferred_voucher_id', $voucherId) === $v->id)>{{ $v->voucher_number }} ({{ $v->period_label }})</option>@endforeach</select></div></div>
+                            @foreach ($open as $v)<option value="{{ $v->id }}" @selected((int) old('preferred_voucher_id', $voucherId) === $v->id)>{{ $v->voucher_number }} ({{ $v->display_label }})</option>@endforeach</select></div></div>
 
                     <div class="col-lg-3 col-md-6 bank-fields"><div class="form-group"><label>Bank name <span class="text-danger">*</span></label>
                         <input type="text" name="bank_name" value="{{ old('bank_name') }}" maxlength="100" class="form-control @error('bank_name') is-invalid @enderror">

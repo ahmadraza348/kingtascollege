@@ -21,13 +21,32 @@
     <td style="width:46px;">@if ($letterhead['logo'])<img src="{{ $letterhead['logo'] }}" width="40" height="40">@endif</td>
     <td><div class="college">{{ $letterhead['name'] }}</div><div class="small">{{ $letterhead['address'] }}</div><div class="small">{{ $letterhead['phone'] }}</div></td>
 </tr></table>
-<div class="title">STUDENT FEE STATEMENT</div>
+<div class="title">STUDENT ACCOUNT BOOK</div>
 
 <table class="grid">
     <tr><th style="width:18%;">Student</th><td>{{ $student->full_name }}</td><th style="width:18%;">Roll No</th><td>{{ $student->roll_number }}</td></tr>
     <tr><th>Father</th><td>{{ $student->father_name }}</td><th>Class</th><td>{{ $student->schoolClass->name }} / {{ $student->section->name }}</td></tr>
     <tr><th>Session</th><td>{{ $student->session }}</td><th>Printed on</th><td>{{ \App\Support\FeeHelper::today()->format('d M Y') }}</td></tr>
 </table>
+
+@if ($book['plan'])
+    @php $b = $book['summary']; @endphp
+    <table class="grid" style="margin-top:8px;">
+        <tr><th style="width:25%;">Total payable fee</th><td>{{ $F::money($b['net_fee']) }}@if ($b['discount'] > 0) <span class="small">(fee {{ $F::number($b['total_fee']) }} − discount {{ $F::number($b['discount']) }})</span>@endif</td>
+            <th style="width:25%;">Installments</th><td>{{ $b['paid_count'] }} of {{ $b['count'] }} paid</td></tr>
+        <tr><th>Paid so far</th><td>{{ $F::money($b['paid']) }}</td><th>Remaining</th><td><strong>{{ $F::money($b['remaining']) }}</strong></td></tr>
+    </table>
+    <table class="grid" style="margin-top:8px;">
+        <tr><th style="width:26px;">#</th><th>Due date</th><th class="r">Installment</th><th class="r">Late fee</th><th class="r">Paid</th><th class="r">Remaining</th><th>Status</th></tr>
+        @foreach ($book['installments'] as $r)
+            <tr><td>{{ $r['no'] }}</td><td>{{ $r['voucher']->due_date->format('d M Y') }}</td>
+                <td class="r">{{ $F::number($r['base']) }}</td><td class="r">{{ $r['late_fee'] > 0 ? $F::number($r['late_fee']) : '-' }}</td>
+                <td class="r">{{ $F::number($r['paid']) }}</td><td class="r">{{ $F::number($r['remaining']) }}</td>
+                <td>{{ $r['status'] === 'paid' ? 'Paid' : ($r['is_overdue'] ? 'Overdue' : ($r['status'] === 'partial' ? 'Part paid' : 'Upcoming')) }}</td></tr>
+        @endforeach
+    </table>
+    <div class="title" style="margin-top:10px;">TRANSACTION HISTORY</div>
+@endif
 
 <table class="grid" style="margin-top:8px;">
     <tr><th style="width:68px;">Date</th><th>Details</th><th class="r" style="width:62px;">Charged</th><th class="r" style="width:62px;">Paid / Less</th><th class="r" style="width:66px;">Balance</th></tr>

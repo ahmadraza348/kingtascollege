@@ -53,7 +53,7 @@
                     <h5 class="mb-3">Applied to</h5>
                     @forelse ($payment->allocations as $a)
                         <div class="d-flex justify-content-between border-bottom py-2">
-                            <a href="{{ route('fees.vouchers.show', $a->voucher) }}">{{ $a->voucher->voucher_number }} — {{ $a->voucher->period_label }}</a>
+                            <a href="{{ route('fees.vouchers.show', $a->voucher) }}">{{ $a->voucher->voucher_number }} — {{ $a->voucher->display_label }}</a>
                             <strong>{{ $F::money($a->amount) }}</strong></div>
                     @empty <p class="text-muted mb-0">Not applied to any voucher.</p> @endforelse
                 </div></div>

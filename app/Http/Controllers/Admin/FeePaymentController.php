@@ -61,11 +61,23 @@ class FeePaymentController extends Controller
 
         $open = collect();
         $dueToday = 0.0;
+        $payNow = null;
         if ($student) {
             $today = FeeHelper::today();
             $open  = FeeVoucher::where('student_id', $student->id)->open()->orderBy('period')->orderBy('id')->get()
                 ->each(fn ($v) => $v->late_extra = $this->vouchers->lateFeeExtra($v, $today)); // what the late fee would add today
             $dueToday = round((float) $open->sum('balance') + (float) $open->sum('late_extra'), 2);
+
+            // Students on a fee plan pay installment by installment: suggest what is due now, not the whole course fee.
+            if ($open->whereNotNull('fee_plan_id')->isNotEmpty()) {
+                $due = $open->filter(fn ($v) => ! $v->fee_plan_id || $v->due_date->toDateString() <= $today->toDateString());
+
+                if ($due->isEmpty()) {
+                    $due = $open->whereNotNull('fee_plan_id')->take(1);
+                }
+
+                $payNow = round((float) $due->sum('balance') + (float) $due->sum('late_extra'), 2);
+            }
         }
 
         return view('backend.fees.payments.create', [
@@ -74,6 +86,7 @@ class FeePaymentController extends Controller
             'search'     => $search,
             'open'       => $open,
             'dueToday'   => $dueToday,
+            'payNow'     => $payNow ?? $dueToday,
             'voucherId'  => $request->integer('voucher') ?: null,
             'token'      => (string) Str::uuid(),
             'today'      => FeeHelper::today()->toDateString(),

@@ -114,7 +114,7 @@ $cards = [
                         <h3 class="{{ $feeDue > 0 ? 'text-danger' : 'text-success' }}">{{ \App\Support\FeeHelper::money($feeDue) }}</h3>
                         <small class="text-muted">remaining balance</small>
                         <div class="mt-2">
-                            <a href="{{ route('fees.accounts.show', $student) }}">Fee account</a> ·
+                            <a href="{{ route('fees.accounts.show', $student) }}">Account book</a> ·
                             <a href="{{ route('fees.vouchers.create', ['student' => $student->id, 'type' => 'admission']) }}">Admission fee voucher</a>
                         </div>
                     </div>

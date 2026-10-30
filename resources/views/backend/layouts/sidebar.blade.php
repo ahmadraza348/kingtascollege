@@ -65,7 +65,7 @@
                         <li><a href="{{ route('fees.dashboard') }}" class="{{ request()->routeIs('fees.dashboard') ? 'active' : '' }}">Dashboard</a></li>
                         <li><a href="{{ route('fees.vouchers') }}" class="{{ request()->routeIs('fees.vouchers*') ? 'active' : '' }}">Vouchers</a></li>
                         <li><a href="{{ route('fees.payments') }}" class="{{ request()->routeIs('fees.payments*') ? 'active' : '' }}">Payments</a></li>
-                        <li><a href="{{ route('fees.accounts') }}" class="{{ request()->routeIs('fees.accounts*') ? 'active' : '' }}">Student Fee Status</a></li>
+                        <li><a href="{{ route('fees.accounts') }}" class="{{ request()->routeIs('fees.accounts*') ? 'active' : '' }}"> Account Books</a></li>
                         <li><a href="{{ route('fees.structures.index') }}" class="{{ request()->routeIs('fees.structures*') ? 'active' : '' }}">Class Fee Amounts</a></li>
                         <li><a href="{{ route('fees.settings') }}" class="{{ request()->routeIs('fees.settings*') ? 'active' : '' }}">Fee Settings</a></li>
                     </ul>

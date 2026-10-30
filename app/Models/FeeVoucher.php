@@ -17,14 +17,21 @@ class FeeVoucher extends Model
         'readmission' => 'Readmission Fee',
         'opening'     => 'Previous Dues (Opening Balance)',
         'other'       => 'Other Charges',
+        'installment' => 'Fee Installment',
     ];
+
+    /** Types an admin may create by hand. Installments only come from a fee plan. */
+    public static function manualTypes(): array
+    {
+        return array_diff_key(self::TYPES, ['installment' => true]);
+    }
 
     public const STATUSES = ['unpaid' => 'Unpaid', 'partial' => 'Partly Paid', 'paid' => 'Paid', 'cancelled' => 'Cancelled'];
 
     public const STATUS_COLORS = ['unpaid' => 'danger', 'partial' => 'warning', 'paid' => 'success', 'cancelled' => 'secondary'];
 
     protected $fillable = [
-        'voucher_number', 'student_id', 'school_class_id', 'section_id', 'roll_number', 'type', 'period', 'unique_key',
+        'voucher_number', 'student_id', 'fee_plan_id', 'installment_no', 'school_class_id', 'section_id', 'roll_number', 'type', 'period', 'unique_key',
         'issue_date', 'due_date', 'total_amount', 'paid_amount', 'balance', 'status',
         'notes', 'cancel_reason', 'cancelled_at', 'cancelled_by', 'created_by',
     ];
@@ -41,6 +48,11 @@ class FeeVoucher extends Model
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class)->withTrashed();
+    }
+
+    public function plan(): BelongsTo
+    {
+        return $this->belongsTo(FeePlan::class, 'fee_plan_id');
     }
 
     public function schoolClass(): BelongsTo
@@ -93,6 +105,14 @@ class FeeVoucher extends Model
     protected function typeLabel(): Attribute
     {
         return Attribute::get(fn () => self::TYPES[$this->type] ?? $this->type);
+    }
+
+    /** "Installment 2" for plan installments, otherwise the billing month. */
+    protected function displayLabel(): Attribute
+    {
+        return Attribute::get(fn () => $this->type === 'installment' && $this->installment_no
+            ? 'Installment ' . $this->installment_no
+            : $this->period_label);
     }
 
     protected function periodLabel(): Attribute

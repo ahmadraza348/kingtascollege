@@ -5,7 +5,7 @@
 <div class="page-wrapper">
     <div class="content">
         <div class="page-header">
-            <div class="page-title"><h4>Voucher {{ $voucher->voucher_number }}</h4><h6>{{ $voucher->type_label }} · {{ $voucher->period_label }}</h6></div>
+            <div class="page-title"><h4>Voucher {{ $voucher->voucher_number }}</h4><h6>{{ $voucher->type_label }} · {{ $voucher->display_label }}@if ($voucher->type === 'installment' && $voucher->plan) of {{ $voucher->plan->vouchers()->where('status', '!=', 'cancelled')->count() }}@endif</h6></div>
             <div class="page-btn">
                 @if ($voucher->status !== 'cancelled')<a href="{{ route('fees.vouchers.pdf', $voucher) }}" target="_blank" class="btn btn-added me-2">Print voucher (PDF)</a>@endif
                 @if ($open)<a href="{{ route('fees.payments.create', ['student' => $voucher->student_id, 'voucher' => $voucher->id]) }}" class="btn btn-submit me-2">Receive payment</a>@endif
@@ -28,7 +28,12 @@
                     @if ($voucher->status === 'cancelled')<div class="text-danger mt-2">Cancelled: {{ $voucher->cancel_reason }}</div>@endif
                 </div></div>
 
-                @if ($open)
+                @if ($open && $voucher->fee_plan_id && $voucher->plan?->status === 'active')
+                <div class="card"><div class="card-body">
+                    <div class="small text-muted mb-2">This is an installment of the student's fee plan.</div>
+                    <a href="{{ route('fees.accounts.show', $s) }}" class="btn btn-sm btn-added">Open account book</a>
+                </div></div>
+                @elseif ($open)
                 <div class="card"><div class="card-body">
                     <h5 class="mb-3">Voucher actions</h5>
                     @unless ($voucher->allocations->count())

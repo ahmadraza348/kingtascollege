@@ -5,6 +5,7 @@ namespace App\Services\Admin;
 use App\Models\AttendanceSummary;
 use App\Models\FeeAuditLog;
 use App\Models\FeeHead;
+use App\Models\FeePlan;
 use App\Models\FeeSetting;
 use App\Models\FeeStructure;
 use App\Models\FeeVoucher;
@@ -105,6 +106,46 @@ class FeeVoucherService
     }
 
     /**
+     * One installment of a fee plan, issued as a voucher. Only FeePlanService calls this (inside its own transaction).
+     * No unique_key: FeePlanService guarantees one active plan per student, so nothing can be doubled.
+     */
+    public function createInstallment(Student $student, FeePlan $plan, int $no, float $amount, string $dueDate, string $issueDate): FeeVoucher
+    {
+        $period = substr($dueDate, 0, 7);
+
+        $voucher = FeeVoucher::create([
+            'student_id'      => $student->id,
+            'fee_plan_id'     => $plan->id,
+            'installment_no'  => $no,
+            'school_class_id' => $student->school_class_id,
+            'section_id'      => $student->section_id,
+            'roll_number'     => $student->roll_number,
+            'type'            => 'installment',
+            'period'          => $period,
+            'issue_date'      => $issueDate,
+            'due_date'        => $dueDate,
+            'status'          => 'unpaid',
+            'created_by'      => auth('admin')->id(),
+        ]);
+
+        $voucher->items()->create([
+            'fee_head_id' => null,
+            'title'       => 'Fee installment ' . $no,
+            'amount'      => round($amount, 2),
+            'source'      => 'installment',
+            'charged_on'  => $issueDate,
+            'created_by'  => auth('admin')->id(),
+        ]);
+
+        $voucher->voucher_number = sprintf('FV-%s%s-%05d', substr($period, 2, 2), substr($period, 5, 2), $voucher->id);
+        $this->refreshTotals($voucher);
+
+        FeeAuditLog::record('created', 'Installment ' . $no . ' (' . $voucher->voucher_number . ') created, due ' . $dueDate . '.', $student->id, $voucher->id, null, (float) $voucher->total_amount);
+
+        return $voucher;
+    }
+
+    /**
      * Which lines will this voucher have?
      *
      * @return array<int, array{head_id:?int,title:string,amount:float,source:string}>
@@ -115,6 +156,10 @@ class FeeVoucherService
             case 'monthly':
             case 'admission':
             case 'exam':
+                if ($type === 'monthly' && FeePlan::active()->where('student_id', $student->id)->exists()) {
+                    throw new DomainException('This student pays through a fee plan (installments), so no monthly voucher is needed.');
+                }
+
                 $frequency = ['monthly' => 'monthly', 'admission' => 'one_time', 'exam' => 'per_exam'][$type];
                 $structure = $this->structureFor($student);
 
@@ -526,6 +571,10 @@ class FeeVoucherService
 
         if ($voucher->allocations()->exists()) {
             throw new DomainException('Payments are already applied to this voucher. Cancel those payments first.');
+        }
+
+        if ($voucher->fee_plan_id && $voucher->plan?->status === 'active') {
+            throw new DomainException('This is an installment of a fee plan. Change or cancel the fee plan from the student\'s account book instead.');
         }
 
         DB::transaction(function () use ($voucher, $reason) {

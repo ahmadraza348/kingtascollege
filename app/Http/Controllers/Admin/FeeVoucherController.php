@@ -53,7 +53,7 @@ class FeeVoucherController extends Controller
         $student = $request->integer('student') ? Student::with(['schoolClass', 'section'])->find($request->integer('student')) : null;
         $period  = FeeHelper::today()->format('Y-m');
         $type    = (string) $request->query('type', 'monthly');
-        if (! array_key_exists($type, FeeVoucher::TYPES)) {
+        if (! array_key_exists($type, FeeVoucher::manualTypes())) {
             $type = 'monthly';
         }
 

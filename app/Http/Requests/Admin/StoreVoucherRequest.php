@@ -17,7 +17,7 @@ class StoreVoucherRequest extends FormRequest
     {
         return [
             'student_id'          => ['required', Rule::exists('students', 'id')->whereNull('deleted_at')],
-            'type'                => ['required', Rule::in(array_keys(FeeVoucher::TYPES))],
+            'type'                => ['required', Rule::in(array_keys(FeeVoucher::manualTypes()))],
             'period'              => ['required', 'date_format:Y-m'],
             'issue_date'          => ['required', 'date_format:Y-m-d'],
             'due_date'            => ['required', 'date_format:Y-m-d', 'after_or_equal:issue_date'],

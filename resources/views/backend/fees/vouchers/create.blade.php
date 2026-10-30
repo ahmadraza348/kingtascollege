@@ -25,7 +25,7 @@
 
                 <div class="col-lg-3 col-md-6"><div class="form-group"><label>Voucher for <span class="text-danger">*</span></label>
                     <select name="type" id="vType" class="form-select @error('type') is-invalid @enderror">
-                        @foreach (\App\Models\FeeVoucher::TYPES as $k => $l)<option value="{{ $k }}" @selected(old('type', $type) === $k)>{{ $l }}</option>@endforeach</select></div></div>
+                        @foreach (\App\Models\FeeVoucher::manualTypes() as $k => $l)<option value="{{ $k }}" @selected(old('type', $type) === $k)>{{ $l }}</option>@endforeach</select></div></div>
                 <div class="col-lg-3 col-md-6"><div class="form-group"><label>Billing month <span class="text-danger">*</span></label>
                     <input type="month" name="period" value="{{ old('period', $period) }}" required class="form-control @error('period') is-invalid @enderror">
                     @error('period')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror</div></div>

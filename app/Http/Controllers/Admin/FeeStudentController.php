@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\FeeVoucher;
 use App\Models\SchoolClass;
 use App\Models\Section;
 use App\Models\Student;
+use App\Services\Admin\FeeAccountBookService;
 use App\Services\Admin\FeeReportService;
 use App\Support\FeeHelper;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -31,6 +31,8 @@ class FeeStudentController extends Controller
             ->withSum(['feeVouchers as paid' => $live], 'paid_amount')
             ->withSum(['feeVouchers as due' => $live], 'balance')
             ->withExists(['feeVouchers as has_overdue_voucher' => fn ($q) => $q->overdue()])
+            ->withCount(['feeVouchers as inst_total' => fn ($q) => $q->whereNotNull('fee_plan_id')->where('status', '!=', 'cancelled')])
+            ->withCount(['feeVouchers as inst_paid' => fn ($q) => $q->whereNotNull('fee_plan_id')->where('status', 'paid')])
             ->when($search !== '', fn ($q) => $q->where(fn ($w) => $w->where('full_name', 'like', "%$search%")->orWhere('roll_number', 'like', "%$search%")->orWhere('cnic', 'like', "%$search%")))
             ->when($classId, fn ($q) => $q->where('school_class_id', $classId))
             ->when($request->integer('section'), fn ($q, $s) => $q->where('section_id', $s))
@@ -49,26 +51,27 @@ class FeeStudentController extends Controller
         ]);
     }
 
-    public function show(Student $student, FeeReportService $reports): View
+    /** The student's account book: total payable fee, every installment, what is paid and what remains. */
+    public function show(Student $student, FeeAccountBookService $books, FeeReportService $reports): View
     {
         $student->load(['schoolClass', 'section']);
 
         return view('backend.fees.students.show', [
-            'student'     => $student,
-            'statement'   => $reports->statement($student),
-            'vouchers'    => FeeVoucher::where('student_id', $student->id)->latest('period')->latest('id')->get(),
+            'student'   => $student,
+            'book'      => $books->build($student),
+            'statement' => $reports->statement($student),
         ]);
     }
 
-    public function statementPdf(Student $student, FeeReportService $reports)
+    public function statementPdf(Student $student, FeeReportService $reports, FeeAccountBookService $books)
     {
         $student->load(['schoolClass', 'section']);
 
         return Pdf::loadView('backend.fees.pdf.statement', [
             'student'    => $student,
             'statement'  => $reports->statement($student),
+            'book'       => $books->build($student),
             'letterhead' => FeeHelper::letterhead(),
-        ])->setPaper('a4', 'portrait')->stream('fee-statement-' . $student->roll_number . '.pdf');
+        ])->setPaper('a4', 'portrait')->stream('account-book-' . $student->roll_number . '.pdf');
     }
-
 }

@@ -39,7 +39,7 @@
     <table class="grid" style="margin-top:6px;">
         <tr><th>Applied to voucher</th><th>Fee month</th><th class="r">Amount (Rs.)</th></tr>
         @foreach ($payment->allocations as $a)
-            <tr><td>{{ $a->voucher->voucher_number }}</td><td>{{ $a->voucher->period_label }}</td><td class="r">{{ $F::number($a->amount) }}</td></tr>
+            <tr><td>{{ $a->voucher->voucher_number }}</td><td>{{ $a->voucher->display_label }}</td><td class="r">{{ $F::number($a->amount) }}</td></tr>
         @endforeach
         <tr><th colspan="2" class="r">Total received</th><th class="r">{{ $F::number($payment->amount) }}</th></tr>
     </table>
