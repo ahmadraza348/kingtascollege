@@ -74,6 +74,7 @@
                             <li><strong>Admission Form No</strong> (e.g. KTC-2026-00042): the student's details and photo are taken from the online admission. Anything you type in the sheet wins.</li>
                             <li>Without a form number, these are required: <strong>Full Name, Father Name, Gender, Date of Birth, Phone</strong>.</li>
                             <li><strong>Class</strong> and <strong>Section</strong> must match the names you created (or use the defaults on the left).</li>
+                            <li><strong>Programs</strong>: enter one program or separate multiple programs with a pipe, for example <code>BSN Generic | Post RN</code>.</li>
                             <li><strong>Roll No</strong> can stay empty: it is generated automatically.</li>
                             <li>Dates: <code>25-12-2005</code>. Gender: Male / Female / Other. Status: Active, Inactive, Graduated, Left (empty = Active).</li>
                             <li>Up to {{ \App\Services\Admin\StudentImportService::MAX_ROWS }} students per file.</li>

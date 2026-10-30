@@ -143,6 +143,7 @@
                                 <th>Student</th>
                                 <th>Roll No</th>
                                 <th>Class / Section</th>
+                                <th>Programs</th>
                                 <th>Father</th>
                                 <th>Phone</th>
                                 <!-- <th>Admission</th> -->
@@ -161,7 +162,8 @@
                                     </a>
                                 </td>
                                 <td>{{ $item->roll_number }}</td>
-                                <td>{{ $item->schoolClass->name }} / {{ $item->section->name }}</td>
+                                <td>{{ $item->schoolClass?->name ?? '—' }} / {{ $item->section?->name ?? '—' }}</td>
+                                <td>{{ implode(', ', $item->program_names) ?: '—' }}</td>
                                 <td>{{ $item->father_name }}</td>
                                 <td>{{ $item->phone }}</td>
                                 <!-- <td>

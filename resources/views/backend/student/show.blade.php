@@ -57,10 +57,16 @@ $cards = [
                     <div class="card-body text-center">
                         <img src="{{ $student->photo_url }}" alt="Photo" class="rounded mb-3" style="width:120px;height:145px;object-fit:cover;">
                         <h5 class="mb-1">{{ $student->full_name }}</h5>
-                        <p class="text-muted mb-2">{{ $student->program ?: '—' }}</p>
+                        <div class="text-muted mb-2">
+                            @forelse ($student->program_names as $program)
+                                <span class="badge bg-light text-dark border me-1 mb-1">{{ $program }}</span>
+                            @empty
+                                —
+                            @endforelse
+                        </div>
                         <span class="badge rounded-pill bg-{{ $student->status_color }} mb-2">{{ $student->status_label }}</span>
                         <div>Roll No: <strong>{{ $student->roll_number }}</strong></div>
-                        <div>{{ $student->schoolClass->name }} / Section {{ $student->section->name }}</div>
+                        <div>{{ $student->schoolClass?->name ?? '—' }} / Section {{ $student->section?->name ?? '—' }}</div>
                         <div class="text-muted">Session {{ $student->session }}</div>
 
                         <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">

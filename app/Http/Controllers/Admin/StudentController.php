@@ -28,7 +28,7 @@ class StudentController extends Controller
         $trashed   = $request->boolean('trashed');
 
         $students = Student::query()
-            ->with(['schoolClass:id,name', 'section:id,name'])
+            ->with(['schoolClass:id,name', 'section:id,name', 'programEnrollments:id,student_id,program'])
             ->when($trashed, fn ($q) => $q->onlyTrashed())
             ->when($classId, fn ($q) => $q->where('school_class_id', $classId))
             ->when($sectionId, fn ($q) => $q->where('section_id', $sectionId))
@@ -83,13 +83,15 @@ class StudentController extends Controller
 
     public function show(Student $student): View
     {
-        $student->load(['schoolClass', 'section', 'admission']);
+        $student->load(['schoolClass', 'section', 'admission', 'programEnrollments']);
 
         return view('backend.student.show', compact('student'));
     }
 
     public function edit(Student $student): View
     {
+        $student->load('programEnrollments');
+
         return view('backend.student.edit', $this->formData($student));
     }
 
@@ -183,8 +185,19 @@ class StudentController extends Controller
     {
         $classId = old('school_class_id', $student->school_class_id);
 
+        $student->loadMissing('programEnrollments');
+        $defaultClassProgram = $student->school_class_id
+            ? SchoolClass::whereKey($student->school_class_id)->value('program')
+            : null;
+        $programDefaults = $student->program_names ?: ($defaultClassProgram ? [$defaultClassProgram] : []);
+
         return [
             'student'  => $student,
+            'selectedPrograms' => old('programs', $programDefaults),
+            'programOptions' => collect(SchoolClass::PROGRAMS)
+                ->merge($student->programEnrollments->pluck('program'))
+                ->merge(filled($student->program) ? [$student->program] : [])
+                ->filter()->unique()->values(),
             // Active classes, plus the student's current class even if it was deactivated later.
             'classes'  => SchoolClass::where(fn ($q) => $q->where('is_active', true)->orWhere('id', $student->school_class_id))
                 ->orderBy('sort_order')->orderBy('name')->get(),

@@ -41,7 +41,7 @@
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
-                            <tr><th>Row</th><th>Student</th><th>Roll No</th><th>Class / Section</th><th>Phone</th><th>Result</th></tr>
+                            <tr><th>Row</th><th>Student</th><th>Roll No</th><th>Class / Section</th><th>Programs</th><th>Phone</th><th>Result</th></tr>
                         </thead>
                         <tbody>
                         @foreach ($built as $row)
@@ -55,6 +55,7 @@
                                 </td>
                                 <td>{{ $row['data']['roll_number'] ?? 'Auto' }}</td>
                                 <td>{{ $row['class'] ?? '—' }} / {{ $row['section'] ?? '—' }}</td>
+                                <td>{{ implode(', ', $row['data']['programs'] ?? []) ?: '—' }}</td>
                                 <td>{{ $row['data']['phone'] ?? '—' }}</td>
                                 <td>
                                     @if ($row['ok'])

@@ -63,24 +63,26 @@
 
         <li class="nav-item dropdown has-arrow main-drop">
             <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-                <span class="user-img"><img src="{{ asset('backend/assets/img/profiles/avator1.jpg') }}"
+                <span class="user-img"><img src="{{ asset('frontend/assets/images/logo/logo.png') }}"
                         alt="">
                     <span class="status online"></span></span>
             </a>
             <div class="dropdown-menu menu-drop-user">
                 <div class="profilename">
                     <div class="profileset">
-                        <span class="user-img"><img src="{{ asset('backend/assets/img/profiles/avator1.jpg') }}"
+                        <span class="user-img"><img src="{{ asset('frontend/assets/images/logo/logo.png') }}"
                                 alt="">
                             <span class="status online"></span></span>
                         <div class="profilesets">
-                            <h6>{{ auth()->guard('admin')->user()->first_name ?? 'Admin' }} {{ auth()->guard('admin')->user()->last_name ?? '' }}</h6>
+                            <h6>{{ auth()->guard('admin')->user()->first_name ?? 'Admin' }} </h6>
                             <h5>Admin</h5>
                         </div>
                     </div>
                     <hr class="m-0">
                     <a class="dropdown-item" href="{{ route('admin.password.change') }}"><i class="me-2"
                             data-feather="lock"></i>Change Password</a>
+                    <a class="dropdown-item" href="{{ route('admin.help') }}"><i class="me-2"
+                            data-feather="help-circle"></i>Help</a>
                     <!-- <a class="dropdown-item" href=""> <i class="me-2"
                             data-feather="user"></i>
                         My Profile</a>

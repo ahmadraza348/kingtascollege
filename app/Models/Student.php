@@ -109,6 +109,25 @@ class Student extends Model
             return 'https://wa.me/' . $digits;
         });
     }
+    /** Programs in which this student is enrolled. The legacy `program` column stores the first one. */
+    public function programEnrollments(): HasMany
+    {
+        return $this->hasMany(StudentProgram::class)->orderBy('program');
+    }
+
+    public function getProgramNamesAttribute(): array
+    {
+        $programs = $this->relationLoaded('programEnrollments')
+            ? $this->programEnrollments->pluck('program')
+            : $this->programEnrollments()->pluck('program');
+
+        if ($programs->isEmpty() && filled($this->program)) {
+            $programs = collect([$this->program]);
+        }
+
+        return $programs->values()->all();
+    }
+
     public function feeVouchers(): HasMany
     {
         return $this->hasMany(FeeVoucher::class);

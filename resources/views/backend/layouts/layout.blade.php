@@ -75,6 +75,16 @@
     <script src="{{ asset('backend/assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script src="{{ asset('backend/assets/plugins/fileupload/fileupload.min.js') }}"></script>
     <script src="{{ asset('backend/assets/plugins/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script>
+        jQuery(function ($) {
+            if (!$.fn.select2) return;
+            $('.select2').each(function () {
+                if (!$(this).hasClass('select2-hidden-accessible')) {
+                    $(this).select2({ width: '100%', placeholder: $(this).data('placeholder') || 'Select options', allowClear: true });
+                }
+            });
+        });
+    </script>
 
     @include('backend.layouts.scripts') 
 

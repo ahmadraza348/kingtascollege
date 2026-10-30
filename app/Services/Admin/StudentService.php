@@ -61,6 +61,29 @@ class StudentService
             $data['admission_form_number'] = strtoupper($data['admission_form_number']);
         }
 
+        // Accept both the new multi-select field and the legacy single `program` value
+        // used by older Excel imports and admission records.
+        $programs = $data['programs'] ?? [];
+        if (! is_array($programs)) {
+            $programs = [];
+        }
+        if (! $programs && filled($data['program'] ?? null)) {
+            $programs = [$data['program']];
+        }
+        if (! $programs && ! empty($data['school_class_id'])) {
+            $classProgram = SchoolClass::whereKey($data['school_class_id'])->value('program');
+            if ($classProgram) {
+                $programs = [$classProgram];
+            }
+        }
+        $data['programs'] = collect($programs)
+            ->filter(fn ($program) => is_string($program) && trim($program) !== '')
+            ->map(fn ($program) => trim($program))
+            ->unique()
+            ->values()
+            ->all();
+        $data['program'] = $data['programs'][0] ?? null;
+
         // Work out the percentage when only the marks were given.
         if (empty($data['percentage']) && is_numeric($data['obtained_marks'] ?? null) && is_numeric($data['total_marks'] ?? null) && (float) $data['total_marks'] > 0) {
             $data['percentage'] = round(((float) $data['obtained_marks'] / (float) $data['total_marks']) * 100, 2);
@@ -159,7 +182,8 @@ class StudentService
             'percentage'      => ['nullable', 'numeric', 'between:0,100'],
             'school_class_id' => ['required', Rule::exists('school_classes', 'id')],
             'section_id'      => ['required', Rule::exists('sections', 'id')->where('school_class_id', $input['school_class_id'] ?? 0)],
-            'program'         => ['nullable', 'string', 'max:100'],
+            'programs'        => ['nullable', 'array', 'max:12'],
+            'programs.*'      => ['required', 'string', 'max:100', 'distinct'],
             'session'         => ['required', 'string', 'max:20'],
             'monthly_tuition_fee' => ['nullable', 'numeric', 'min:0', 'max:10000000', 'decimal:0,2'],
             'admission_date'  => ['nullable', 'date_format:Y-m-d'],
@@ -195,6 +219,8 @@ class StudentService
             'cnic.unique'                => 'A student with this CNIC / B-Form already exists.',
             'roll_number.unique'         => 'This roll number is already used.',
             'section_id.exists'          => 'The selected section does not belong to the selected class.',
+            'programs.array'             => 'Select programs using the program list.',
+            'programs.*.distinct'        => 'A program can only be selected once.',
             'gender.in'                  => 'Gender must be Male, Female or Other.',
         ];
     }
@@ -204,6 +230,7 @@ class StudentService
         return [
             'school_class_id'       => 'class',
             'section_id'            => 'section',
+            'programs'              => 'programs',
             'monthly_tuition_fee'   => 'monthly tuition fee override',
             'cnic'                  => 'CNIC / B-Form',
             'admission_form_number' => 'admission form number',
@@ -260,6 +287,7 @@ class StudentService
             'total_marks'    => $a->total_marks,
             'percentage'     => $a->percentage,
             'program'        => $a->program,
+            'programs'       => filled($a->program) ? [$a->program] : [],
             'session'        => $a->session,
             'street'         => $a->street,
             'city'           => $a->city,
@@ -305,13 +333,26 @@ class StudentService
             }
             $data['roll_number'] = $roll;
 
-            if (blank($data['program'] ?? null)) {
-                $data['program'] = SchoolClass::whereKey($data['school_class_id'])->value('program');
+            $programs = $data['programs'] ?? [];
+            if (! $programs && filled($data['program'] ?? null)) {
+                $programs = [$data['program']];
             }
+            if (! $programs) {
+                $classProgram = SchoolClass::whereKey($data['school_class_id'])->value('program');
+                if ($classProgram) {
+                    $programs = [$classProgram];
+                }
+            }
+            $programs = collect($programs)->filter()->map(fn ($program) => trim((string) $program))->unique()->values()->all();
+            $data['program'] = $programs[0] ?? null;
+            unset($data['programs']);
 
             $data['photo_path'] = $this->storePhoto($photo, $admission);
 
-            return Student::create(Arr::only($data, (new Student)->getFillable()));
+            $student = Student::create(Arr::only($data, (new Student)->getFillable()));
+            $this->syncPrograms($student, $programs);
+
+            return $student;
         });
     }
 
@@ -324,18 +365,41 @@ class StudentService
         }
 
         $oldPhoto = $student->photo_path;
+        $programs = $data['programs'] ?? [];
+        if (! $programs && filled($data['program'] ?? null)) {
+            $programs = [$data['program']];
+        }
+        $programs = collect($programs)->filter()->map(fn ($program) => trim((string) $program))->unique()->values()->all();
+        $data['program'] = $programs[0] ?? null;
+        unset($data['programs']);
 
         if ($photo) {
             $data['photo_path'] = $this->storePhoto($photo);
         }
 
-        $student->update(Arr::only($data, $student->getFillable()));
+        DB::transaction(function () use ($student, $data, $programs) {
+            $student->update(Arr::only($data, $student->getFillable()));
+            $this->syncPrograms($student, $programs);
+        });
 
         if ($photo && $oldPhoto) {
             File::delete(public_path($oldPhoto));
         }
 
-        return $student;
+        return $student->refresh();
+    }
+
+    /** Replace the student's linked program list while preserving a single legacy primary value. */
+    private function syncPrograms(Student $student, array $programs): void
+    {
+        $student->programEnrollments()->delete();
+
+        if ($programs) {
+            $student->programEnrollments()->createMany(array_map(
+                fn ($program) => ['program' => $program],
+                $programs
+            ));
+        }
     }
 
     /**

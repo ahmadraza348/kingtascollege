@@ -34,10 +34,7 @@
                 </div>
                 <div class="col-lg-7 col-12 mt-2 mt-lg-0"><div id="admissionResult"></div></div>
             </div>
-            <small class="text-muted d-block mt-2">
-                Optional. Enter the form number of an approved application to fill in the student's details and photo.
-                You can still change anything before saving.
-            </small>
+          
         @endif
     </div>
 </div>
@@ -100,15 +97,27 @@
         <div class="row">
             @include('backend.student._select', ['name' => 'school_class_id', 'label' => 'Class', 'required' => true, 'options' => $classOptions, 'attrs' => 'data-sections="#f_section_id"'])
             @include('backend.student._select', ['name' => 'section_id', 'label' => 'Section', 'required' => true, 'options' => $sectionOptions])
-            @include('backend.student._field', ['name' => 'program', 'label' => 'Program', 'list' => 'programList', 'max' => 100, 'placeholder' => 'Taken from the class if empty'])
+            <div class="col-lg-6 col-md-12 col-12">
+                <div class="form-group">
+                    <label for="f_programs">Programs</label>
+                    <select name="programs[]" id="f_programs" class="form-control select2 @error('programs') is-invalid @enderror" multiple="multiple" data-placeholder="Select one or more programs">
+                        @foreach ($programOptions as $program)
+                            <option value="{{ $program }}" @selected(in_array($program, (array) $selectedPrograms, true))>{{ $program }}</option>
+                        @endforeach
+                    </select>
+                    @error('programs') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                    @foreach ($errors->get('programs.*') as $programErrors)
+                        @foreach ($programErrors as $message)
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @endforeach
+                    @endforeach
+                </div>
+            </div>
             @include('backend.student._field', ['name' => 'session', 'label' => 'Session', 'required' => true, 'max' => 20])
             @include('backend.student._field', ['name' => 'admission_date', 'label' => 'Admission Date', 'type' => 'date'])
             @include('backend.student._field', ['name' => 'roll_number', 'label' => 'Roll Number', 'placeholder' => 'Auto-generated if empty', 'max' => 30])
             @include('backend.student._select', ['name' => 'status', 'label' => 'Status', 'required' => true, 'options' => \App\Models\Student::STATUSES, 'placeholder' => '— Select —'])
         </div>
-        <datalist id="programList">
-            @foreach (\App\Models\SchoolClass::PROGRAMS as $program) <option value="{{ $program }}"> @endforeach
-        </datalist>
     </div>
 </div>
 
@@ -124,7 +133,6 @@
                            min="0" max="10000000" step="0.01" placeholder="Use class/session default"
                            class="form-control @error('monthly_tuition_fee') is-invalid @enderror">
                     @error('monthly_tuition_fee') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-                    <small class="text-muted d-block mt-1">Leave blank to use the amount configured in Fees → Class-wise Fee Amounts. Enter a value to override only this student's monthly Tuition Fee. Use 0 to waive tuition. Already-created vouchers are not changed.</small>
                 </div>
             </div>
         </div>
@@ -180,7 +188,16 @@
 
                     Object.keys(res.data).forEach(function (key) {
                         var field = document.getElementById('f_' + key);
-                        if (field && res.data[key] !== null) field.value = res.data[key];
+                        if (!field || res.data[key] === null) return;
+
+                        if (field.multiple && Array.isArray(res.data[key])) {
+                            Array.from(field.options).forEach(function (option) {
+                                option.selected = res.data[key].includes(option.value);
+                            });
+                            if (window.jQuery && jQuery.fn.select2) jQuery(field).trigger('change');
+                        } else if (!Array.isArray(res.data[key])) {
+                            field.value = res.data[key];
+                        }
                     });
                     input.value = res.form_number;
 

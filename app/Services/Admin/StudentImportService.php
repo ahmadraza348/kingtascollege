@@ -18,13 +18,13 @@ class StudentImportService
     /** Column order of the downloadable template. */
     public const HEADINGS = [
         'Admission Form No', 'Roll No', 'Full Name', 'Father Name', 'Gender', 'Date of Birth', 'CNIC', 'Phone',
-        'WhatsApp', 'Email', 'Guardian Name', 'Guardian Phone', 'Blood Group', 'Class', 'Section', 'Program',
+        'WhatsApp', 'Email', 'Guardian Name', 'Guardian Phone', 'Blood Group', 'Class', 'Section', 'Programs',
         'Session', 'Admission Date', 'Qualification', 'Institution', 'Street', 'City', 'District', 'Province',
         'Status', 'Notes', 'Monthly Tuition Fee',
     ];
 
     /** Columns kept as text so Excel never strips leading zeros or reformats dates. */
-    public const TEXT_COLUMNS = ['A', 'B', 'F', 'G', 'H', 'I', 'L', 'R'];
+    public const TEXT_COLUMNS = ['A', 'B', 'F', 'G', 'H', 'I', 'L', 'P', 'R'];
 
     /** heading in the sheet (lower-case, underscores) => student field */
     private const ALIASES = [
@@ -41,7 +41,7 @@ class StudentImportService
         'guardian_name' => 'guardian_name', 'guardian_phone' => 'guardian_phone',
         'blood_group' => 'blood_group',
         'class' => 'class_name', 'section' => 'section_name',
-        'program' => 'program', 'session' => 'session',
+        'program' => 'programs', 'programs' => 'programs', 'session' => 'session',
         'admission_date' => 'admission_date',
         'qualification' => 'qualification', 'institution' => 'institution',
         'street' => 'street', 'address' => 'street', 'city' => 'city', 'district' => 'district', 'province' => 'province',
@@ -82,9 +82,16 @@ class StudentImportService
                     continue;
                 }
 
-                $row[$field] = in_array($field, self::DATE_FIELDS, true)
-                    ? $this->toDate($value)
-                    : trim((string) $value);
+                if (in_array($field, self::DATE_FIELDS, true)) {
+                    $row[$field] = $this->toDate($value);
+                } elseif ($field === 'programs') {
+                    $row[$field] = array_values(array_filter(array_map(
+                        'trim',
+                        preg_split('/\s*[|;]\s*/u', (string) $value) ?: []
+                    )));
+                } else {
+                    $row[$field] = trim((string) $value);
+                }
             }
 
             if ($row) {
