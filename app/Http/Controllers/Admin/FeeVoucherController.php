@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\BulkVoucherRequest;
 use App\Http\Requests\Admin\ReasonRequest;
 use App\Http\Requests\Admin\StoreVoucherRequest;
+use App\Models\FeePayment;
 use App\Models\FeeSetting;
 use App\Models\FeeVoucher;
+use App\Models\FeeVoucherItem;
 use App\Models\SchoolClass;
 use App\Models\Section;
 use App\Models\Student;
@@ -57,13 +58,26 @@ class FeeVoucherController extends Controller
             $type = 'monthly';
         }
 
+        $receivedFee = $student
+            ? (float) FeePayment::where('student_id', $student->id)->where('status', 'verified')->sum('amount')
+            : 0.0;
+        $alreadyBilled = $student
+            ? (float) FeeVoucherItem::whereHas('voucher', fn ($q) => $q->where('student_id', $student->id)->where('status', '!=', 'cancelled'))
+                ->where('source', '!=', 'late_fee')->sum('amount')
+            : 0.0;
+        $finalizedFee = (float) ($student?->finalized_fee ?? 0);
+
         return view('backend.fees.vouchers.create', [
-            'student'  => $student,
-            'classes'  => SchoolClass::active()->orderBy('sort_order')->orderBy('name')->get(),
-            'type'     => $type,
-            'period'   => $period,
-            'issue'    => FeeHelper::today()->toDateString(),
-            'due'      => $this->service->defaultDueDate($period),
+            'student'         => $student,
+            'classes'         => SchoolClass::active()->orderBy('sort_order')->orderBy('name')->get(),
+            'type'            => $type,
+            'period'          => $period,
+            'issue'           => FeeHelper::today()->toDateString(),
+            'due'             => $this->service->defaultDueDate($period),
+            'receivedFee'     => $receivedFee,
+            'finalizedFee'    => $finalizedFee,
+            'studentBalance'  => max(0, round($finalizedFee - $receivedFee, 2)),
+            'remainingToBill' => max(0, round($finalizedFee - $alreadyBilled, 2)),
         ]);
     }
 
@@ -82,48 +96,6 @@ class FeeVoucherController extends Controller
         toastr()->success('Voucher ' . $voucher->voucher_number . ' created.');
 
         return redirect()->route('fees.vouchers.show', $voucher);
-    }
-
-    /** Generate for a whole class / section. The page first shows what will happen. */
-    public function bulk(Request $request): View
-    {
-        $request->validate([
-            'class'   => ['nullable', 'exists:school_classes,id'],
-            'section' => ['nullable', 'integer'],
-            'period'  => ['nullable', 'date_format:Y-m'],
-        ]);
-
-        $classId   = $request->integer('class') ?: null;
-        $sectionId = $request->integer('section') ?: null;
-        $period    = $request->query('period', FeeHelper::today()->format('Y-m'));
-
-        return view('backend.fees.vouchers.bulk', [
-            'classes'   => SchoolClass::active()->orderBy('sort_order')->orderBy('name')->get(),
-            'sections'  => $classId ? Section::where('school_class_id', $classId)->orderBy('name')->get() : collect(),
-            'classId'   => $classId,
-            'sectionId' => $sectionId,
-            'period'    => $period,
-            'issue'     => $request->query('issue_date', FeeHelper::today()->toDateString()),
-            'due'       => $request->query('due_date', $this->service->defaultDueDate($period)),
-            'preview'   => $classId ? $this->service->bulkPreview($classId, $sectionId, $period) : null,
-        ]);
-    }
-
-    public function bulkStore(BulkVoucherRequest $request): RedirectResponse
-    {
-        $data   = $request->validated();
-        $result = $this->service->bulkGenerate((int) $data['school_class_id'], $data['section_id'] ?? null, [
-            'period'              => $data['period'],
-            'issue_date'          => $data['issue_date'],
-            'due_date'            => $data['due_date'],
-            'include_absent_fine' => $request->boolean('include_absent_fine'),
-        ]);
-
-        toastr()->success($result['created']->count() . ' voucher(s) created.');
-
-        return redirect()
-            ->route('fees.vouchers', array_filter(['class' => $data['school_class_id'], 'section' => $data['section_id'] ?? null, 'period' => $data['period']]))
-            ->with('bulk_skipped', $result['skipped']);
     }
 
     public function show(FeeVoucher $voucher): View
@@ -175,9 +147,33 @@ class FeeVoucherController extends Controller
     /** AJAX: active students of a section (used by the "new voucher" and "payment" pages). */
     public function studentsBySection(Section $section): JsonResponse
     {
-        return response()->json(
-            Student::active()->where('section_id', $section->id)->orderBy('roll_number')->get(['id', 'roll_number', 'full_name'])
-        );
+        $students = Student::active()
+            ->where('section_id', $section->id)
+            ->withSum(['feePayments as received_fee' => fn ($query) => $query->where('status', 'verified')], 'amount')
+            ->addSelect(['billed_fee' => FeeVoucherItem::query()
+                ->selectRaw('COALESCE(SUM(fee_voucher_items.amount), 0)')
+                ->join('fee_vouchers', 'fee_vouchers.id', '=', 'fee_voucher_items.fee_voucher_id')
+                ->whereColumn('fee_vouchers.student_id', 'students.id')
+                ->where('fee_vouchers.status', '!=', 'cancelled')
+                ->where('fee_voucher_items.source', '!=', 'late_fee')])
+            ->orderBy('roll_number')
+            ->get(['id', 'roll_number', 'full_name', 'finalized_fee']);
+
+        return response()->json($students->map(function (Student $student) {
+            $finalized = $student->finalized_fee === null ? null : (float) $student->finalized_fee;
+            $received = (float) ($student->received_fee ?? 0);
+            $billed = (float) ($student->billed_fee ?? 0);
+
+            return [
+                'id' => $student->id,
+                'roll_number' => $student->roll_number,
+                'full_name' => $student->full_name,
+                'finalized_fee' => $finalized,
+                'received_fee' => $received,
+                'remaining_balance' => $finalized === null ? null : max(0, round($finalized - $received, 2)),
+                'remaining_to_bill' => $finalized === null ? 0 : max(0, round($finalized - $billed, 2)),
+            ];
+        })->values());
     }
 
     /* ---------------------------------------------------------------- */

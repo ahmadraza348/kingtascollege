@@ -123,16 +123,17 @@
 
 <div class="card">
     <div class="card-body">
-        <h5 class="mb-3">Fee assignment</h5>
+        <h5 class="mb-2">Student Fee</h5>
+        <p class="text-muted small mb-3">Enter the final total fee agreed for this student, after any concession or discount. The account balance will be calculated automatically by subtracting verified payments.</p>
         <div class="row">
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="form-group">
-                    <label for="f_monthly_tuition_fee">Monthly Tuition Fee Override (PKR)</label>
-                    <input type="number" name="monthly_tuition_fee" id="f_monthly_tuition_fee"
-                           value="{{ old('monthly_tuition_fee', $student->monthly_tuition_fee) }}"
-                           min="0" max="10000000" step="0.01" placeholder="Use class/session default"
-                           class="form-control @error('monthly_tuition_fee') is-invalid @enderror">
-                    @error('monthly_tuition_fee') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                    <label for="f_finalized_fee">Finalized Total Fee (PKR)</label>
+                    <input type="number" name="finalized_fee" id="f_finalized_fee"
+                           value="{{ old('finalized_fee', $student->finalized_fee) }}"
+                           min="0" max="10000000" step="0.01" placeholder="Enter student's final fee"
+                           class="form-control @error('finalized_fee') is-invalid @enderror">
+                    @error('finalized_fee') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
                 </div>
             </div>
         </div>

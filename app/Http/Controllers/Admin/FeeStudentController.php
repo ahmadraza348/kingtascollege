@@ -8,12 +8,11 @@ use App\Models\Section;
 use App\Models\Student;
 use App\Services\Admin\FeeAccountBookService;
 use App\Services\Admin\FeeReportService;
-use App\Support\FeeHelper;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-/** "Student fee accounts": one line per student, and the full statement of each. */
+/** Student fee accounts: finalized fee, verified receipts and individual vouchers. */
 class FeeStudentController extends Controller
 {
     public function index(Request $request): View
@@ -23,23 +22,22 @@ class FeeStudentController extends Controller
         $status  = $request->query('student_status', 'active');
         $classId = $request->integer('class') ?: null;
 
-        $live = fn ($q) => $q->where('status', '!=', 'cancelled');
+        $verifiedReceipts = "(SELECT COALESCE(SUM(fp.amount), 0) FROM fee_payments fp WHERE fp.student_id = students.id AND fp.status = 'verified')";
 
         $students = Student::query()
             ->with(['schoolClass:id,name', 'section:id,name'])
-            ->withSum(['feeVouchers as billed' => $live], 'total_amount')
-            ->withSum(['feeVouchers as paid' => $live], 'paid_amount')
-            ->withSum(['feeVouchers as due' => $live], 'balance')
-            ->withExists(['feeVouchers as has_overdue_voucher' => fn ($q) => $q->overdue()])
-            ->withCount(['feeVouchers as inst_total' => fn ($q) => $q->whereNotNull('fee_plan_id')->where('status', '!=', 'cancelled')])
-            ->withCount(['feeVouchers as inst_paid' => fn ($q) => $q->whereNotNull('fee_plan_id')->where('status', 'paid')])
-            ->when($search !== '', fn ($q) => $q->where(fn ($w) => $w->where('full_name', 'like', "%$search%")->orWhere('roll_number', 'like', "%$search%")->orWhere('cnic', 'like', "%$search%")))
-            ->when($classId, fn ($q) => $q->where('school_class_id', $classId))
-            ->when($request->integer('section'), fn ($q, $s) => $q->where('section_id', $s))
-            ->when(isset(Student::STATUSES[$status]), fn ($q) => $q->where('status', $status))
-            ->when($balance === 'due', fn ($q) => $q->whereHas('feeVouchers', fn ($v) => $v->open()))
-            ->when($balance === 'overdue', fn ($q) => $q->whereHas('feeVouchers', fn ($v) => $v->overdue()))
-            ->when($balance === 'clear', fn ($q) => $q->whereDoesntHave('feeVouchers', fn ($v) => $v->open()))
+            ->withSum(['feePayments as received' => fn ($query) => $query->where('status', 'verified')], 'amount')
+            ->withExists(['feeVouchers as has_overdue_voucher' => fn ($query) => $query->overdue()])
+            ->when($search !== '', fn ($query) => $query->where(fn ($where) => $where
+                ->where('full_name', 'like', "%$search%")
+                ->orWhere('roll_number', 'like', "%$search%")
+                ->orWhere('cnic', 'like', "%$search%")))
+            ->when($classId, fn ($query) => $query->where('school_class_id', $classId))
+            ->when($request->integer('section'), fn ($query, $section) => $query->where('section_id', $section))
+            ->when(isset(Student::STATUSES[$status]), fn ($query) => $query->where('status', $status))
+            ->when($balance === 'due', fn ($query) => $query->whereNotNull('finalized_fee')->whereRaw("COALESCE(students.finalized_fee, 0) > {$verifiedReceipts}"))
+            ->when($balance === 'overdue', fn ($query) => $query->whereHas('feeVouchers', fn ($voucherQuery) => $voucherQuery->overdue()))
+            ->when($balance === 'clear', fn ($query) => $query->whereNotNull('finalized_fee')->whereRaw("COALESCE(students.finalized_fee, 0) <= {$verifiedReceipts}"))
             ->orderBy('school_class_id')->orderBy('section_id')->orderBy('roll_number')
             ->paginate(config('fees.per_page'))->withQueryString();
 
@@ -51,7 +49,6 @@ class FeeStudentController extends Controller
         ]);
     }
 
-    /** The student's account book: total payable fee, every installment, what is paid and what remains. */
     public function show(Student $student, FeeAccountBookService $books, FeeReportService $reports): View
     {
         $student->load(['schoolClass', 'section']);
@@ -69,9 +66,9 @@ class FeeStudentController extends Controller
 
         return Pdf::loadView('backend.fees.pdf.statement', [
             'student'    => $student,
-            'statement'  => $reports->statement($student),
             'book'       => $books->build($student),
-            'letterhead' => FeeHelper::letterhead(),
-        ])->setPaper('a4', 'portrait')->stream('account-book-' . $student->roll_number . '.pdf');
+            'statement'  => $reports->statement($student),
+            'letterhead' => \App\Support\FeeHelper::letterhead(),
+        ])->setPaper('a4', 'portrait')->stream('fee-statement-' . $student->roll_number . '.pdf');
     }
 }

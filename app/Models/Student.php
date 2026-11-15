@@ -42,7 +42,7 @@ class Student extends Model
         'phone', 'whatsapp', 'email', 'guardian_name', 'guardian_phone',
         'street', 'city', 'district', 'province',
         'qualification', 'institution', 'obtained_marks', 'total_marks', 'percentage',
-        'school_class_id', 'section_id', 'program', 'session', 'monthly_tuition_fee', 'admission_date', 'status',
+        'school_class_id', 'section_id', 'program', 'session', 'finalized_fee', 'admission_date', 'status',
         'notes',
     ];
 
@@ -52,7 +52,7 @@ class Student extends Model
         'obtained_marks'      => 'decimal:2',
         'total_marks'         => 'decimal:2',
         'percentage'          => 'decimal:2',
-        'monthly_tuition_fee' => 'decimal:2',
+        'finalized_fee'       => 'decimal:2',
     ];
 
     public function schoolClass(): BelongsTo
@@ -131,6 +131,11 @@ class Student extends Model
     public function feeVouchers(): HasMany
     {
         return $this->hasMany(FeeVoucher::class);
+    }
+
+    public function feePayments(): HasMany
+    {
+        return $this->hasMany(FeePayment::class);
     }
 
     public function feePlans(): HasMany

@@ -2,12 +2,10 @@
 
 namespace App\Services\Admin;
 
-use App\Models\AttendanceSummary;
 use App\Models\FeeAuditLog;
 use App\Models\FeeHead;
-use App\Models\FeePlan;
 use App\Models\FeeSetting;
-use App\Models\FeeStructure;
+use App\Models\FeeVoucherItem;
 use App\Models\FeeVoucher;
 use App\Models\Student;
 use App\Support\FeeHelper;
@@ -27,11 +25,6 @@ class FeeVoucherService
 {
     private ?array $headIds = null;
 
-    private ?FeeHead $tuitionFeeHead = null;
-
-    private bool $tuitionFeeHeadLoaded = false;
-
-    private array $structureCache = [];
 
     /* ------------------------------------------------------------------
      |  Creating vouchers
@@ -67,6 +60,25 @@ class FeeVoucherService
 
         try {
             return DB::transaction(function () use ($student, $data, $type, $period, $lines, $uniqueKey) {
+                $lockedStudent = Student::whereKey($student->id)->lockForUpdate()->firstOrFail();
+                $finalizedFee = $lockedStudent->finalized_fee;
+
+                if ($finalizedFee === null || (float) $finalizedFee <= 0) {
+                    throw new DomainException('Set this student’s finalized total fee in the Student record before creating a voucher.');
+                }
+
+                $alreadyBilled = (float) FeeVoucherItem::whereHas('voucher', fn ($q) => $q
+                    ->where('student_id', $student->id)
+                    ->where('status', '!=', 'cancelled'))
+                    ->where('source', '!=', 'late_fee')
+                    ->sum('amount');
+                $newBilled = round(array_sum(array_column($lines, 'amount')), 2);
+                $remainingToBill = max(0, round((float) $finalizedFee - $alreadyBilled, 2));
+
+                if ($newBilled > $remainingToBill + 0.001) {
+                    throw new DomainException('This voucher is higher than the remaining unbilled fee (' . FeeHelper::money($remainingToBill) . '). Update the student’s finalized fee if the agreed total has changed.');
+                }
+
                 $voucher = FeeVoucher::create([
                     'student_id'      => $student->id,
                     'school_class_id' => $student->school_class_id,
@@ -106,195 +118,31 @@ class FeeVoucherService
     }
 
     /**
-     * One installment of a fee plan, issued as a voucher. Only FeePlanService calls this (inside its own transaction).
-     * No unique_key: FeePlanService guarantees one active plan per student, so nothing can be doubled.
-     */
-    public function createInstallment(Student $student, FeePlan $plan, int $no, float $amount, string $dueDate, string $issueDate): FeeVoucher
-    {
-        $period = substr($dueDate, 0, 7);
-
-        $voucher = FeeVoucher::create([
-            'student_id'      => $student->id,
-            'fee_plan_id'     => $plan->id,
-            'installment_no'  => $no,
-            'school_class_id' => $student->school_class_id,
-            'section_id'      => $student->section_id,
-            'roll_number'     => $student->roll_number,
-            'type'            => 'installment',
-            'period'          => $period,
-            'issue_date'      => $issueDate,
-            'due_date'        => $dueDate,
-            'status'          => 'unpaid',
-            'created_by'      => auth('admin')->id(),
-        ]);
-
-        $voucher->items()->create([
-            'fee_head_id' => null,
-            'title'       => 'Fee installment ' . $no,
-            'amount'      => round($amount, 2),
-            'source'      => 'installment',
-            'charged_on'  => $issueDate,
-            'created_by'  => auth('admin')->id(),
-        ]);
-
-        $voucher->voucher_number = sprintf('FV-%s%s-%05d', substr($period, 2, 2), substr($period, 5, 2), $voucher->id);
-        $this->refreshTotals($voucher);
-
-        FeeAuditLog::record('created', 'Installment ' . $no . ' (' . $voucher->voucher_number . ') created, due ' . $dueDate . '.', $student->id, $voucher->id, null, (float) $voucher->total_amount);
-
-        return $voucher;
-    }
-
-    /**
      * Which lines will this voucher have?
      *
      * @return array<int, array{head_id:?int,title:string,amount:float,source:string}>
      */
     private function buildLines(Student $student, string $type, string $period, array $data): array
     {
-        switch ($type) {
-            case 'monthly':
-            case 'admission':
-            case 'exam':
-                if ($type === 'monthly' && FeePlan::active()->where('student_id', $student->id)->exists()) {
-                    throw new DomainException('This student pays through a fee plan (installments), so no monthly voucher is needed.');
-                }
+        $amount = round((float) ($data['amount'] ?? 0), 2);
 
-                $frequency = ['monthly' => 'monthly', 'admission' => 'one_time', 'exam' => 'per_exam'][$type];
-                $structure = $this->structureFor($student);
-
-                if (! $structure) {
-                    throw new DomainException('No class fee setup was found for ' . ($student->schoolClass?->name ?? 'this class') . ' in session ' . ($student->session ?: 'not set') . '. Set the amounts under Fees → Class-wise Fee Amounts.');
-                }
-
-                $lines = [];
-                $hasStudentTuitionOverride = $type === 'monthly' && $student->monthly_tuition_fee !== null;
-                $tuitionHead = null;
-                $tuitionItemFound = false;
-
-                if ($hasStudentTuitionOverride) {
-                    $tuitionHead = $this->tuitionFeeHead();
-
-                    if (! $tuitionHead || ! $tuitionHead->is_active || $tuitionHead->kind !== 'charge' || $tuitionHead->frequency !== 'monthly') {
-                        throw new DomainException('A custom monthly tuition amount is set for this student, but the Tuition Fee head is missing, inactive, or not configured as a monthly charge. Fix Fees → Fee Heads before generating this voucher.');
-                    }
-                }
-
-                foreach ($structure->items as $item) {
-                    $head = $item->head;
-
-                    if ($hasStudentTuitionOverride && $head->id === $tuitionHead->id) {
-                        // A class structure may contain a zero/default tuition item; the student's explicit amount wins.
-                        $tuitionItemFound = true;
-                    }
-
-                    if ($head->frequency !== $frequency || ! $head->is_active) {
-                        continue;
-                    }
-
-                    $amount = (float) $item->amount;
-                    $source = 'structure';
-
-                    if ($hasStudentTuitionOverride && $head->id === $tuitionHead->id) {
-                        $amount = (float) $student->monthly_tuition_fee;
-                        $source = 'student_override';
-                    }
-
-                    if ($amount > 0) {
-                        $lines[] = ['head_id' => $head->id, 'title' => $head->name, 'amount' => $amount, 'source' => $source];
-                    }
-                }
-
-                // Allow a student override even when the class structure has no Tuition Fee line at all.
-                // All other fee heads still follow the existing class/session structure.
-                if ($hasStudentTuitionOverride && ! $tuitionItemFound && (float) $student->monthly_tuition_fee > 0) {
-                    $lines[] = [
-                        'head_id' => $tuitionHead->id,
-                        'title'   => $tuitionHead->name,
-                        'amount'  => (float) $student->monthly_tuition_fee,
-                        'source'  => 'student_override',
-                    ];
-                }
-
-                if ($type === 'monthly' && ($data['include_absent_fine'] ?? false)) {
-                    if ($fine = $this->absentFine($student, $period)) {
-                        $lines[] = $fine;
-                    }
-                }
-
-                if (! $lines) {
-                    throw new DomainException('The fee structure "' . $structure->name . '" has no ' . strtolower(FeeVoucher::TYPES[$type]) . ' amounts.');
-                }
-
-                return $lines;
-
-            case 'readmission':
-                $fee = FeeSetting::number('readmission_fee');
-
-                if ($fee <= 0) {
-                    throw new DomainException('The readmission fee is not set. Enter it in Fees → Settings.');
-                }
-
-                return [['head_id' => $this->headId('READMISSION'), 'title' => 'Readmission fee', 'amount' => $fee, 'source' => 'readmission']];
-
-            case 'opening':
-                return [['head_id' => $this->headId('PREVIOUS_DUES'), 'title' => $data['description'], 'amount' => round((float) $data['amount'], 2), 'source' => 'opening']];
-
-            default: // other
-                return [['head_id' => null, 'title' => $data['description'], 'amount' => round((float) $data['amount'], 2), 'source' => 'other']];
-        }
-    }
-
-    /** Absent fine for the month BEFORE the billing month, from the attendance module. Off while the rate is 0. */
-    private function absentFine(Student $student, string $period): ?array
-    {
-        $rate = FeeSetting::number('absent_fine_per_day');
-
-        if ($rate <= 0) {
-            return null;
+        if ($amount <= 0) {
+            throw new DomainException('Enter an amount greater than zero.');
         }
 
-        $previous = CarbonImmutable::createFromFormat('Y-m-d', $period . '-01')->subMonthNoOverflow();
+        $description = trim((string) ($data['description'] ?? ''));
+        $title = $description !== ''
+            ? $description
+            : (FeeVoucher::TYPES[$type] ?? 'Fee') . ' - ' . FeeHelper::periodLabel($period);
 
-        $absent = (int) AttendanceSummary::where('student_id', $student->id)
-            ->where('year', $previous->year)->where('month', $previous->month)->sum('absent');
-
-        if ($absent <= 0) {
-            return null;
-        }
-
-        return [
-            'head_id' => $this->headId('ABSENT_FINE'),
-            'title'   => 'Absent Fine (' . $absent . ' day(s) in ' . $previous->format('F Y') . ')',
-            'amount'  => round($absent * $rate, 2),
-            'source'  => 'absent_fine',
+        $line = [
+            'head_id' => $type === 'opening' ? $this->headId('PREVIOUS_DUES') : null,
+            'title'   => $title,
+            'amount'  => $amount,
+            'source'  => $type === 'opening' ? 'opening' : 'manual',
         ];
-    }
 
-    /** Return the active fee setup for this student's exact class and session. */
-    public function structureFor(Student $student): ?FeeStructure
-    {
-        $key = $student->school_class_id . '|' . $student->session;
-
-        if (! array_key_exists($key, $this->structureCache)) {
-            $this->structureCache[$key] = FeeStructure::with('items.head')
-                ->where('school_class_id', $student->school_class_id)
-                ->where('session', $student->session)
-                ->where('is_active', true)
-                ->first();
-        }
-
-        return $this->structureCache[$key];
-    }
-
-    private function tuitionFeeHead(): ?FeeHead
-    {
-        if (! $this->tuitionFeeHeadLoaded) {
-            $this->tuitionFeeHead = FeeHead::where('code', 'TUITION')->first();
-            $this->tuitionFeeHeadLoaded = true;
-        }
-
-        return $this->tuitionFeeHead;
+        return [$line];
     }
 
     private function headId(string $code): int
@@ -311,70 +159,6 @@ class FeeVoucherService
         $day   = max(1, min((int) FeeSetting::number('due_day'), $first->daysInMonth));
 
         return $first->day($day)->toDateString();
-    }
-
-    /* ------------------------------------------------------------------
-     |  Bulk (a whole class or section)
-     * ------------------------------------------------------------------ */
-
-    public function eligibleStudents(int $classId, ?int $sectionId): Collection
-    {
-        return Student::active()
-            ->with(['schoolClass:id,name', 'section:id,name'])
-            ->where('school_class_id', $classId)
-            ->when($sectionId, fn ($q) => $q->where('section_id', $sectionId))
-            ->orderBy('section_id')->orderBy('roll_number')->get();
-    }
-
-    /** What would happen for each student. Nothing is saved. */
-    public function bulkPreview(int $classId, ?int $sectionId, string $period): Collection
-    {
-        $students = $this->eligibleStudents($classId, $sectionId);
-        $existing = $this->existingMonthly($students, $period);
-
-        return $students->map(function (Student $student) use ($existing, $period) {
-            if ($voucher = $existing->get($student->id)) {
-                return ['student' => $student, 'state' => 'exists', 'amount' => (float) $voucher->total_amount, 'note' => 'Already has ' . $voucher->voucher_number];
-            }
-
-            try {
-                $lines = $this->buildLines($student, 'monthly', $period, ['include_absent_fine' => true]);
-
-                return ['student' => $student, 'state' => 'ready', 'amount' => round(array_sum(array_column($lines, 'amount')), 2), 'note' => ''];
-            } catch (DomainException $e) {
-                return ['student' => $student, 'state' => 'blocked', 'amount' => 0, 'note' => $e->getMessage()];
-            }
-        });
-    }
-
-    /** @return array{created:Collection, skipped:array<int,string>} */
-    public function bulkGenerate(int $classId, ?int $sectionId, array $data): array
-    {
-        $students = $this->eligibleStudents($classId, $sectionId);
-        $existing = $this->existingMonthly($students, $data['period']);
-
-        $created = collect();
-        $skipped = [];
-
-        foreach ($students as $student) {
-            if ($existing->has($student->id)) {
-                $skipped[] = $student->roll_number . ' ' . $student->full_name . ': already has a voucher for this month.';
-                continue;
-            }
-
-            try {
-                $created->push($this->create($student, ['type' => 'monthly'] + $data));
-            } catch (DomainException $e) {
-                $skipped[] = $student->roll_number . ' ' . $student->full_name . ': ' . $e->getMessage();
-            }
-        }
-
-        return ['created' => $created, 'skipped' => $skipped];
-    }
-
-    private function existingMonthly(Collection $students, string $period): Collection
-    {
-        return FeeVoucher::where('unique_key', 'monthly:' . $period)->whereIn('student_id', $students->pluck('id'))->get()->keyBy('student_id');
     }
 
     /* ------------------------------------------------------------------
@@ -467,7 +251,7 @@ class FeeVoucherService
             } elseif ($voucher->type === 'opening') {
                 $category = 'arrears';
             } else {
-                // Other monthly charges remain visible in the installment row instead of disappearing.
+                // Other manual charges remain visible in the tuition row instead of disappearing.
                 $category = 'tuition';
             }
 
@@ -486,7 +270,6 @@ class FeeVoucherService
             'lateFeeDate' => $today,
             'payable' => $payable,
             'breakdown' => $breakdown,
-            'installment' => $voucher->type === 'monthly' ? max(0, (float) $breakdown['tuition']) : (float) $voucher->total_amount,
         ];
     }
 
@@ -571,10 +354,6 @@ class FeeVoucherService
 
         if ($voucher->allocations()->exists()) {
             throw new DomainException('Payments are already applied to this voucher. Cancel those payments first.');
-        }
-
-        if ($voucher->fee_plan_id && $voucher->plan?->status === 'active') {
-            throw new DomainException('This is an installment of a fee plan. Change or cancel the fee plan from the student\'s account book instead.');
         }
 
         DB::transaction(function () use ($voucher, $reason) {

@@ -15,7 +15,7 @@
 </div>
 <table class="fields">
     <tr><td class="key">Issue Date</td><td class="value">{{ $v->issue_date->format('d-M-y') }}</td></tr>
-    <tr class="installment"><td class="key">INSTALLMENT</td><td class="value">{{ $F::number($data['installment']) }}</td></tr>
+    <tr><td class="key">VOUCHER AMOUNT</td><td class="value">{{ $F::number($v->total_amount) }}</td></tr>
     <tr><td class="key">Student Name:</td><td class="value">{{ $s->full_name }}</td></tr>
     <tr><td class="key">Class/Section:</td><td class="value">{{ $v->schoolClass?->name ?? '—' }} / {{ $v->section?->name ?? '—' }}</td></tr>
     <tr><td class="key">Roll Number:</td><td class="value">{{ $v->roll_number }}</td></tr>

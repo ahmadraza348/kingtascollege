@@ -21,9 +21,8 @@ class StoreVoucherRequest extends FormRequest
             'period'              => ['required', 'date_format:Y-m'],
             'issue_date'          => ['required', 'date_format:Y-m-d'],
             'due_date'            => ['required', 'date_format:Y-m-d', 'after_or_equal:issue_date'],
-            'amount'              => ['nullable', 'required_if:type,opening,other', 'numeric', 'min:1', 'max:10000000', 'decimal:0,2'],
-            'description'         => ['nullable', 'required_if:type,opening,other', 'string', 'max:150'],
-            'include_absent_fine' => ['nullable', 'boolean'],
+            'amount'              => ['required', 'numeric', 'min:1', 'max:10000000', 'decimal:0,2'],
+            'description'         => ['nullable', 'string', 'max:150'],
         ];
     }
 
@@ -31,8 +30,7 @@ class StoreVoucherRequest extends FormRequest
     {
         return [
             'student_id.required'       => 'Please select a student.',
-            'amount.required_if'        => 'Enter the amount for this type of voucher.',
-            'description.required_if'   => 'Enter a short description for this charge.',
+            'amount.required'           => 'Enter the amount for this voucher.',
             'due_date.after_or_equal'   => 'The due date cannot be before the issue date.',
         ];
     }

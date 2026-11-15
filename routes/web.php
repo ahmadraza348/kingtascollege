@@ -25,9 +25,7 @@ use App\Http\Controllers\Admin\AttendanceReportController;
 use App\Http\Controllers\Admin\SchoolHolidayController;
 use App\Http\Controllers\Admin\FeeDashboardController;
 use App\Http\Controllers\Admin\FeePaymentController;
-use App\Http\Controllers\Admin\FeePlanController;
 use App\Http\Controllers\Admin\FeeSettingController;
-use App\Http\Controllers\Admin\FeeStructureController;
 use App\Http\Controllers\Admin\FeeStudentController;
 use App\Http\Controllers\Admin\FeeVoucherController;
 use Illuminate\Support\Facades\Route;
@@ -181,14 +179,11 @@ Route::prefix('admin')->middleware('adminauth')->group(
             // Setup
             Route::get('settings', [FeeSettingController::class, 'edit'])->name('settings');
             Route::put('settings', [FeeSettingController::class, 'update'])->name('settings.update');
-            Route::resource('structures', FeeStructureController::class)->except('show')->names('structures');
 
             // Vouchers
             Route::get('vouchers', [FeeVoucherController::class, 'index'])->name('vouchers');
             Route::get('vouchers/create', [FeeVoucherController::class, 'create'])->name('vouchers.create');
             Route::post('vouchers', [FeeVoucherController::class, 'store'])->name('vouchers.store');
-            Route::get('vouchers/bulk', [FeeVoucherController::class, 'bulk'])->name('vouchers.bulk');
-            Route::post('vouchers/bulk', [FeeVoucherController::class, 'bulkStore'])->name('vouchers.bulk.store');
             Route::get('vouchers/print', [FeeVoucherController::class, 'printMany'])->name('vouchers.print-many');
             Route::get('vouchers/{voucher}', [FeeVoucherController::class, 'show'])->name('vouchers.show');
             Route::get('vouchers/{voucher}/pdf', [FeeVoucherController::class, 'pdf'])->name('vouchers.pdf');
@@ -210,14 +205,7 @@ Route::prefix('admin')->middleware('adminauth')->group(
             Route::get('accounts/{student}', [FeeStudentController::class, 'show'])->name('accounts.show');
             Route::get('accounts/{student}/statement', [FeeStudentController::class, 'statementPdf'])->name('accounts.statement');
 
-            // Fee plan (total fee split into installments)
-            Route::get('plans/bulk', [FeePlanController::class, 'bulk'])->name('plans.bulk');
-            Route::post('plans/bulk', [FeePlanController::class, 'bulkStore'])->name('plans.bulk.store');
-            Route::get('accounts/{student}/plan/create', [FeePlanController::class, 'create'])->name('plans.create');
-            Route::post('accounts/{student}/plan', [FeePlanController::class, 'store'])->name('plans.store');
-            Route::get('accounts/{student}/plan/edit', [FeePlanController::class, 'edit'])->name('plans.edit');
-            Route::put('accounts/{student}/plan', [FeePlanController::class, 'update'])->name('plans.update');
-            Route::post('accounts/{student}/plan/cancel', [FeePlanController::class, 'cancel'])->name('plans.cancel');
+
         });
     }
 );

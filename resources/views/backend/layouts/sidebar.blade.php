@@ -23,8 +23,6 @@ $feeOperationsOpen = request()->routeIs(
 
 $feeSetupOpen = request()->routeIs(
 'fees.accounts*',
-'fees.plans.bulk*',
-'fees.structures*',
 'fees.settings*'
 );
 
@@ -249,11 +247,6 @@ $quickActionsOpen = false;
             </a>
         </li>
         <li>
-            <a href="{{ route('fees.vouchers.bulk') }}" class="{{ request()->routeIs('fees.vouchers.bulk*') ? 'active' : '' }}">
-                Bulk Vouchers
-            </a>
-        </li>
-        <li>
             <a href="{{ route('fees.vouchers') }}" class="{{ request()->routeIs('fees.vouchers') || request()->routeIs('fees.vouchers.show') ? 'active' : '' }}">
                 All Vouchers
             </a>
@@ -278,16 +271,6 @@ $quickActionsOpen = false;
         <li>
             <a href="{{ route('fees.accounts') }}" class="{{ request()->routeIs('fees.accounts*') ? 'active' : '' }}">
                 Account Books
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('fees.plans.bulk') }}" class="{{ request()->routeIs('fees.plans.bulk*') ? 'active' : '' }}">
-                Bulk Fee Plans
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('fees.structures.index') }}" class="{{ request()->routeIs('fees.structures*') ? 'active' : '' }}">
-                Class Fee Amounts
             </a>
         </li>
         <li>

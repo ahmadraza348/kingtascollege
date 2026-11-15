@@ -32,9 +32,9 @@ $cards = [
 'Percentage' => $student->percentage !== null ? rtrim(rtrim($student->percentage, '0'), '.') . '%' : null,
 ],
 'Fee assignment' => [
-'Monthly tuition fee' => $student->monthly_tuition_fee !== null
-    ? \App\Support\FeeHelper::money($student->monthly_tuition_fee) . ' (student-specific)'
-    : 'Uses class/session default',
+'Finalized total fee' => $student->finalized_fee !== null
+    ? \App\Support\FeeHelper::money($student->finalized_fee)
+    : 'Not set',
 ],
 ];
 @endphp
@@ -113,15 +113,26 @@ $cards = [
                     </div>
                 </div>
 
-                                @php $feeDue = (float) \App\Models\FeeVoucher::where('student_id', $student->id)->where('status', '!=', 'cancelled')->sum('balance'); @endphp
+                                @php
+                    $feePaid = (float) \App\Models\FeePayment::where('student_id', $student->id)->where('status', 'verified')->sum('amount');
+                    $feeTotal = (float) ($student->finalized_fee ?? 0);
+                    $feeDue = max(0, $feeTotal - $feePaid);
+                @endphp
                 <div class="card">
                     <div class="card-body">
                         <h5 class="mb-3">Fees</h5>
-                        <h3 class="{{ $feeDue > 0 ? 'text-danger' : 'text-success' }}">{{ \App\Support\FeeHelper::money($feeDue) }}</h3>
-                        <small class="text-muted">remaining balance</small>
+                        @if ($student->finalized_fee !== null)
+                            <div class="small text-muted">Finalized total fee</div>
+                            <h4>{{ \App\Support\FeeHelper::money($feeTotal) }}</h4>
+                            <div class="small text-muted">Received: {{ \App\Support\FeeHelper::money($feePaid) }}</div>
+                            <h3 class="mt-2 {{ $feeDue > 0 ? 'text-danger' : 'text-success' }}">{{ \App\Support\FeeHelper::money($feeDue) }}</h3>
+                            <small class="text-muted">remaining student balance</small>
+                        @else
+                            <div class="text-warning">Finalized fee not set.</div>
+                        @endif
                         <div class="mt-2">
                             <a href="{{ route('fees.accounts.show', $student) }}">Account book</a> ·
-                            <a href="{{ route('fees.vouchers.create', ['student' => $student->id, 'type' => 'admission']) }}">Admission fee voucher</a>
+                            <a href="{{ route('fees.vouchers.create', ['student' => $student->id]) }}">Create fee voucher</a>
                         </div>
                     </div>
                 </div>

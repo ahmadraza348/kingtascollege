@@ -96,8 +96,22 @@ class FeePaymentService
                 $this->vouchers->applyLateFee($voucher, $paidOn);
             }
 
+            $student = Student::whereKey($payment->student_id)->lockForUpdate()->firstOrFail();
+            if ($student->finalized_fee === null || (float) $student->finalized_fee <= 0) {
+                throw new DomainException('Set this student’s finalized total fee in the Student record before receiving payment.');
+            }
+
+            $receivedSoFar = FeePayment::where('student_id', $student->id)
+                ->where('status', 'verified')
+                ->sum('amount');
+            $remainingStudentFee = max(0, FeeHelper::paisa($student->finalized_fee) - FeeHelper::paisa($receivedSoFar));
+
             $outstanding = FeeHelper::paisa($open->sum('balance'));
             $amount      = FeeHelper::paisa($payment->amount);
+
+            if ($amount > $remainingStudentFee) {
+                throw new DomainException('The payment is higher than the student’s remaining finalized fee (' . FeeHelper::money(FeeHelper::rupees($remainingStudentFee)) . ').');
+            }
 
             if ($amount > $outstanding) {
                 throw new DomainException('The amount (' . FeeHelper::money($payment->amount) . ') is more than this student owes (' . FeeHelper::money(FeeHelper::rupees($outstanding)) . ').');
@@ -133,7 +147,7 @@ class FeePaymentService
                 'verified_at'    => now(),
                 'verified_by'    => auth('admin')->id(),
                 'receipt_number' => sprintf('RC-%s-%05d', FeeHelper::today()->format('ym'), $payment->id),
-                'balance_after'  => FeeHelper::rupees($outstanding - $amount),
+                'balance_after'  => FeeHelper::rupees($remainingStudentFee - $amount),
             ])->save();
 
             FeeAuditLog::record('payment_verified', 'Payment of ' . FeeHelper::money($payment->amount) . ' confirmed. Receipt ' . $payment->receipt_number . '.', $payment->student_id, null, $payment->id, (float) $payment->amount);
@@ -182,9 +196,15 @@ class FeePaymentService
         });
     }
 
-    /** Total the student still owes on open vouchers. */
+    /** Total the student still owes from the finalized fee, after verified receipts. */
     public function outstanding(Student $student): float
     {
-        return round((float) FeeVoucher::where('student_id', $student->id)->open()->sum('balance'), 2);
+        if ($student->finalized_fee === null) {
+            return 0.0;
+        }
+
+        $received = FeePayment::where('student_id', $student->id)->where('status', 'verified')->sum('amount');
+
+        return max(0, round((float) $student->finalized_fee - (float) $received, 2));
     }
 }

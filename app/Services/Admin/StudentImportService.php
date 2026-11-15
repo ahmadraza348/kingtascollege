@@ -20,7 +20,7 @@ class StudentImportService
         'Admission Form No', 'Roll No', 'Full Name', 'Father Name', 'Gender', 'Date of Birth', 'CNIC', 'Phone',
         'WhatsApp', 'Email', 'Guardian Name', 'Guardian Phone', 'Blood Group', 'Class', 'Section', 'Programs',
         'Session', 'Admission Date', 'Qualification', 'Institution', 'Street', 'City', 'District', 'Province',
-        'Status', 'Notes', 'Monthly Tuition Fee',
+        'Status', 'Notes', 'Finalized Total Fee',
     ];
 
     /** Columns kept as text so Excel never strips leading zeros or reformats dates. */
@@ -46,8 +46,8 @@ class StudentImportService
         'qualification' => 'qualification', 'institution' => 'institution',
         'street' => 'street', 'address' => 'street', 'city' => 'city', 'district' => 'district', 'province' => 'province',
         'status' => 'status', 'notes' => 'notes',
-        'monthly_tuition_fee' => 'monthly_tuition_fee', 'monthly_fee' => 'monthly_tuition_fee',
-        'tuition_fee' => 'monthly_tuition_fee',
+        'finalized_total_fee' => 'finalized_fee', 'finalized_fee' => 'finalized_fee',
+        'total_fee' => 'finalized_fee', 'final_fee' => 'finalized_fee',
     ];
 
     private const DATE_FIELDS = ['date_of_birth', 'admission_date'];

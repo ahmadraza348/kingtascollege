@@ -19,7 +19,6 @@
     .fields td, .fields th { border: 1px solid #222; padding: 4px 5px; vertical-align: middle; line-height: 1.15; }
     .fields .key { width: 48%; }
     .fields .value { width: 52%; text-align: center; font-weight: 600; }
-    .fields .installment td { font-size: 9pt; }
     .fields .fee-head th { text-align: center; font-weight: 700; font-size: 8.5pt; }
     .fields .money { text-align: center; width: 37%; white-space: nowrap; }
     .fields .total td { font-weight: 700; font-size: 9pt; }

@@ -3,89 +3,78 @@
 namespace App\Services\Admin;
 
 use App\Models\FeePayment;
-use App\Models\FeePlan;
 use App\Models\FeeVoucher;
+use App\Models\FeeVoucherItem;
 use App\Models\Student;
 use App\Support\FeeHelper;
 
-/**
- * Everything shown on one student's "Account Book": the total payable fee, every installment with what has been
- * paid and what is left, payments received, and other charges (admission, exam, ...).
- * All figures come from the vouchers, so the page can never disagree with the payment screen or receipts.
- */
+/** Builds one student's fee summary, voucher list, receipts and ledger data. */
 class FeeAccountBookService
 {
     public function build(Student $student): array
     {
         $today = FeeHelper::today()->toDateString();
-        $plan  = FeePlan::active()->where('student_id', $student->id)->first();
 
-        $live = FeeVoucher::with(['items', 'allocations.payment'])
+        $vouchers = FeeVoucher::with(['items', 'allocations.payment'])
             ->where('student_id', $student->id)
             ->where('status', '!=', 'cancelled')
-            ->orderBy('due_date')->orderBy('id')
+            ->orderByDesc('issue_date')
+            ->orderByDesc('id')
             ->get();
 
-        $installments = collect();
-        $others       = collect();
+        $voucherRows = $vouchers->map(function (FeeVoucher $voucher) use ($today) {
+            $lateFee = round((float) $voucher->items->where('source', 'late_fee')->sum('amount'), 2);
+            $isOverdue = in_array($voucher->status, ['unpaid', 'partial'], true)
+                && $voucher->due_date->toDateString() < $today;
 
-        foreach ($live as $v) {
-            $late = round((float) $v->items->where('source', 'late_fee')->sum('amount'), 2);
-            $row  = [
-                'voucher'      => $v,
-                'base'         => round((float) $v->total_amount - $late, 2),
-                'late_fee'     => $late,
-                'total'        => (float) $v->total_amount,
-                'paid'         => (float) $v->paid_amount,
-                'remaining'    => (float) $v->balance,
-                'status'       => $v->status,
-                'is_overdue'   => $v->is_overdue,
-                'days_overdue' => $v->is_overdue ? max(0, FeeHelper::daysBetween($v->due_date->toDateString(), $today)) : 0,
-                'payments'     => $v->allocations->filter(fn ($a) => $a->payment && $a->payment->status === 'verified'),
+            return [
+                'voucher'      => $voucher,
+                'base'         => round((float) $voucher->total_amount - $lateFee, 2),
+                'late_fee'     => $lateFee,
+                'total'        => (float) $voucher->total_amount,
+                'paid'         => (float) $voucher->paid_amount,
+                'remaining'    => (float) $voucher->balance,
+                'status'       => $voucher->status,
+                'is_overdue'   => $isOverdue,
+                'days_overdue' => $isOverdue ? max(0, FeeHelper::daysBetween($voucher->due_date->toDateString(), $today)) : 0,
+                'payments'     => $voucher->allocations->filter(fn ($allocation) => $allocation->payment && $allocation->payment->status === 'verified'),
             ];
+        })->values();
 
-            if ($plan && $v->fee_plan_id === $plan->id) {
-                $installments->push($row);
-            } else {
-                $others->push($row);
-            }
-        }
+        $payments = FeePayment::with('allocations.voucher:id,voucher_number,installment_no,type')
+            ->where('student_id', $student->id)
+            ->where('status', 'verified')
+            ->orderByDesc('payment_date')
+            ->orderByDesc('id')
+            ->get();
 
-        $installments = $installments->values()->map(fn ($r, $i) => $r + ['no' => $i + 1]);
-
-        $planPaid      = round((float) $installments->sum('paid'), 2);
-        $planRemaining = round((float) $installments->sum('remaining'), 2);
-        $planLate      = round((float) $installments->sum('late_fee'), 2);
-        $next          = $installments->first(fn ($r) => $r['remaining'] > 0);
-        $overdue       = $installments->filter(fn ($r) => $r['is_overdue']);
-
-        $summary = [
-            'total_fee'       => $plan ? (float) $plan->total_fee : 0.0,
-            'discount'        => $plan ? (float) $plan->discount : 0.0,
-            'net_fee'         => $plan ? (float) $plan->net_fee : 0.0,
-            'late_fee'        => $planLate,
-            'paid'            => $planPaid,
-            'remaining'       => $planRemaining,
-            'count'           => $installments->count(),
-            'paid_count'      => $installments->where('status', 'paid')->count(),
-            'remaining_count' => $installments->where('status', '!=', 'paid')->count(),
-            'percent'         => $plan && ($plan->net_fee + $planLate) > 0 ? (int) round($planPaid / ((float) $plan->net_fee + $planLate) * 100) : 0,
-            'next'            => $next,
-            'overdue_amount'  => round((float) $overdue->sum('remaining'), 2),
-            'overdue_count'   => $overdue->count(),
-        ];
+        $finalizedFee = $student->finalized_fee === null ? null : (float) $student->finalized_fee;
+        $received = round((float) $payments->sum('amount'), 2);
+        $remaining = $finalizedFee === null ? 0.0 : max(0, round($finalizedFee - $received, 2));
+        $overdue = $voucherRows->filter(fn ($row) => $row['is_overdue']);
+        $billedBase = round((float) FeeVoucherItem::whereHas('voucher', fn ($query) => $query
+            ->where('student_id', $student->id)
+            ->where('status', '!=', 'cancelled'))
+            ->where('source', '!=', 'late_fee')
+            ->sum('amount'), 2);
 
         return [
-            'plan'         => $plan,
-            'summary'      => $summary,
-            'installments' => $installments,
-            'others'       => $others,
-            'others_due'   => round((float) $others->sum('remaining'), 2),
-            'all_due'      => round((float) $live->sum('balance'), 2),
-            'payments'     => FeePayment::with('allocations.voucher:id,voucher_number,installment_no,type')
-                ->where('student_id', $student->id)->where('status', 'verified')
-                ->orderByDesc('payment_date')->orderByDesc('id')->get(),
-            'pending'      => FeePayment::where('student_id', $student->id)->where('status', 'pending')->get(),
+            'summary' => [
+                'total_fee'       => $finalizedFee,
+                'paid'            => $received,
+                'remaining'       => $remaining,
+                'percent'         => $finalizedFee && $finalizedFee > 0 ? min(100, (int) round($received / $finalizedFee * 100)) : 0,
+                'voucher_billed'  => round((float) $vouchers->sum('total_amount'), 2),
+                'voucher_paid'    => round((float) $vouchers->sum('paid_amount'), 2),
+                'voucher_due'     => round((float) $vouchers->sum('balance'), 2),
+                'unbilled'        => $finalizedFee === null ? 0.0 : max(0, round($finalizedFee - $billedBase, 2)),
+                'late_fee'        => round((float) $voucherRows->sum('late_fee'), 2),
+                'overdue_amount'  => round((float) $overdue->sum('remaining'), 2),
+                'overdue_count'   => $overdue->count(),
+            ],
+            'vouchers' => $voucherRows,
+            'payments' => $payments,
+            'pending'  => FeePayment::where('student_id', $student->id)->where('status', 'pending')->orderByDesc('id')->get(),
         ];
     }
 }

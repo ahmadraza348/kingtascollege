@@ -7,15 +7,9 @@
         <div class="page-header">
             <div class="page-title"><h4>Fee Vouchers</h4><h6>Search, filter and print vouchers.</h6></div>
             <div class="page-btn">
-                <a href="{{ route('fees.vouchers.bulk') }}" class="btn btn-added me-2">Generate monthly vouchers</a>
                 <a href="{{ route('fees.vouchers.create') }}" class="btn btn-added">New voucher</a>
             </div>
         </div>
-
-        @if (session('bulk_skipped'))
-            <div class="alert alert-warning"><strong>{{ count(session('bulk_skipped')) }} student(s) were skipped:</strong>
-                <ul class="mb-0">@foreach (session('bulk_skipped') as $line)<li>{{ $line }}</li>@endforeach</ul></div>
-        @endif
 
         <div class="card"><div class="card-body">
             <form action="{{ route('fees.vouchers') }}" method="GET" class="row align-items-end">

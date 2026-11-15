@@ -28,12 +28,7 @@
                     @if ($voucher->status === 'cancelled')<div class="text-danger mt-2">Cancelled: {{ $voucher->cancel_reason }}</div>@endif
                 </div></div>
 
-                @if ($open && $voucher->fee_plan_id && $voucher->plan?->status === 'active')
-                <div class="card"><div class="card-body">
-                    <div class="small text-muted mb-2">This is an installment of the student's fee plan.</div>
-                    <a href="{{ route('fees.accounts.show', $s) }}" class="btn btn-sm btn-added">Open account book</a>
-                </div></div>
-                @elseif ($open)
+                @if ($open)
                 <div class="card"><div class="card-body">
                     <h5 class="mb-3">Voucher actions</h5>
                     @unless ($voucher->allocations->count())

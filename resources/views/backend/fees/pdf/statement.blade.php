@@ -16,49 +16,62 @@
 </style>
 </head>
 <body>
-@php $F = \App\Support\FeeHelper::class; @endphp
+@php
+    $F = \App\Support\FeeHelper::class;
+    $summary = $book['summary'];
+@endphp
 <table><tr>
     <td style="width:46px;">@if ($letterhead['logo'])<img src="{{ $letterhead['logo'] }}" width="40" height="40">@endif</td>
     <td><div class="college">{{ $letterhead['name'] }}</div><div class="small">{{ $letterhead['address'] }}</div><div class="small">{{ $letterhead['phone'] }}</div></td>
 </tr></table>
-<div class="title">STUDENT ACCOUNT BOOK</div>
+<div class="title">STUDENT FEE ACCOUNT STATEMENT</div>
 
 <table class="grid">
     <tr><th style="width:18%;">Student</th><td>{{ $student->full_name }}</td><th style="width:18%;">Roll No</th><td>{{ $student->roll_number }}</td></tr>
-    <tr><th>Father</th><td>{{ $student->father_name }}</td><th>Class</th><td>{{ $student->schoolClass->name }} / {{ $student->section->name }}</td></tr>
+    <tr><th>Father</th><td>{{ $student->father_name }}</td><th>Class</th><td>{{ $student->schoolClass?->name ?? '—' }} / {{ $student->section?->name ?? '—' }}</td></tr>
     <tr><th>Session</th><td>{{ $student->session }}</td><th>Printed on</th><td>{{ \App\Support\FeeHelper::today()->format('d M Y') }}</td></tr>
 </table>
 
-@if ($book['plan'])
-    @php $b = $book['summary']; @endphp
-    <table class="grid" style="margin-top:8px;">
-        <tr><th style="width:25%;">Total payable fee</th><td>{{ $F::money($b['net_fee']) }}@if ($b['discount'] > 0) <span class="small">(fee {{ $F::number($b['total_fee']) }} − discount {{ $F::number($b['discount']) }})</span>@endif</td>
-            <th style="width:25%;">Installments</th><td>{{ $b['paid_count'] }} of {{ $b['count'] }} paid</td></tr>
-        <tr><th>Paid so far</th><td>{{ $F::money($b['paid']) }}</td><th>Remaining</th><td><strong>{{ $F::money($b['remaining']) }}</strong></td></tr>
-    </table>
-    <table class="grid" style="margin-top:8px;">
-        <tr><th style="width:26px;">#</th><th>Due date</th><th class="r">Installment</th><th class="r">Late fee</th><th class="r">Paid</th><th class="r">Remaining</th><th>Status</th></tr>
-        @foreach ($book['installments'] as $r)
-            <tr><td>{{ $r['no'] }}</td><td>{{ $r['voucher']->due_date->format('d M Y') }}</td>
-                <td class="r">{{ $F::number($r['base']) }}</td><td class="r">{{ $r['late_fee'] > 0 ? $F::number($r['late_fee']) : '-' }}</td>
-                <td class="r">{{ $F::number($r['paid']) }}</td><td class="r">{{ $F::number($r['remaining']) }}</td>
-                <td>{{ $r['status'] === 'paid' ? 'Paid' : ($r['is_overdue'] ? 'Overdue' : ($r['status'] === 'partial' ? 'Part paid' : 'Upcoming')) }}</td></tr>
-        @endforeach
-    </table>
-    <div class="title" style="margin-top:10px;">TRANSACTION HISTORY</div>
-@endif
-
 <table class="grid" style="margin-top:8px;">
-    <tr><th style="width:68px;">Date</th><th>Details</th><th class="r" style="width:62px;">Charged</th><th class="r" style="width:62px;">Paid / Less</th><th class="r" style="width:66px;">Balance</th></tr>
-    @foreach ($statement['rows'] as $r)
-        <tr><td>{{ date('d M Y', strtotime($r['date'])) }}</td><td>{{ $r['text'] }}</td>
-            <td class="r">{{ $r['debit'] ? $F::number($r['debit']) : '' }}</td><td class="r">{{ $r['credit'] ? $F::number($r['credit']) : '' }}</td><td class="r">{{ $F::number($r['balance']) }}</td></tr>
-    @endforeach
-    <tr><th colspan="2" class="r">Totals</th><th class="r">{{ $F::number($statement['debit']) }}</th><th class="r">{{ $F::number($statement['credit']) }}</th><th class="r">{{ $F::number($statement['balance']) }}</th></tr>
+    <tr><th style="width:25%;">Finalized total fee</th><td>{{ $summary['total_fee'] === null ? 'Not set' : $F::money($summary['total_fee']) }}</td>
+        <th style="width:25%;">Verified payments received</th><td>{{ $F::money($summary['paid']) }}</td></tr>
+    <tr><th>Remaining student balance</th><td><strong>{{ $summary['total_fee'] === null ? 'Not set' : $F::money($summary['remaining']) }}</strong></td>
+        <th>Amount billed in vouchers</th><td>{{ $F::money($summary['voucher_billed']) }}</td></tr>
 </table>
-<p><strong>Remaining balance: {{ $F::money($statement['balance']) }}</strong></p>
+
+<div class="title" style="margin-top:10px;">ISSUED VOUCHERS</div>
+<table class="grid">
+    <tr><th>Voucher No.</th><th>Description</th><th>Issue Date</th><th>Due Date</th><th class="r">Amount</th><th class="r">Paid</th><th class="r">Voucher Balance</th><th>Status</th></tr>
+    @forelse ($book['vouchers'] as $row)
+        <tr>
+            <td>{{ $row['voucher']->voucher_number }}</td>
+            <td>{{ $row['voucher']->items->pluck('title')->implode(', ') ?: $row['voucher']->type_label }}</td>
+            <td>{{ $row['voucher']->issue_date->format('d M Y') }}</td>
+            <td>{{ $row['voucher']->due_date->format('d M Y') }}</td>
+            <td class="r">{{ $F::number($row['total']) }}</td>
+            <td class="r">{{ $F::number($row['paid']) }}</td>
+            <td class="r">{{ $F::number($row['remaining']) }}</td>
+            <td>{{ $row['status'] === 'paid' ? 'Paid' : ($row['is_overdue'] ? 'Overdue' : ($row['status'] === 'partial' ? 'Partly paid' : 'Unpaid')) }}</td>
+        </tr>
+    @empty
+        <tr><td colspan="8" style="text-align:center;">No vouchers have been issued.</td></tr>
+    @endforelse
+</table>
+
+<div class="title" style="margin-top:10px;">TRANSACTION HISTORY</div>
+<table class="grid">
+    <tr><th style="width:68px;">Date</th><th>Details</th><th class="r" style="width:62px;">Charged</th><th class="r" style="width:62px;">Paid / Less</th><th class="r" style="width:66px;">Ledger Balance</th></tr>
+    @forelse ($statement['rows'] as $row)
+        <tr><td>{{ date('d M Y', strtotime($row['date'])) }}</td><td>{{ $row['text'] }}</td>
+            <td class="r">{{ $row['debit'] ? $F::number($row['debit']) : '' }}</td><td class="r">{{ $row['credit'] ? $F::number($row['credit']) : '' }}</td><td class="r">{{ $F::number($row['balance']) }}</td></tr>
+    @empty
+        <tr><td colspan="5" style="text-align:center;">No transaction history found.</td></tr>
+    @endforelse
+    <tr><th colspan="2" class="r">Ledger totals</th><th class="r">{{ $F::number($statement['debit']) }}</th><th class="r">{{ $F::number($statement['credit']) }}</th><th class="r">{{ $F::number($statement['balance']) }}</th></tr>
+</table>
+<p><strong>Student's remaining finalized-fee balance: {{ $summary['total_fee'] === null ? 'Not set' : $F::money($summary['remaining']) }}</strong></p>
 @if ($statement['pending']->isNotEmpty())
-    <p class="small">{{ $statement['pending']->count() }} bank deposit(s) totalling {{ $F::money($statement['pending']->sum('amount')) }} are waiting for verification and are not included.</p>
+    <p class="small">{{ $statement['pending']->count() }} pending payment record(s) totalling {{ $F::money($statement['pending']->sum('amount')) }} are not included in the verified received amount.</p>
 @endif
 </body>
 </html>

@@ -185,7 +185,7 @@ class StudentService
             'programs'        => ['nullable', 'array', 'max:12'],
             'programs.*'      => ['required', 'string', 'max:100', 'distinct'],
             'session'         => ['required', 'string', 'max:20'],
-            'monthly_tuition_fee' => ['nullable', 'numeric', 'min:0', 'max:10000000', 'decimal:0,2'],
+            'finalized_fee'      => ['nullable', 'numeric', 'min:0', 'max:10000000', 'decimal:0,2'],
             'admission_date'  => ['nullable', 'date_format:Y-m-d'],
             'status'          => ['required', Rule::in(array_keys(Student::STATUSES))],
             'roll_number'     => ['nullable', 'string', 'max:30', Rule::unique('students', 'roll_number')->ignore($student?->id)],
@@ -231,7 +231,7 @@ class StudentService
             'school_class_id'       => 'class',
             'section_id'            => 'section',
             'programs'              => 'programs',
-            'monthly_tuition_fee'   => 'monthly tuition fee override',
+            'finalized_fee'         => 'finalized total fee',
             'cnic'                  => 'CNIC / B-Form',
             'admission_form_number' => 'admission form number',
         ];
