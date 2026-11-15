@@ -28,6 +28,10 @@ use App\Http\Controllers\Admin\FeePaymentController;
 use App\Http\Controllers\Admin\FeeSettingController;
 use App\Http\Controllers\Admin\FeeStudentController;
 use App\Http\Controllers\Admin\FeeVoucherController;
+use App\Http\Controllers\Admin\ExpenseCategoryController;
+use App\Http\Controllers\Admin\ExpenseController;
+use App\Http\Controllers\Admin\ExpenseDashboardController;
+use App\Http\Controllers\Admin\ExpensePaymentController;
 use Illuminate\Support\Facades\Route;
 
 Route::name('frontend.')->group(function () {
@@ -206,6 +210,32 @@ Route::prefix('admin')->middleware('adminauth')->group(
             Route::get('accounts/{student}/statement', [FeeStudentController::class, 'statementPdf'])->name('accounts.statement');
 
 
+        });
+
+        // School expenses & dues payable
+        Route::prefix('expenses')->name('expenses.')->group(function () {
+            Route::get('/', [ExpenseController::class, 'index'])->name('index');
+            Route::get('dashboard', [ExpenseDashboardController::class, 'index'])->name('dashboard');
+            Route::get('export', [ExpenseController::class, 'export'])->name('export');
+            Route::get('create', [ExpenseController::class, 'create'])->name('create');
+            Route::post('/', [ExpenseController::class, 'store'])->name('store');
+
+            // Categories
+            Route::get('categories', [ExpenseCategoryController::class, 'index'])->name('categories');
+            Route::post('categories', [ExpenseCategoryController::class, 'store'])->name('categories.store');
+            Route::put('categories/{category}', [ExpenseCategoryController::class, 'update'])->whereNumber('category')->name('categories.update');
+            Route::delete('categories/{category}', [ExpenseCategoryController::class, 'destroy'])->whereNumber('category')->name('categories.destroy');
+
+            // Payments made against a bill
+            Route::post('payments/{payment}/cancel', [ExpensePaymentController::class, 'cancel'])->whereNumber('payment')->name('payments.cancel');
+
+            // One expense
+            Route::get('{expense}', [ExpenseController::class, 'show'])->whereNumber('expense')->name('show');
+            Route::get('{expense}/edit', [ExpenseController::class, 'edit'])->whereNumber('expense')->name('edit');
+            Route::put('{expense}', [ExpenseController::class, 'update'])->whereNumber('expense')->name('update');
+            Route::post('{expense}/cancel', [ExpenseController::class, 'cancel'])->whereNumber('expense')->name('cancel');
+            Route::get('{expense}/attachment', [ExpenseController::class, 'attachment'])->whereNumber('expense')->name('attachment');
+            Route::post('{expense}/payments', [ExpensePaymentController::class, 'store'])->whereNumber('expense')->name('payments.store');
         });
     }
 );

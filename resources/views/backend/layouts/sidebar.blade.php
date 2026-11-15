@@ -26,6 +26,8 @@ $feeSetupOpen = request()->routeIs(
 'fees.settings*'
 );
 
+$expensesOpen = request()->routeIs('expenses.*');
+
 $websiteOpen = request()->routeIs(
 'contact-message.*',
 'gallery.*'
@@ -81,6 +83,12 @@ $quickActionsOpen = false;
                             <a href="{{ route('fees.payments.create') }}">
                                 <i class="ti ti-cash"></i>
                                 Receive Payment
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('expenses.create') }}">
+                                <i class="ti ti-receipt"></i>
+                                Add Expense
                             </a>
                         </li>
                     </ul>
@@ -282,6 +290,48 @@ $quickActionsOpen = false;
 </li>
 
 
+
+                {{-- Expenses & Dues Payable --}}
+                <li class="submenu">
+                    <a href="javascript:void(0);" class="{{ $expensesOpen ? 'subdrop' : '' }}">
+                        <img src="{{ asset('backend/assets/img/icons/expense1.svg') }}" alt="">
+                        <span>Expenses &amp; Dues</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+
+                    <ul style="{{ $expensesOpen ? 'display:block;' : 'display:none;' }}">
+                        <li>
+                            <a href="{{ route('expenses.dashboard') }}"
+                                class="{{ request()->routeIs('expenses.dashboard') ? 'active' : '' }}">
+                                Overview
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('expenses.create') }}"
+                                class="{{ request()->routeIs('expenses.create') ? 'active' : '' }}">
+                                Add Expense
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('expenses.index') }}"
+                                class="{{ request()->routeIs('expenses.index', 'expenses.show', 'expenses.edit') && !in_array(request('status'), ['due', 'overdue'], true) ? 'active' : '' }}">
+                                All Expenses
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('expenses.index', ['status' => 'due']) }}"
+                                class="{{ request()->routeIs('expenses.index') && in_array(request('status'), ['due', 'overdue'], true) ? 'active' : '' }}">
+                                Dues Payable
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('expenses.categories') }}"
+                                class="{{ request()->routeIs('expenses.categories*') ? 'active' : '' }}">
+                                Categories
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                 {{-- Website Content --}}
                 <li class="submenu">
