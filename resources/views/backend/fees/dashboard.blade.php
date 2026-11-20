@@ -6,6 +6,7 @@
     <div class="page-header">
         <div class="page-title"><h4>Fee Management</h4><h6>{{ $stats['month_label'] }}</h6></div>
         <div class="page-btn">
+            <a href="{{ route('fees.analytics') }}" class="btn btn-cancel me-2">Class-wise Analytics</a>
             <a href="{{ route('fees.accounts') }}" class="btn btn-cancel me-2">Student Accounts</a>
             <a href="{{ route('fees.vouchers.create') }}" class="btn btn-added me-2">Create Student Voucher</a>
             <a href="{{ route('fees.payments.create') }}" class="btn btn-added">Receive Payment</a>

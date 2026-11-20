@@ -11,6 +11,10 @@ use App\Support\FeeHelper;
 /** Data used by the fee dashboard and an individual student's fee statement. */
 class FeeReportService
 {
+    public function __construct(private FeeBalanceService $balances)
+    {
+    }
+
     public function dashboard(): array
     {
         $today = FeeHelper::today();
@@ -29,7 +33,11 @@ class FeeReportService
 
         $finalizedTotal = round((float) $students->sum('finalized_fee'), 2);
         $receivedTotal = round((float) $students->sum(fn ($student) => (float) ($student->received_fee ?? 0)), 2);
-        $remainingTotal = round((float) $students->sum(fn ($student) => max(0, (float) $student->finalized_fee - (float) ($student->received_fee ?? 0))), 2);
+        $baseCollected = $this->balances->baseCollectedByStudents($students->pluck('id')->all());
+        $remainingTotal = round((float) $students->sum(fn ($student) => max(
+            0,
+            (float) $student->finalized_fee - (float) ($baseCollected->get($student->id)->base_received ?? 0)
+        )), 2);
 
         return [
             'today' => (float) $verifiedPayments()->whereDate('payment_date', $today->toDateString())->sum('amount'),

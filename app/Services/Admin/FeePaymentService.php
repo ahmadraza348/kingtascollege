@@ -5,10 +5,10 @@ namespace App\Services\Admin;
 use App\Models\FeeAuditLog;
 use App\Models\FeePayment;
 use App\Models\FeePaymentAllocation;
+use App\Models\FeeVoucherItem;
 use App\Models\FeeVoucher;
 use App\Models\Student;
 use App\Support\FeeHelper;
-use Carbon\CarbonImmutable;
 use DomainException;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\DB;
  */
 class FeePaymentService
 {
-    public function __construct(private FeeVoucherService $vouchers)
+    public function __construct(private FeeVoucherService $vouchers, private FeeBalanceService $balances)
     {
     }
 
@@ -86,17 +86,14 @@ class FeePaymentService
                 throw new DomainException('This payment is already ' . strtolower($payment->status_label) . '.');
             }
 
-            $paidOn = CarbonImmutable::parse($payment->payment_date->toDateString());
-
+            // Use the same lock order as voucher creation (student first, then vouchers) to reduce
+            // deadlock risk and serialize payment verification against monthly fine assessment.
+            $student = Student::whereKey($payment->student_id)->lockForUpdate()->firstOrFail();
             $open = FeeVoucher::where('student_id', $payment->student_id)->open()
                 ->orderBy('period')->orderBy('id')->lockForUpdate()->get();
 
-            // Late fee is worked out for the day the money was paid, not the day it was checked.
-            foreach ($open as $voucher) {
-                $this->vouchers->applyLateFee($voucher, $paidOn);
-            }
-
-            $student = Student::whereKey($payment->student_id)->lockForUpdate()->firstOrFail();
+            // Late fines are intentionally not written to the old voucher during payment. They are
+            // assessed and recorded on the next monthly voucher when that voucher is issued.
             if ($student->finalized_fee === null || (float) $student->finalized_fee <= 0) {
                 throw new DomainException('Set this student’s finalized total fee in the Student record before receiving payment.');
             }
@@ -104,13 +101,21 @@ class FeePaymentService
             $receivedSoFar = FeePayment::where('student_id', $student->id)
                 ->where('status', 'verified')
                 ->sum('amount');
-            $remainingStudentFee = max(0, FeeHelper::paisa($student->finalized_fee) - FeeHelper::paisa($receivedSoFar));
+
+            // Fines are additional to the agreed finalized fee. Include assessed fines in the total
+            // account limit, otherwise a legitimate fee-plus-fine payment could be rejected.
+            $assessedFines = FeeVoucherItem::query()
+                ->whereIn('source', ['late_fee', 'late_fee_waiver', 'absent_fine'])
+                ->whereHas('voucher', fn ($query) => $query->where('student_id', $student->id)->where('status', '!=', 'cancelled'))
+                ->sum('amount');
+            $totalPayable = max(0, FeeHelper::paisa($student->finalized_fee) + FeeHelper::paisa(max(0, (float) $assessedFines)));
+            $remainingStudentPayable = max(0, $totalPayable - FeeHelper::paisa($receivedSoFar));
 
             $outstanding = FeeHelper::paisa($open->sum('balance'));
             $amount      = FeeHelper::paisa($payment->amount);
 
-            if ($amount > $remainingStudentFee) {
-                throw new DomainException('The payment is higher than the student’s remaining finalized fee (' . FeeHelper::money(FeeHelper::rupees($remainingStudentFee)) . ').');
+            if ($amount > $remainingStudentPayable) {
+                throw new DomainException('The payment is higher than the student’s remaining total payable amount (' . FeeHelper::money(FeeHelper::rupees($remainingStudentPayable)) . ').');
             }
 
             if ($amount > $outstanding) {
@@ -147,7 +152,7 @@ class FeePaymentService
                 'verified_at'    => now(),
                 'verified_by'    => auth('admin')->id(),
                 'receipt_number' => sprintf('RC-%s-%05d', FeeHelper::today()->format('ym'), $payment->id),
-                'balance_after'  => FeeHelper::rupees($remainingStudentFee - $amount),
+                'balance_after'  => FeeHelper::rupees(max(0, $remainingStudentPayable - $amount)),
             ])->save();
 
             FeeAuditLog::record('payment_verified', 'Payment of ' . FeeHelper::money($payment->amount) . ' confirmed. Receipt ' . $payment->receipt_number . '.', $payment->student_id, null, $payment->id, (float) $payment->amount);
@@ -203,8 +208,6 @@ class FeePaymentService
             return 0.0;
         }
 
-        $received = FeePayment::where('student_id', $student->id)->where('status', 'verified')->sum('amount');
-
-        return max(0, round((float) $student->finalized_fee - (float) $received, 2));
+        return $this->balances->remainingFinalizedFee($student);
     }
 }

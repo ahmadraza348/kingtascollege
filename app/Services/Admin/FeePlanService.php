@@ -99,7 +99,7 @@ class FeePlanService
     {
         $voucher->loadMissing('items');
 
-        return round((float) $voucher->items->where('source', '!=', 'late_fee')->sum('amount'), 2);
+        return round((float) $voucher->items->whereNotIn('source', ['late_fee', 'late_fee_waiver', 'absent_fine'])->sum('amount'), 2);
     }
 
     /**

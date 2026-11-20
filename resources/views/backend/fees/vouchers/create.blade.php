@@ -22,11 +22,11 @@
                     </div>
                     <div class="col-md-4 mb-3"><div class="border rounded p-3 h-100"><small class="text-muted">Finalized total fee</small><h5 class="mb-0">{{ $student->finalized_fee !== null ? $F::money($finalizedFee) : 'Not set' }}</h5></div></div>
                     <div class="col-md-4 mb-3"><div class="border rounded p-3 h-100"><small class="text-muted">Received so far</small><h5 class="mb-0 text-success">{{ $F::money($receivedFee) }}</h5></div></div>
-                    <div class="col-md-4 mb-3"><div class="border rounded p-3 h-100"><small class="text-muted">Remaining student balance</small><h5 class="mb-0 text-danger">{{ $student->finalized_fee !== null ? $F::money($studentBalance) : '—' }}</h5></div></div>
+                    <div class="col-md-4 mb-3"><div class="border rounded p-3 h-100"><small class="text-muted">Remaining finalized course fee</small><h5 class="mb-0 text-danger">{{ $student->finalized_fee !== null ? $F::money($studentBalance) : '—' }}</h5></div></div>
                     @if ($student->finalized_fee === null)
                         <div class="col-12"><div class="alert alert-warning mb-3">Set the student's finalized total fee in the Student record before creating a voucher. <a href="{{ route('student.edit', $student) }}">Edit student fee</a>.</div></div>
                     @elseif ($remainingToBill <= 0)
-                        <div class="col-12"><div class="alert alert-info mb-3">The full finalized fee has already been billed. Update the student's finalized fee only if the agreed total has changed.</div></div>
+                        <div class="col-12"><div class="alert alert-info mb-3">The full finalized course fee has already been billed. You can still issue a monthly voucher with a zero base amount if it needs to carry late/absent fines. If no fines are due, the system will prevent an empty voucher.</div></div>
                     @else
                         <div class="col-12"><div class="alert alert-light border py-2 mb-3">Amount still available to bill: <strong>{{ $F::money($remainingToBill) }}</strong></div></div>
                     @endif
@@ -43,14 +43,14 @@
                         <div class="row g-2 mb-3">
                             <div class="col-md-4"><div class="border rounded p-3 h-100"><small class="text-muted">Finalized total fee</small><h5 class="mb-0" id="vFinalizedFee">—</h5></div></div>
                             <div class="col-md-4"><div class="border rounded p-3 h-100"><small class="text-muted">Received so far</small><h5 class="mb-0 text-success" id="vReceivedFee">—</h5></div></div>
-                            <div class="col-md-4"><div class="border rounded p-3 h-100"><small class="text-muted">Remaining student balance</small><h5 class="mb-0 text-danger" id="vRemainingBalance">—</h5></div></div>
+                            <div class="col-md-4"><div class="border rounded p-3 h-100"><small class="text-muted">Remaining finalized course fee</small><h5 class="mb-0 text-danger" id="vRemainingBalance">—</h5></div></div>
                         </div>
                         <div class="alert alert-light border py-2 mb-3" id="vFeeMessage"></div>
                     </div>
                 @endif
 
                 <div class="col-lg-3 col-md-6"><div class="form-group"><label>Voucher type <span class="text-danger">*</span></label>
-                    <select name="type" class="form-select @error('type') is-invalid @enderror" required>
+                    <select name="type" id="vType" class="form-select @error('type') is-invalid @enderror" required>
                         @foreach (\App\Models\FeeVoucher::manualTypes() as $k => $l)<option value="{{ $k }}" @selected(old('type', $type) === $k)>{{ $l }}</option>@endforeach
                     </select>@error('type')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror</div></div>
                 <div class="col-lg-3 col-md-6"><div class="form-group"><label>Billing month <span class="text-danger">*</span></label>
@@ -64,7 +64,7 @@
                     @error('due_date')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror</div></div>
 
                 <div class="col-lg-4 col-md-6"><div class="form-group"><label>Voucher amount (PKR) <span class="text-danger">*</span></label>
-                    <input type="number" step="0.01" min="1" max="{{ $student ? $remainingToBill : 10000000 }}" name="amount" id="vAmount" value="{{ old('amount') }}" required class="form-control @error('amount') is-invalid @enderror" placeholder="Enter amount">
+                    <input type="number" step="0.01" min="{{ $type === 'monthly' ? 0 : 1 }}" max="{{ $student ? $remainingToBill : 10000000 }}" name="amount" id="vAmount" value="{{ old('amount', $student && $remainingToBill <= 0 && $type === 'monthly' ? '0' : '') }}" required class="form-control @error('amount') is-invalid @enderror" placeholder="Enter amount">
                     @error('amount')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                 </div></div>
                 <div class="col-lg-8 col-md-6"><div class="form-group"><label>Description</label>
@@ -73,7 +73,7 @@
                 </div></div>
             </div></div></div>
 
-            <button type="submit" id="vCreateButton" class="btn btn-submit me-2" @if (! $student || $student->finalized_fee === null || (float) $student->finalized_fee <= 0 || $remainingToBill <= 0) disabled @endif>Create voucher</button>
+            <button type="submit" id="vCreateButton" class="btn btn-submit me-2" @if (! $student || $student->finalized_fee === null || (float) $student->finalized_fee <= 0 || ($remainingToBill <= 0 && $type !== 'monthly')) disabled @endif>Create voucher</button>
             <a href="{{ route('fees.vouchers') }}" class="btn btn-cancel">Cancel</a>
         </form>
     </div>
@@ -84,14 +84,41 @@
         var section = document.getElementById('vSection');
         var studentSelect = document.getElementById('vStudent');
         var cls = document.getElementById('vClass');
+        var createButton = document.getElementById('vCreateButton');
+        var amountInput = document.getElementById('vAmount');
+        var typeSelect = document.getElementById('vType');
+        var hasServerStudent = @json($student !== null);
+        var serverHasFinalizedFee = @json($student !== null && $student->finalized_fee !== null && (float) $student->finalized_fee > 0);
+        var serverRemainingToBill = @json((float) $remainingToBill);
+
+        // The student-preselected form has no AJAX selectors, so handle it before the early return.
+        function updatePreselectedStudentForm() {
+            if (!hasServerStudent || !createButton || !amountInput || !typeSelect) return;
+            var isMonthly = typeSelect.value === 'monthly';
+            amountInput.min = isMonthly ? 0 : 1;
+            amountInput.max = Math.max(0, serverRemainingToBill);
+
+            if (!serverHasFinalizedFee) {
+                createButton.disabled = true;
+                amountInput.max = 0;
+            } else if (serverRemainingToBill <= 0) {
+                createButton.disabled = !isMonthly;
+                amountInput.value = isMonthly ? '0' : '';
+                amountInput.max = 0;
+            } else {
+                createButton.disabled = false;
+                if (!isMonthly && Number(amountInput.value || 0) <= 0) amountInput.value = '';
+            }
+        }
+        if (typeSelect && hasServerStudent) {
+            typeSelect.addEventListener('change', updatePreselectedStudentForm);
+            updatePreselectedStudentForm();
+        }
         if (!section || !studentSelect || !cls) return;
 
         var urlTemplate = @json(route('fees.students-by-section', '__ID__'));
         var studentData = {};
         var summary = document.getElementById('vFeeSummary');
-        var createButton = document.getElementById('vCreateButton');
-        var amountInput = document.getElementById('vAmount');
-
         function money(value) {
             return 'PKR ' + Number(value || 0).toLocaleString('en-PK', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         }
@@ -99,7 +126,7 @@
         function resetSummary() {
             if (summary) summary.classList.add('d-none');
             if (createButton) createButton.disabled = true;
-            if (amountInput) amountInput.max = 10000000;
+            if (amountInput) { amountInput.max = 10000000; amountInput.min = typeSelect && typeSelect.value === 'monthly' ? 0 : 1; }
         }
 
         function showStudentFee(item) {
@@ -114,18 +141,22 @@
             document.getElementById('vRemainingBalance').textContent = item.remaining_balance === null ? '—' : money(item.remaining_balance);
 
             var message = document.getElementById('vFeeMessage');
+            var isMonthly = typeSelect && typeSelect.value === 'monthly';
+            amountInput.min = isMonthly ? 0 : 1;
+            amountInput.max = Math.max(0, Number(item.remaining_to_bill || 0));
             if (item.finalized_fee === null || item.finalized_fee <= 0) {
                 message.textContent = 'This student has no finalized total fee. Set it in the Student record before creating a voucher.';
                 message.className = 'alert alert-warning py-2 mb-3';
                 createButton.disabled = true;
                 amountInput.max = 0;
             } else if (item.remaining_to_bill <= 0) {
-                message.textContent = 'The full finalized fee has already been billed. Update the Student record only when the agreed fee changes.';
+                message.textContent = 'The finalized course fee is fully billed. A monthly voucher can still be issued with amount 0 if it will carry an assessed late/absent fine; a voucher with no charges will be rejected.';
                 message.className = 'alert alert-info py-2 mb-3';
-                createButton.disabled = true;
+                createButton.disabled = !isMonthly;
+                amountInput.value = isMonthly ? '0' : '';
                 amountInput.max = 0;
             } else {
-                message.textContent = 'Amount still available to bill: ' + money(item.remaining_to_bill);
+                message.textContent = 'Amount still available to bill: ' + money(item.remaining_to_bill) + '. Set amount to 0 only when the monthly voucher should carry fines only.';
                 message.className = 'alert alert-light border py-2 mb-3';
                 createButton.disabled = false;
                 amountInput.max = item.remaining_to_bill;
@@ -136,6 +167,16 @@
             studentSelect.innerHTML = '<option value="">— Select student —</option>';
             studentData = {};
             resetSummary();
+        }
+
+        if (typeSelect) {
+            typeSelect.addEventListener('change', function () {
+                if (amountInput) {
+                    amountInput.min = this.value === 'monthly' ? 0 : 1;
+                    if (this.value !== 'monthly' && Number(amountInput.value || 0) <= 0) amountInput.value = '';
+                }
+                if (studentSelect && studentSelect.value) showStudentFee(studentData[studentSelect.value] || null);
+            });
         }
 
         cls.addEventListener('change', resetStudents);

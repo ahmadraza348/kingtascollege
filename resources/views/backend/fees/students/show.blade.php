@@ -42,12 +42,12 @@
             <div class="col-xl-4 col-md-6 mb-3"><div class="card mb-0 h-100"><div class="card-body py-3">
                 <small class="text-muted">Payments received</small>
                 <h3 class="mb-0 text-success">{{ $F::money($s['paid']) }}</h3>
-                <small class="text-muted">Verified receipts only</small>
+                <small class="text-muted">Verified receipts, including fines</small>
             </div></div></div>
             <div class="col-xl-4 col-md-6 mb-3"><div class="card mb-0 h-100"><div class="card-body py-3">
                 <small class="text-muted">Remaining student balance</small>
                 <h3 class="mb-0 {{ $s['remaining'] > 0 ? 'text-danger' : 'text-success' }}">{{ $F::money($s['remaining']) }}</h3>
-                <small class="text-muted">Finalized fee minus received payments</small>
+                <small class="text-muted">Finalized fee minus fee-base payments; fine receipts are excluded</small>
             </div></div></div>
         </div>
 

@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\AttendanceDashboardController;
 use App\Http\Controllers\Admin\AttendanceReportController;
 use App\Http\Controllers\Admin\SchoolHolidayController;
 use App\Http\Controllers\Admin\FeeDashboardController;
+use App\Http\Controllers\Admin\FeeAnalyticsController;
 use App\Http\Controllers\Admin\FeePaymentController;
 use App\Http\Controllers\Admin\FeeSettingController;
 use App\Http\Controllers\Admin\FeeStudentController;
@@ -179,6 +180,8 @@ Route::prefix('admin')->middleware('adminauth')->group(
                 // Fee management
         Route::prefix('fees')->name('fees.')->group(function () {
             Route::get('/', [FeeDashboardController::class, 'index'])->name('dashboard');
+            Route::get('analytics/pdf', [FeeAnalyticsController::class, 'pdf'])->name('analytics.pdf');
+            Route::get('analytics', [FeeAnalyticsController::class, 'index'])->name('analytics');
 
             // Setup
             Route::get('settings', [FeeSettingController::class, 'edit'])->name('settings');

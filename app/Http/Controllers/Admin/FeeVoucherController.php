@@ -13,6 +13,7 @@ use App\Models\SchoolClass;
 use App\Models\Section;
 use App\Models\Student;
 use App\Services\Admin\FeeVoucherService;
+use App\Services\Admin\FeeBalanceService;
 use App\Support\FeeHelper;
 use Barryvdh\DomPDF\Facade\Pdf;
 use DomainException;
@@ -24,7 +25,7 @@ use Illuminate\View\View;
 
 class FeeVoucherController extends Controller
 {
-    public function __construct(private FeeVoucherService $service)
+    public function __construct(private FeeVoucherService $service, private FeeBalanceService $balances)
     {
     }
 
@@ -52,7 +53,7 @@ class FeeVoucherController extends Controller
     public function create(Request $request): View
     {
         $student = $request->integer('student') ? Student::with(['schoolClass', 'section'])->find($request->integer('student')) : null;
-        $period  = FeeHelper::today()->format('Y-m');
+        $period = $request->validate(['period' => ['nullable', 'date_format:Y-m']])['period'] ?? FeeHelper::today()->format('Y-m');
         $type    = (string) $request->query('type', 'monthly');
         if (! array_key_exists($type, FeeVoucher::manualTypes())) {
             $type = 'monthly';
@@ -63,20 +64,24 @@ class FeeVoucherController extends Controller
             : 0.0;
         $alreadyBilled = $student
             ? (float) FeeVoucherItem::whereHas('voucher', fn ($q) => $q->where('student_id', $student->id)->where('status', '!=', 'cancelled'))
-                ->where('source', '!=', 'late_fee')->sum('amount')
+                ->whereNotIn('source', ['late_fee', 'late_fee_waiver', 'absent_fine'])->sum('amount')
             : 0.0;
         $finalizedFee = (float) ($student?->finalized_fee ?? 0);
+
+        $issueDate = FeeHelper::today()->toDateString();
+        $defaultDue = $this->service->defaultDueDate($period);
+        $dueDate = $defaultDue < $issueDate ? $issueDate : $defaultDue;
 
         return view('backend.fees.vouchers.create', [
             'student'         => $student,
             'classes'         => SchoolClass::active()->orderBy('sort_order')->orderBy('name')->get(),
             'type'            => $type,
             'period'          => $period,
-            'issue'           => FeeHelper::today()->toDateString(),
-            'due'             => $this->service->defaultDueDate($period),
+            'issue'           => $issueDate,
+            'due'             => $dueDate,
             'receivedFee'     => $receivedFee,
             'finalizedFee'    => $finalizedFee,
-            'studentBalance'  => max(0, round($finalizedFee - $receivedFee, 2)),
+            'studentBalance'  => $student ? $this->balances->remainingFinalizedFee($student) : 0.0,
             'remainingToBill' => max(0, round($finalizedFee - $alreadyBilled, 2)),
         ]);
     }
@@ -106,13 +111,14 @@ class FeeVoucherController extends Controller
         $today = FeeHelper::today();
         $arrears->each(function ($older) use ($today) {
             $older->late_fee_extra = $this->service->lateFeeExtra($older, $today);
-            $older->payable_today = round((float) $older->balance + $older->late_fee_extra, 2);
+            // Unbilled late fines will be carried by a future monthly voucher; they are not part of this voucher's due amount.
+            $older->payable_today = (float) $older->balance;
         });
 
         return view('backend.fees.vouchers.show', [
             'voucher'      => $voucher,
             'arrears'      => $arrears,
-            'arrearsTotal' => round((float) $arrears->sum('payable_today'), 2),
+            'arrearsTotal' => round((float) $arrears->sum('balance'), 2),
             'lateExtra'    => $this->service->lateFeeExtra($voucher, $today),
         ]);
     }
@@ -155,13 +161,16 @@ class FeeVoucherController extends Controller
                 ->join('fee_vouchers', 'fee_vouchers.id', '=', 'fee_voucher_items.fee_voucher_id')
                 ->whereColumn('fee_vouchers.student_id', 'students.id')
                 ->where('fee_vouchers.status', '!=', 'cancelled')
-                ->where('fee_voucher_items.source', '!=', 'late_fee')])
+                ->whereNotIn('fee_voucher_items.source', ['late_fee', 'late_fee_waiver', 'absent_fine'])])
             ->orderBy('roll_number')
             ->get(['id', 'roll_number', 'full_name', 'finalized_fee']);
 
-        return response()->json($students->map(function (Student $student) {
+        $baseCollected = $this->balances->baseCollectedByStudents($students->pluck('id')->all());
+
+        return response()->json($students->map(function (Student $student) use ($baseCollected) {
             $finalized = $student->finalized_fee === null ? null : (float) $student->finalized_fee;
             $received = (float) ($student->received_fee ?? 0);
+            $baseReceived = (float) ($baseCollected->get($student->id)->base_received ?? 0);
             $billed = (float) ($student->billed_fee ?? 0);
 
             return [
@@ -170,7 +179,7 @@ class FeeVoucherController extends Controller
                 'full_name' => $student->full_name,
                 'finalized_fee' => $finalized,
                 'received_fee' => $received,
-                'remaining_balance' => $finalized === null ? null : max(0, round($finalized - $received, 2)),
+                'remaining_balance' => $finalized === null ? null : max(0, round($finalized - $baseReceived, 2)),
                 'remaining_to_bill' => $finalized === null ? 0 : max(0, round($finalized - $billed, 2)),
             ];
         })->values());

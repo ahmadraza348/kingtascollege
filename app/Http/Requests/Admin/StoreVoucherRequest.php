@@ -21,9 +21,18 @@ class StoreVoucherRequest extends FormRequest
             'period'              => ['required', 'date_format:Y-m'],
             'issue_date'          => ['required', 'date_format:Y-m-d'],
             'due_date'            => ['required', 'date_format:Y-m-d', 'after_or_equal:issue_date'],
-            'amount'              => ['required', 'numeric', 'min:1', 'max:10000000', 'decimal:0,2'],
+            'amount'              => ['required', 'numeric', 'min:0', 'max:10000000', 'decimal:0,2'],
             'description'         => ['nullable', 'string', 'max:150'],
         ];
+    }
+
+    public function withValidator($validator): void
+    {
+        $validator->after(function ($validator) {
+            if ($this->input('type') !== 'monthly' && (float) $this->input('amount', 0) <= 0) {
+                $validator->errors()->add('amount', 'Enter an amount greater than zero for this voucher type.');
+            }
+        });
     }
 
     public function messages(): array

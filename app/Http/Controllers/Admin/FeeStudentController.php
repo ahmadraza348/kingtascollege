@@ -8,6 +8,7 @@ use App\Models\Section;
 use App\Models\Student;
 use App\Services\Admin\FeeAccountBookService;
 use App\Services\Admin\FeeReportService;
+use App\Services\Admin\FeeBalanceService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,16 +16,17 @@ use Illuminate\View\View;
 /** Student fee accounts: finalized fee, verified receipts and individual vouchers. */
 class FeeStudentController extends Controller
 {
-    public function index(Request $request): View
+    public function index(Request $request, FeeBalanceService $balances): View
     {
         $search  = trim((string) $request->query('q'));
         $balance = $request->query('balance');
         $status  = $request->query('student_status', 'active');
         $classId = $request->integer('class') ?: null;
 
-        $verifiedReceipts = "(SELECT COALESCE(SUM(fp.amount), 0) FROM fee_payments fp WHERE fp.student_id = students.id AND fp.status = 'verified')";
-
         $students = Student::query()
+            ->leftJoinSub($balances->studentBaseCollectionQuery(), 'base_collection', fn ($join) => $join->on('base_collection.student_id', '=', 'students.id'))
+            ->select('students.*')
+            ->addSelect('base_collection.base_received as base_received')
             ->with(['schoolClass:id,name', 'section:id,name'])
             ->withSum(['feePayments as received' => fn ($query) => $query->where('status', 'verified')], 'amount')
             ->withExists(['feeVouchers as has_overdue_voucher' => fn ($query) => $query->overdue()])
@@ -35,9 +37,9 @@ class FeeStudentController extends Controller
             ->when($classId, fn ($query) => $query->where('school_class_id', $classId))
             ->when($request->integer('section'), fn ($query, $section) => $query->where('section_id', $section))
             ->when(isset(Student::STATUSES[$status]), fn ($query) => $query->where('status', $status))
-            ->when($balance === 'due', fn ($query) => $query->whereNotNull('finalized_fee')->whereRaw("COALESCE(students.finalized_fee, 0) > {$verifiedReceipts}"))
+            ->when($balance === 'due', fn ($query) => $query->whereNotNull('students.finalized_fee')->whereRaw('COALESCE(students.finalized_fee, 0) > COALESCE(base_collection.base_received, 0)'))
             ->when($balance === 'overdue', fn ($query) => $query->whereHas('feeVouchers', fn ($voucherQuery) => $voucherQuery->overdue()))
-            ->when($balance === 'clear', fn ($query) => $query->whereNotNull('finalized_fee')->whereRaw("COALESCE(students.finalized_fee, 0) <= {$verifiedReceipts}"))
+            ->when($balance === 'clear', fn ($query) => $query->whereNotNull('students.finalized_fee')->whereRaw('COALESCE(students.finalized_fee, 0) <= COALESCE(base_collection.base_received, 0)'))
             ->orderBy('school_class_id')->orderBy('section_id')->orderBy('roll_number')
             ->paginate(config('fees.per_page'))->withQueryString();
 

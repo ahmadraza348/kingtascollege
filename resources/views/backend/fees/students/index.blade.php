@@ -37,13 +37,14 @@
 
         <div class="card"><div class="card-body">
             <div class="table-responsive"><table class="table">
-                <thead><tr><th>Student</th><th>Class / Section</th><th>Fee status</th><th class="text-end">Finalized fee</th><th class="text-end">Received</th><th class="text-end">Remaining</th><th>Actions</th></tr></thead>
+                <thead><tr><th>Student</th><th>Class / Section</th><th>Fee status</th><th class="text-end">Finalized fee</th><th class="text-end">Received (all payments)</th><th class="text-end">Remaining course fee</th><th>Actions</th></tr></thead>
                 <tbody>
                 @forelse ($students as $student)
                     @php
                         $finalized = $student->finalized_fee === null ? null : (float) $student->finalized_fee;
                         $received = (float) ($student->received ?? 0);
-                        $remaining = $finalized === null ? null : max(0, round($finalized - $received, 2));
+                        $baseReceived = (float) ($student->base_received ?? 0);
+                        $remaining = $finalized === null ? null : max(0, round($finalized - $baseReceived, 2));
                         $feeStatus = $finalized === null ? 'Fee not set' : ($student->has_overdue_voucher ? 'Voucher overdue' : ($remaining > 0 ? 'Balance due' : 'Fee cleared'));
                         $badge = $feeStatus === 'Voucher overdue' ? 'danger' : ($feeStatus === 'Balance due' ? 'warning' : ($feeStatus === 'Fee cleared' ? 'success' : 'secondary'));
                     @endphp

@@ -17,6 +17,7 @@ $attendanceReportsOpen = request()->routeIs(
 
 $feeOperationsOpen = request()->routeIs(
 'fees.dashboard',
+'fees.analytics*',
 'fees.vouchers*',
 'fees.payments*'
 );
@@ -247,6 +248,11 @@ $quickActionsOpen = false;
         <li>
             <a href="{{ route('fees.dashboard') }}" class="{{ request()->routeIs('fees.dashboard') ? 'active' : '' }}">
                 Fee Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('fees.analytics') }}" class="{{ request()->routeIs('fees.analytics*') ? 'active' : '' }}">
+                Class wise Reports
             </a>
         </li>
         <li>

@@ -61,17 +61,17 @@
                             <tr><td colspan="2" class="text-end">Paid so far</td><td class="text-end text-success">{{ $F::number($voucher->paid_amount) }}</td></tr>
                             <tr><th colspan="2" class="text-end">Balance of this voucher</th><th class="text-end text-danger">{{ $F::number($voucher->balance) }}</th></tr>
                             @if ($lateExtra > 0)
-                                <tr><td colspan="2" class="text-end">Additional late fee through today</td><td class="text-end text-danger">{{ $F::number($lateExtra) }}</td></tr>
+                                <tr><td colspan="2" class="text-end">Late fine accruing for the next monthly voucher (not yet billed)</td><td class="text-end text-danger">{{ $F::number($lateExtra) }}</td></tr>
                             @endif
                             <tr><th colspan="2" class="text-end">Older unpaid dues (including late fees)</th><td class="text-end">{{ $F::number($arrearsTotal) }}</td></tr>
-                            <tr><th colspan="2" class="text-end">Total payable today</th><th class="text-end text-danger">{{ $F::number($voucher->balance + $lateExtra + $arrearsTotal) }}</th></tr>
+                            <tr><th colspan="2" class="text-end">Total payable on issued vouchers</th><th class="text-end text-danger">{{ $F::number($voucher->balance + $arrearsTotal) }}</th></tr>
                         </tfoot>
                     </table></div>
 
                     @if ($arrears->isNotEmpty())
                         <div class="alert alert-warning mb-0">
                             <strong>Older unpaid vouchers:</strong>
-                            <ul class="mb-0">@foreach ($arrears as $a)<li><a href="{{ route('fees.vouchers.show', $a->id) }}">{{ $a->voucher_number }}</a> ({{ \App\Support\FeeHelper::periodLabel($a->period) }}): {{ $F::money($a->payable_today) }}@if ($a->late_fee_extra > 0) — includes {{ $F::money($a->late_fee_extra) }} late fee @endif</li>@endforeach</ul>
+                            <ul class="mb-0">@foreach ($arrears as $a)<li><a href="{{ route('fees.vouchers.show', $a->id) }}">{{ $a->voucher_number }}</a> ({{ \App\Support\FeeHelper::periodLabel($a->period) }}): {{ $F::money($a->payable_today) }}@if ($a->late_fee_extra > 0) — {{ $F::money($a->late_fee_extra) }} late fine will be included in a monthly voucher @endif</li>@endforeach</ul>
                         </div>
                     @endif
                 </div></div>

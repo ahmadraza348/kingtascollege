@@ -35,7 +35,7 @@
 <table class="grid" style="margin-top:8px;">
     <tr><th style="width:25%;">Finalized total fee</th><td>{{ $summary['total_fee'] === null ? 'Not set' : $F::money($summary['total_fee']) }}</td>
         <th style="width:25%;">Verified payments received</th><td>{{ $F::money($summary['paid']) }}</td></tr>
-    <tr><th>Remaining student balance</th><td><strong>{{ $summary['total_fee'] === null ? 'Not set' : $F::money($summary['remaining']) }}</strong></td>
+    <tr><th>Remaining finalized-fee balance (fines excluded)</th><td><strong>{{ $summary['total_fee'] === null ? 'Not set' : $F::money($summary['remaining']) }}</strong></td>
         <th>Amount billed in vouchers</th><td>{{ $F::money($summary['voucher_billed']) }}</td></tr>
 </table>
 
@@ -69,7 +69,7 @@
     @endforelse
     <tr><th colspan="2" class="r">Ledger totals</th><th class="r">{{ $F::number($statement['debit']) }}</th><th class="r">{{ $F::number($statement['credit']) }}</th><th class="r">{{ $F::number($statement['balance']) }}</th></tr>
 </table>
-<p><strong>Student's remaining finalized-fee balance: {{ $summary['total_fee'] === null ? 'Not set' : $F::money($summary['remaining']) }}</strong></p>
+<p><strong>Student's remaining finalized-fee balance (fine receipts excluded): {{ $summary['total_fee'] === null ? 'Not set' : $F::money($summary['remaining']) }}</strong></p>
 @if ($statement['pending']->isNotEmpty())
     <p class="small">{{ $statement['pending']->count() }} pending payment record(s) totalling {{ $F::money($statement['pending']->sum('amount')) }} are not included in the verified received amount.</p>
 @endif

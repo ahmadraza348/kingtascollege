@@ -9,6 +9,7 @@ use App\Models\FeePayment;
 use App\Models\FeeVoucher;
 use App\Models\Student;
 use App\Services\Admin\FeePaymentService;
+use App\Services\Admin\FeeBalanceService;
 use App\Services\Admin\FeeVoucherService;
 use App\Support\FeeHelper;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -20,7 +21,7 @@ use Illuminate\View\View;
 
 class FeePaymentController extends Controller
 {
-    public function __construct(private FeePaymentService $payments, private FeeVoucherService $vouchers)
+    public function __construct(private FeePaymentService $payments, private FeeVoucherService $vouchers, private FeeBalanceService $balances)
     {
     }
 
@@ -67,11 +68,13 @@ class FeePaymentController extends Controller
         if ($student) {
             $today = FeeHelper::today();
             $receivedFee = (float) FeePayment::where('student_id', $student->id)->where('status', 'verified')->sum('amount');
-            $remainingFee = $student->finalized_fee === null ? 0.0 : max(0, round($finalizedFee - $receivedFee, 2));
+            $remainingFee = $student->finalized_fee === null ? 0.0 : $this->balances->remainingFinalizedFee($student);
 
             $open = FeeVoucher::where('student_id', $student->id)->open()->orderBy('period')->orderBy('id')->get()
                 ->each(fn ($v) => $v->late_extra = $this->vouchers->lateFeeExtra($v, $today));
-            $dueToday = min($remainingFee, round((float) $open->sum('balance') + (float) $open->sum('late_extra'), 2));
+            // Only already-issued voucher balances can be collected. Unbilled late fines are
+            // shown for information, but become payable only when recorded on the next monthly bill.
+            $dueToday = round((float) $open->sum('balance'), 2);
         }
 
         return view('backend.fees.payments.create', [

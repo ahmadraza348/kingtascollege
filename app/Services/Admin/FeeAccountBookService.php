@@ -11,6 +11,10 @@ use App\Support\FeeHelper;
 /** Builds one student's fee summary, voucher list, receipts and ledger data. */
 class FeeAccountBookService
 {
+    public function __construct(private FeeBalanceService $balances)
+    {
+    }
+
     public function build(Student $student): array
     {
         $today = FeeHelper::today()->toDateString();
@@ -23,14 +27,17 @@ class FeeAccountBookService
             ->get();
 
         $voucherRows = $vouchers->map(function (FeeVoucher $voucher) use ($today) {
-            $lateFee = round((float) $voucher->items->where('source', 'late_fee')->sum('amount'), 2);
+            $lateFee = round((float) $voucher->items->whereIn('source', ['late_fee', 'late_fee_waiver'])->sum('amount'), 2);
+            $absentFine = round((float) $voucher->items->where('source', 'absent_fine')->sum('amount'), 2);
+            $fineTotal = round((float) $voucher->items->whereIn('source', FeeBalanceService::FINE_SOURCES)->sum('amount'), 2);
             $isOverdue = in_array($voucher->status, ['unpaid', 'partial'], true)
                 && $voucher->due_date->toDateString() < $today;
 
             return [
                 'voucher'      => $voucher,
-                'base'         => round((float) $voucher->total_amount - $lateFee, 2),
+                'base'         => round((float) $voucher->total_amount - $fineTotal, 2),
                 'late_fee'     => $lateFee,
+                'absent_fine'  => $absentFine,
                 'total'        => (float) $voucher->total_amount,
                 'paid'         => (float) $voucher->paid_amount,
                 'remaining'    => (float) $voucher->balance,
@@ -50,25 +57,28 @@ class FeeAccountBookService
 
         $finalizedFee = $student->finalized_fee === null ? null : (float) $student->finalized_fee;
         $received = round((float) $payments->sum('amount'), 2);
-        $remaining = $finalizedFee === null ? 0.0 : max(0, round($finalizedFee - $received, 2));
+        $baseReceived = $this->balances->baseCollected($student);
+        $remaining = $finalizedFee === null ? 0.0 : max(0, round($finalizedFee - $baseReceived, 2));
         $overdue = $voucherRows->filter(fn ($row) => $row['is_overdue']);
         $billedBase = round((float) FeeVoucherItem::whereHas('voucher', fn ($query) => $query
             ->where('student_id', $student->id)
             ->where('status', '!=', 'cancelled'))
-            ->where('source', '!=', 'late_fee')
+            ->whereNotIn('source', FeeBalanceService::FINE_SOURCES)
             ->sum('amount'), 2);
 
         return [
             'summary' => [
                 'total_fee'       => $finalizedFee,
                 'paid'            => $received,
+                'base_paid'       => $baseReceived,
                 'remaining'       => $remaining,
-                'percent'         => $finalizedFee && $finalizedFee > 0 ? min(100, (int) round($received / $finalizedFee * 100)) : 0,
+                'percent'         => $finalizedFee && $finalizedFee > 0 ? min(100, (int) round($baseReceived / $finalizedFee * 100)) : 0,
                 'voucher_billed'  => round((float) $vouchers->sum('total_amount'), 2),
                 'voucher_paid'    => round((float) $vouchers->sum('paid_amount'), 2),
                 'voucher_due'     => round((float) $vouchers->sum('balance'), 2),
                 'unbilled'        => $finalizedFee === null ? 0.0 : max(0, round($finalizedFee - $billedBase, 2)),
                 'late_fee'        => round((float) $voucherRows->sum('late_fee'), 2),
+                'absent_fine'     => round((float) $voucherRows->sum('absent_fine'), 2),
                 'overdue_amount'  => round((float) $overdue->sum('remaining'), 2),
                 'overdue_count'   => $overdue->count(),
             ],

@@ -169,7 +169,7 @@ class HelpController extends Controller
                     'Repeat this for each student because students in the same class may have different fees.',
                     'Open Fee Settings to review the school/bank details, due-date rule, and any configured fines before printing vouchers.',
                 ],
-                'tip' => 'The remaining student balance is calculated from the finalized total fee minus verified payments. Pending or rejected payments do not reduce the balance.',
+                'tip' => 'The remaining finalized course-fee balance is calculated from the finalized total fee minus the amounts allocated to non-fine voucher lines. Fine payments do not reduce the agreed course-fee balance; pending or rejected payments do not count.',
                 'route' => 'student.index',
                 'link' => 'Open Students',
             ],

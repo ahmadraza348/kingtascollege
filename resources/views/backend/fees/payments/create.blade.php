@@ -32,19 +32,17 @@
 
                 <div class="row mt-3 g-2">
                     <div class="col-md-4"><div class="border rounded p-3 h-100"><small class="text-muted">Finalized total fee</small><h5 class="mb-0">{{ $finalizedFee > 0 ? $F::money($finalizedFee) : 'Not set' }}</h5></div></div>
-                    <div class="col-md-4"><div class="border rounded p-3 h-100"><small class="text-muted">Received so far</small><h5 class="mb-0 text-success">{{ $F::money($receivedFee) }}</h5></div></div>
-                    <div class="col-md-4"><div class="border rounded p-3 h-100"><small class="text-muted">Remaining student balance</small><h5 class="mb-0 text-danger">{{ $F::money($remainingFee) }}</h5></div></div>
+                    <div class="col-md-4"><div class="border rounded p-3 h-100"><small class="text-muted">Received so far (including fines)</small><h5 class="mb-0 text-success">{{ $F::money($receivedFee) }}</h5></div></div>
+                    <div class="col-md-4"><div class="border rounded p-3 h-100"><small class="text-muted">Remaining finalized course fee</small><h5 class="mb-0 text-danger">{{ $F::money($remainingFee) }}</h5></div></div>
                 </div>
 
                 @if ($student->finalized_fee === null || $finalizedFee <= 0)
                     <div class="alert alert-warning mt-3 mb-0">Set the student's finalized total fee in the Student record before receiving a payment. <a href="{{ route('student.edit', $student) }}">Edit student fee</a>.</div>
-                @elseif ($remainingFee <= 0)
-                    <div class="alert alert-success mt-3 mb-0">The student's finalized fee has been fully received.</div>
                 @elseif ($open->isEmpty())
                     <div class="alert alert-info mt-3 mb-0">This student has no unpaid vouchers. <a href="{{ route('fees.vouchers.create', ['student' => $student->id]) }}">Create a voucher first</a>.</div>
                 @else
                     <div class="table-responsive mt-3"><table class="table table-sm">
-                        <thead><tr><th>Voucher</th><th>Description</th><th>Due</th><th class="text-end">Balance</th><th class="text-end">Late fee if paid today</th></tr></thead>
+                        <thead><tr><th>Voucher</th><th>Description</th><th>Due</th><th class="text-end">Balance</th><th class="text-end">Late fine pending for next monthly voucher</th></tr></thead>
                         <tbody>
                         @foreach ($open as $v)
                             <tr><td><a href="{{ route('fees.vouchers.show', $v) }}">{{ $v->voucher_number }}</a></td><td>{{ $v->display_label }}</td>
@@ -55,11 +53,11 @@
                         </tbody>
                         <tfoot><tr><th colspan="3" class="text-end">Voucher balance available to receive</th><th colspan="2" class="text-end text-danger">{{ $F::money($dueToday) }}</th></tr></tfoot>
                     </table></div>
-                    <small class="text-muted">Payment is applied to the oldest unpaid voucher first. The total received cannot be higher than the student's finalized fee balance.</small>
+                    <small class="text-muted">Payment is applied to issued vouchers, oldest first. A pending late fine is not payable until it is added to a later monthly voucher. The finalized course-fee balance excludes fine payments.</small>
                 @endif
             </div></div>
 
-            @if ($open->isNotEmpty() && $remainingFee > 0 && $finalizedFee > 0)
+            @if ($open->isNotEmpty() && $finalizedFee > 0)
             <form action="{{ route('fees.payments.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="student_id" value="{{ $student->id }}">

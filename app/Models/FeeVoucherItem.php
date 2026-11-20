@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FeeVoucherItem extends Model
 {
-    protected $fillable = ['fee_voucher_id', 'fee_head_id', 'title', 'amount', 'source', 'charged_on', 'note', 'created_by'];
+    protected $fillable = ['fee_voucher_id', 'origin_fee_voucher_id', 'fee_head_id', 'title', 'amount', 'source', 'charged_on', 'note', 'created_by'];
 
     protected $casts = ['amount' => 'decimal:2', 'charged_on' => 'date'];
 
@@ -19,5 +19,11 @@ class FeeVoucherItem extends Model
     public function head(): BelongsTo
     {
         return $this->belongsTo(FeeHead::class, 'fee_head_id');
+    }
+
+    /** The overdue voucher whose late fine is being billed on a later monthly voucher. */
+    public function originVoucher(): BelongsTo
+    {
+        return $this->belongsTo(FeeVoucher::class, 'origin_fee_voucher_id');
     }
 }

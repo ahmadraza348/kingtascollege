@@ -39,40 +39,43 @@ class FeeVoucherService
     {
         $type   = $data['type'];
         $period = $data['period'];
-
-        $lines = $this->buildLines($student, $type, $period, $data);
-        $total = round(array_sum(array_column($lines, 'amount')), 2);
-
-        if ($total <= 0) {
-            throw new DomainException('The voucher total is zero, so nothing was created.');
-        }
-
         // "other" charges can repeat; every other type is allowed once per student and month.
         $uniqueKey = $type === 'other' ? null : $type . ':' . $period;
 
-        if ($uniqueKey) {
-            $existing = FeeVoucher::where('student_id', $student->id)->where('unique_key', $uniqueKey)->first();
-
-            if ($existing) {
-                throw new DomainException($student->full_name . ' already has a ' . FeeVoucher::TYPES[$type] . ' voucher for ' . FeeHelper::periodLabel($period) . ' (' . $existing->voucher_number . ').');
-            }
-        }
-
         try {
-            return DB::transaction(function () use ($student, $data, $type, $period, $lines, $uniqueKey) {
+            return DB::transaction(function () use ($student, $data, $type, $period, $uniqueKey) {
+                // Serialize voucher creation per student; this also protects the finalized-fee limit.
                 $lockedStudent = Student::whereKey($student->id)->lockForUpdate()->firstOrFail();
-                $finalizedFee = $lockedStudent->finalized_fee;
 
+                if ($uniqueKey && FeeVoucher::where('student_id', $lockedStudent->id)->where('unique_key', $uniqueKey)->exists()) {
+                    $existing = FeeVoucher::where('student_id', $lockedStudent->id)->where('unique_key', $uniqueKey)->first();
+                    throw new DomainException($lockedStudent->full_name . ' already has a ' . FeeVoucher::TYPES[$type] . ' voucher for ' . FeeHelper::periodLabel($period) . ' (' . $existing?->voucher_number . ').');
+                }
+
+                $finalizedFee = $lockedStudent->finalized_fee;
                 if ($finalizedFee === null || (float) $finalizedFee <= 0) {
                     throw new DomainException('Set this student’s finalized total fee in the Student record before creating a voucher.');
                 }
 
+                // Build lines after acquiring the student lock so fines and duplicate checks are evaluated
+                // against the same transaction that creates the voucher.
+                $lines = $this->buildLines($lockedStudent, $type, $period, $data);
+                $total = round(array_sum(array_column($lines, 'amount')), 2);
+                if ($total <= 0) {
+                    throw new DomainException('The voucher total is zero, so nothing was created.');
+                }
+
+                // Fines are additional charges. They must not consume the student's agreed/finalized course fee.
+                $fineSources = ['late_fee', 'late_fee_waiver', 'absent_fine'];
                 $alreadyBilled = (float) FeeVoucherItem::whereHas('voucher', fn ($q) => $q
-                    ->where('student_id', $student->id)
+                    ->where('student_id', $lockedStudent->id)
                     ->where('status', '!=', 'cancelled'))
-                    ->where('source', '!=', 'late_fee')
+                    ->whereNotIn('source', $fineSources)
                     ->sum('amount');
-                $newBilled = round(array_sum(array_column($lines, 'amount')), 2);
+                $newBilled = round(array_sum(array_map(
+                    fn (array $line) => in_array($line['source'], $fineSources, true) ? 0 : (float) $line['amount'],
+                    $lines
+                )), 2);
                 $remainingToBill = max(0, round((float) $finalizedFee - $alreadyBilled, 2));
 
                 if ($newBilled > $remainingToBill + 0.001) {
@@ -80,10 +83,10 @@ class FeeVoucherService
                 }
 
                 $voucher = FeeVoucher::create([
-                    'student_id'      => $student->id,
-                    'school_class_id' => $student->school_class_id,
-                    'section_id'      => $student->section_id,
-                    'roll_number'     => $student->roll_number,
+                    'student_id'      => $lockedStudent->id,
+                    'school_class_id' => $lockedStudent->school_class_id,
+                    'section_id'      => $lockedStudent->section_id,
+                    'roll_number'     => $lockedStudent->roll_number,
                     'type'            => $type,
                     'period'          => $period,
                     'unique_key'      => $uniqueKey,
@@ -95,12 +98,14 @@ class FeeVoucherService
 
                 foreach ($lines as $line) {
                     $voucher->items()->create([
-                        'fee_head_id' => $line['head_id'] ?? null,
-                        'title'       => $line['title'],
-                        'amount'      => $line['amount'],
-                        'source'      => $line['source'],
-                        'charged_on'  => $data['issue_date'],
-                        'created_by'  => auth('admin')->id(),
+                        'fee_head_id'          => $line['head_id'] ?? null,
+                        'origin_fee_voucher_id'=> $line['origin_fee_voucher_id'] ?? null,
+                        'title'                => $line['title'],
+                        'amount'               => $line['amount'],
+                        'source'               => $line['source'],
+                        'charged_on'           => $data['issue_date'],
+                        'note'                 => $line['note'] ?? null,
+                        'created_by'           => auth('admin')->id(),
                     ]);
                 }
 
@@ -108,7 +113,7 @@ class FeeVoucherService
                 $voucher->voucher_number = sprintf('FV-%s%s-%05d', substr($period, 2, 2), substr($period, 5, 2), $voucher->id);
                 $this->refreshTotals($voucher);
 
-                FeeAuditLog::record('created', 'Voucher ' . $voucher->voucher_number . ' created for ' . FeeHelper::periodLabel($period) . '.', $student->id, $voucher->id, null, (float) $voucher->total_amount);
+                FeeAuditLog::record('created', 'Voucher ' . $voucher->voucher_number . ' created for ' . FeeHelper::periodLabel($period) . '.', $lockedStudent->id, $voucher->id, null, (float) $voucher->total_amount);
 
                 return $voucher;
             });
@@ -125,9 +130,8 @@ class FeeVoucherService
     private function buildLines(Student $student, string $type, string $period, array $data): array
     {
         $amount = round((float) ($data['amount'] ?? 0), 2);
-
-        if ($amount <= 0) {
-            throw new DomainException('Enter an amount greater than zero.');
+        if ($amount < 0 || ($type !== 'monthly' && $amount <= 0)) {
+            throw new DomainException('Enter an amount greater than zero for this voucher type. A monthly voucher may use zero base amount when it only carries assessed fines.');
         }
 
         $description = trim((string) ($data['description'] ?? ''));
@@ -135,21 +139,80 @@ class FeeVoucherService
             ? $description
             : (FeeVoucher::TYPES[$type] ?? 'Fee') . ' - ' . FeeHelper::periodLabel($period);
 
-        $line = [
-            'head_id' => $type === 'opening' ? $this->headId('PREVIOUS_DUES') : null,
-            'title'   => $title,
-            'amount'  => $amount,
-            'source'  => $type === 'opening' ? 'opening' : 'manual',
-        ];
+        $lines = [];
+        if ($amount > 0) {
+            $lines[] = [
+                'head_id' => $type === 'opening' ? $this->headId('PREVIOUS_DUES') : null,
+                'title'   => $title,
+                'amount'  => $amount,
+                'source'  => $type === 'opening' ? 'opening' : 'manual',
+            ];
+        }
 
-        return [$line];
+        // Fines are assessed on the next monthly voucher. Absence fines use attendance from the
+        // previous full calendar month, not the voucher issue month or today's month.
+        if ($type !== 'monthly') {
+            return $lines;
+        }
+
+        $issueDate = CarbonImmutable::parse($data['issue_date'])->startOfDay();
+        $periodStart = CarbonImmutable::createFromFormat('!Y-m-d', $period . '-01');
+        $previousMonth = $periodStart->subMonthNoOverflow();
+        $previousStart = $previousMonth->startOfMonth()->toDateString();
+        $previousEnd = $previousMonth->endOfMonth()->toDateString();
+        $absentDays = (int) \App\Models\AttendanceLog::query()
+            ->where('student_id', $student->id)
+            ->where('status', 'absent')
+            ->whereBetween('date', [$previousStart, $previousEnd])
+            ->count();
+        $absentRate = max(0, FeeSetting::number('absent_fine_per_day'));
+        $absentFine = round($absentDays * $absentRate, 2);
+
+        if ($absentDays > 0 && $absentFine > 0) {
+            $lines[] = [
+                'head_id' => $this->headId('ABSENT_FINE'),
+                'title'   => 'Absent fine - ' . $previousMonth->format('F Y'),
+                'amount'  => $absentFine,
+                'source'  => 'absent_fine',
+                'note'    => $absentDays . ' absent day(s) recorded during ' . $previousMonth->format('F Y') . ' at Rs. ' . FeeHelper::number($absentRate) . ' per day.',
+            ];
+        }
+
+        // Attach any still-unbilled late fine to this monthly voucher. The origin id records which
+        // overdue voucher caused it, so later monthly vouchers only charge the newly accrued amount.
+        $olderVouchers = FeeVoucher::query()
+            ->where('student_id', $student->id)
+            ->whereIn('status', ['unpaid', 'partial'])
+            ->where('period', '<=', $period)
+            ->whereDate('due_date', '<', $issueDate->toDateString())
+            ->orderBy('period')
+            ->orderBy('id')
+            ->get();
+
+        foreach ($olderVouchers as $olderVoucher) {
+            $extra = $this->lateFeeExtra($olderVoucher, $issueDate);
+            if ($extra <= 0) {
+                continue;
+            }
+
+            $lines[] = [
+                'head_id' => $this->headId('LATE_FEE'),
+                'origin_fee_voucher_id' => $olderVoucher->id,
+                'title'   => 'Late fine - ' . $olderVoucher->voucher_number,
+                'amount'  => $extra,
+                'source'  => 'late_fee',
+                'note'    => 'Late fine for ' . $olderVoucher->voucher_number . ', accrued through ' . $issueDate->format('d M Y') . '.',
+            ];
+        }
+
+        return $lines;
     }
 
-    private function headId(string $code): int
+    private function headId(string $code): ?int
     {
         $this->headIds ??= FeeHead::pluck('id', 'code')->all();
 
-        return $this->headIds[$code];
+        return isset($this->headIds[$code]) ? (int) $this->headIds[$code] : null;
     }
 
     /** Due date = the "due day" from Settings, inside the billing month. */
@@ -170,7 +233,7 @@ class FeeVoucherService
     {
         $total   = round((float) $voucher->items()->sum('amount'), 2);
         $paid    = round((float) $voucher->allocations()->sum('amount'), 2);
-        $balance = round($total - $paid, 2);
+        $balance = max(0, round($total - $paid, 2));
 
         if ($voucher->status === 'cancelled') {
             $status  = 'cancelled';
@@ -211,22 +274,14 @@ class FeeVoucherService
         $voucher->loadMissing(['student', 'schoolClass', 'section', 'items']);
 
         $arrears = $this->arrearsList($voucher);
-        $today = FeeHelper::today();
-        $arrears->each(function (FeeVoucher $older) use ($today) {
-            $older->print_late_fee = $this->lateFeeExtra($older, $today);
-            $older->print_balance = round((float) $older->balance + $older->print_late_fee, 2);
-        });
-
         $olderBalance = round((float) $arrears->sum('balance'), 2);
-        $olderLateFee = round((float) $arrears->sum('print_late_fee'), 2);
-        $lateFeeExtra = $this->lateFeeExtra($voucher, $today);
         $breakdown = [
             'admission' => 0.0,
             'tuition' => 0.0,
             'exam' => 0.0,
             'arrears' => $olderBalance,
             'absent_fine' => 0.0,
-            'late_fee' => round($olderLateFee + $lateFeeExtra, 2),
+            'late_fee' => 0.0,
         ];
 
         foreach ($voucher->items as $item) {
@@ -238,7 +293,7 @@ class FeeVoucherService
                 $category = 'arrears';
             } elseif ($source === 'absent_fine' || str_contains($title, 'absent fine')) {
                 $category = 'absent_fine';
-            } elseif (in_array($source, ['late_fee', 'late_fee_waiver'], true) || str_contains($title, 'late fee')) {
+            } elseif (in_array($source, ['late_fee', 'late_fee_waiver'], true) || str_contains($title, 'late fine') || str_contains($title, 'late fee')) {
                 $category = 'late_fee';
             } elseif (str_contains($title, 'admission') || $source === 'readmission') {
                 $category = 'admission';
@@ -258,16 +313,17 @@ class FeeVoucherService
             $breakdown[$category] = round($breakdown[$category] + $amount, 2);
         }
 
-        // This is a bill voucher: keep the original charges visible when a paid copy is reprinted.
-        $payable = round((float) $voucher->total_amount + $olderBalance + $olderLateFee + $lateFeeExtra, 2);
+        // Only issued amounts are printed as payable. A fine that is still accruing is deliberately
+        // shown in the admin screen as pending for the next monthly voucher, never as a duplicate due.
+        $payable = round((float) $voucher->total_amount + $olderBalance, 2);
         $breakdown['total'] = $payable;
 
         return [
             'voucher' => $voucher,
             'arrears' => $arrears,
-            'arrearsTotal' => round($olderBalance + $olderLateFee, 2),
-            'lateFee' => $lateFeeExtra,
-            'lateFeeDate' => $today,
+            'arrearsTotal' => $olderBalance,
+            'lateFee' => 0.0,
+            'lateFeeDate' => FeeHelper::today(),
             'payable' => $payable,
             'breakdown' => $breakdown,
         ];
@@ -291,73 +347,70 @@ class FeeVoucherService
         return ['days' => $days, 'fee' => round($days * $rate, 2)];
     }
 
-    /** How much MORE late fee would be added on $asOf (the late fee already on the voucher is not repeated). */
+    /**
+     * Late fine accrued by $asOf but not yet billed on an active voucher.
+     * The fine is charged as a line on a later monthly voucher, linked by origin_fee_voucher_id.
+     */
     public function lateFeeExtra(FeeVoucher $voucher, CarbonInterface $asOf): float
     {
         if (! in_array($voucher->status, ['unpaid', 'partial'], true)) {
             return 0.0;
         }
 
-        $applied = (float) $voucher->items()->where('source', 'late_fee')->sum('amount');
+        // A late_fee item with origin_fee_voucher_id belongs to an older voucher; do not
+        // confuse that transferred charge with fine already assessed on this voucher itself.
+        $directlyCharged = (float) $voucher->items()
+            ->whereNull('origin_fee_voucher_id')
+            ->whereIn('source', ['late_fee', 'late_fee_waiver'])
+            ->sum('amount');
 
-        return round(max(0, $this->calculateLateFee($voucher, $asOf)['fee'] - $applied), 2);
+        $chargedOnLaterVouchers = (float) FeeVoucherItem::query()
+            ->where('origin_fee_voucher_id', $voucher->id)
+            ->whereIn('source', ['late_fee', 'late_fee_waiver'])
+            ->whereHas('voucher', fn ($query) => $query->where('status', '!=', 'cancelled'))
+            ->sum('amount');
+
+        $alreadyCharged = round($directlyCharged + $chargedOnLaterVouchers, 2);
+
+        return round(max(0, $this->calculateLateFee($voucher, $asOf)['fee'] - $alreadyCharged), 2);
     }
 
     /**
-     * Add or update the voucher's late fee line without charging the same fine twice.
-     *
-     * @return float amount added by this call
+     * Kept for compatibility with older callers. Late fines must not be added to the overdue voucher;
+     * the next monthly voucher records them with an origin_fee_voucher_id instead.
      */
     public function applyLateFee(FeeVoucher $voucher, ?CarbonInterface $asOf = null): float
     {
-        $asOf  ??= FeeHelper::today();
-        $extra   = $this->lateFeeExtra($voucher, $asOf);
-
-        if ($extra <= 0) {
-            return 0.0;
-        }
-
-        $calc = $this->calculateLateFee($voucher, $asOf);
-        $note = $calc['days'] . ' day(s) late as of ' . $asOf->format('d M Y');
-
-        DB::transaction(function () use ($voucher, $calc, $note, $asOf) {
-            $line = $voucher->items()->where('source', 'late_fee')->first();
-
-            if ($line) {
-                $line->update(['amount' => $calc['fee'], 'note' => $note]);
-            } else {
-                $voucher->items()->create([
-                    'fee_head_id' => $this->headId('LATE_FEE'),
-                    'title'       => 'Late fee',
-                    'amount'      => $calc['fee'],
-                    'source'      => 'late_fee',
-                    'charged_on'  => $asOf->toDateString(),
-                    'note'        => $note,
-                    'created_by'  => auth('admin')->id(),
-                ]);
-            }
-
-            $this->refreshTotals($voucher);
-
-            FeeAuditLog::record('late_fee', 'Late fee on ' . $voucher->voucher_number . ' is now ' . FeeHelper::money($calc['fee']) . ' (' . $note . ').', $voucher->student_id, $voucher->id, null, $calc['fee']);
-        });
-
-        return $extra;
+        return $this->lateFeeExtra($voucher, $asOf ?? FeeHelper::today());
     }
 
     /** @throws DomainException */
     public function cancel(FeeVoucher $voucher, string $reason): void
     {
-        if ($voucher->status === 'cancelled') {
-            throw new DomainException('This voucher is already cancelled.');
-        }
-
-        if ($voucher->allocations()->exists()) {
-            throw new DomainException('Payments are already applied to this voucher. Cancel those payments first.');
-        }
-
         DB::transaction(function () use ($voucher, $reason) {
-            $voucher->forceFill([
+            // Serialize cancellation against voucher creation and payment allocation for this student.
+            Student::whereKey($voucher->student_id)->lockForUpdate()->firstOrFail();
+            $lockedVoucher = FeeVoucher::whereKey($voucher->id)->lockForUpdate()->firstOrFail();
+
+            if ($lockedVoucher->status === 'cancelled') {
+                throw new DomainException('This voucher is already cancelled.');
+            }
+
+            if ($lockedVoucher->allocations()->exists()) {
+                throw new DomainException('Payments are already applied to this voucher. Cancel those payments first.');
+            }
+
+            $hasActiveTransferredFine = FeeVoucherItem::query()
+                ->where('origin_fee_voucher_id', $lockedVoucher->id)
+                ->where('source', 'late_fee')
+                ->whereHas('voucher', fn ($query) => $query->where('status', '!=', 'cancelled'))
+                ->exists();
+
+            if ($hasActiveTransferredFine) {
+                throw new DomainException('A late fine for this voucher is included in an active monthly voucher. Cancel that monthly voucher first, then cancel this voucher.');
+            }
+
+            $lockedVoucher->forceFill([
                 'status'        => 'cancelled',
                 'unique_key'    => null, // lets a corrected voucher be created for the same month
                 'balance'       => 0,
@@ -366,7 +419,7 @@ class FeeVoucherService
                 'cancelled_by'  => auth('admin')->id(),
             ])->save();
 
-            FeeAuditLog::record('cancelled', 'Voucher ' . $voucher->voucher_number . ' cancelled. Reason: ' . $reason, $voucher->student_id, $voucher->id);
+            FeeAuditLog::record('cancelled', 'Voucher ' . $lockedVoucher->voucher_number . ' cancelled. Reason: ' . $reason, $lockedVoucher->student_id, $lockedVoucher->id);
         });
     }
 
